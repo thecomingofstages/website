@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { STIX_Two_Text, Prompt } from "next/font/google";
+import { Prompt, STIX_Two_Text } from "next/font/google";
+
 import "./globals.css";
+import Navbar from "./์Navbar";
 
 const titleFont = STIX_Two_Text({
   subsets: ["latin"],
@@ -10,7 +12,6 @@ const titleFont = STIX_Two_Text({
 
 const bodyFont = Prompt({
   subsets: ["latin", "thai"],
-  display: "swap",
   variable: "--font-prompt",
   weight: ["400", "500", "700"],
 });
@@ -30,7 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${titleFont.variable} ${bodyFont.variable}`}>
+      <body
+        className={`${titleFont.variable} ${bodyFont.variable} bg-black text-white font-sans`}
+      >
         {children}
       </body>
     </html>
