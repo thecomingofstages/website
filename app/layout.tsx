@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Prompt, STIX_Two_Text } from "next/font/google";
 
+import "../fonts/avenir/index.css";
 import "./globals.css";
-import Navbar from "./์Navbar";
 
 const titleFont = STIX_Two_Text({
   subsets: ["latin"],

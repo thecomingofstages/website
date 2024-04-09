@@ -31,6 +31,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-prompt)", "sans-serif"],
+        head: ["Avenir", "var(--font-prompt)", "sans-serif"],
         serif: ["var(--font-stix-two-text)", "serif"],
       },
     },

@@ -1,6 +1,6 @@
 import Navbar from "../์Navbar";
+import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
-import { WhoSection } from "./sections/Who";
 
 export default function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default function HomePage() {
       />
       <main>
         <LandingSection />
-        <WhoSection />
+        <GettingToKnowUsSection />
       </main>
     </div>
   );
