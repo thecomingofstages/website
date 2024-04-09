@@ -15,6 +15,7 @@ export default function HomePage() {
       />
       <main>
         <LandingSection />
+        <WhoSection />
       </main>
     </div>
   );
