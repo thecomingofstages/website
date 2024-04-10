@@ -6,7 +6,6 @@ import { useRef } from "react";
 import {
   motion,
   useMotionTemplate,
-  useMotionValueEvent,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -24,7 +23,6 @@ export const LandingSection = () => {
     target: sectionRef,
     offset: ["end end", "300px"],
   });
-  useMotionValueEvent(scrollYProgress, "change", (c) => console.log(c));
   const curtainLeftTransform = useTransform(
     scrollYProgress,
     [0.7, 1],
@@ -70,7 +68,7 @@ export const LandingSection = () => {
       </div>
       <Section
         className={
-          "z-10 h-[95vh] md:pb-24 portrait:h-[75vh] flex flex-col items-center justify-center"
+          "z-10 h-[80vh] md:pb-24 portrait:h-[75vh] flex flex-col items-center justify-center"
         }
       >
         <motion.div
@@ -109,7 +107,7 @@ export const LandingSection = () => {
           </div>
         </motion.div>
       </Section>
-      <div className="lg:h-[300px] w-full"></div>
+      <div className="xl:h-[300px] w-full"></div>
     </div>
   );
 };

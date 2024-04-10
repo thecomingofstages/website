@@ -8,9 +8,10 @@ export default function HomePage() {
       <Navbar
         navigationType={"single"}
         items={[
-          { name: "About us", path: "#about" },
-          { name: "Upcoming", path: "#upcoming" },
-          { name: "Contribute", path: "#contribute" },
+          { name: "getting to know us", path: "#know-us" },
+          { name: "donations", path: "#donate" },
+          { name: "our play", path: "#our-play" },
+          { name: "contact", path: "#contact" },
         ]}
       />
       <main>
