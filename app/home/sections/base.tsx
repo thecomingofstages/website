@@ -26,7 +26,7 @@ function SectionWithRef<C extends React.ElementType = "div">(
     >
       <Component
         ref={ref}
-        className={`w-full max-w-7xl px-8 md:px-16 py-8${getClassName("content")}`}
+        className={`w-full max-w-5xl px-8 md:px-16 py-8${getClassName("content")}`}
         {...props}
       >
         {children}
