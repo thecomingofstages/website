@@ -1,4 +1,5 @@
 import Navbar from "../์Navbar";
+import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
 
@@ -17,6 +18,7 @@ export default function HomePage() {
       <main>
         <LandingSection />
         <GettingToKnowUsSection />
+        <DonateSection />
       </main>
     </div>
   );
