@@ -25,12 +25,12 @@ export const LandingSection = () => {
   });
   const curtainLeftTransform = useTransform(
     scrollYProgress,
-    [0.7, 1],
+    [0.5, 1],
     ["-75%", "0%"]
   );
   const curtainRightTransform = useTransform(
     scrollYProgress,
-    [0.7, 1],
+    [0.5, 1],
     ["75%", "0%"]
   );
 
@@ -54,7 +54,7 @@ export const LandingSection = () => {
             }
             style={{ transform: curtainRightTransformStr }}
           />
-          <div className="z-40 absolute bottom-0 h-[300px] w-full bg-gradient-to-b from-transparent to-black"></div>
+          <div className="z-30 absolute bottom-0 h-[300px] w-full bg-gradient-to-b from-transparent to-black"></div>
         </div>
         <div className="absolute inset-0 w-full flex flex-col items-center justify-center">
           <Stage className={"absolute bottom-0"} />
@@ -107,7 +107,7 @@ export const LandingSection = () => {
           </div>
         </motion.div>
       </Section>
-      <div className="xl:h-[300px] w-full"></div>
+      {/* <div className="xl:h-[300px] w-full"></div> */}
     </div>
   );
 };
