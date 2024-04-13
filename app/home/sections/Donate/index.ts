@@ -1,1 +1,1 @@
-export { DonateForm as DonateSection } from "./Form";
+export { DonateSection } from "./Section";

@@ -1,6 +1,25 @@
+// @ts-check
+
+/** 
+ * 
+ * We need allowed origins for server actions to work 
+ * with environment with reversed proxies, like GitHub Codespaces.
+ * See https://github.com/vercel/next.js/issues/58019#issuecomment-1803925492
+ * 
+ * @type {() => string[] | undefined} 
+ * 
+ * */
+const getServerActionsOrigin = () => {
+  if(!process.env.CODESPACES) {
+    return undefined
+  }
+  const port = process.env.PORT ?? "3000"
+  return [`${process.env.CODESPACE_NAME}-${port}.app.github.dev`, `localhost:${port}`]
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  redirects() {
+  async redirects() {
     return [
       {
         source: "/",
@@ -11,6 +30,11 @@ const nextConfig = {
       },
     ];
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: getServerActionsOrigin(),
+    }
+  }
 };
 
 export default nextConfig;
