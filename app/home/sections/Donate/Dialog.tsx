@@ -19,20 +19,23 @@ export function DonateDialog() {
         <Button>Test</Button>
       </DialogTrigger>
       <DialogContent
-        className="max-w-lg max-h-[90vh] h-full p-0"
-        onInteractOutside={(e) => {
-          e.preventDefault();
-        }}
+        className="p-0"
+        // onInteractOutside={(e) => {
+        //   e.preventDefault();
+        // }}
+        // onOpenAutoFocus={(e) => {
+        //   e.preventDefault();
+        // }}
       >
-        <div className="overflow-y-scroll max-h-full space-y-4 p-10">
-          <DialogHeader>
+        <div className="overflow-auto lg:max-h-[90vh] py-2">
+          <DialogHeader className="px-6 py-4">
             <DialogTitle>บริจาค</DialogTitle>
             <DialogDescription>
               ร่วมบริจาคเงินเพื่อสนับสนุนการพัฒนาและดำเนินงานของเรา
             </DialogDescription>
           </DialogHeader>
           <div className="border-b border-muted w-full"></div>
-          <DonateForm />
+          <DonateForm className="px-6 py-4" />
         </div>
       </DialogContent>
     </Dialog>

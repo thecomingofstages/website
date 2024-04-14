@@ -10,20 +10,32 @@ import {
   FormControl,
   FormDescription,
   FormField,
+  FormImagePreview,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
 import { submitDonate } from "./submit.action";
 
 const formSchema = z.object({
   name: z.string().optional(),
-  email: z.string().email().optional(),
-  slip: z.instanceof(File),
+  email: z.string().email("กรุณากรอกรูปแบบอีเมลที่ถูกต้อง"),
+  slip: z.any().transform((val, ctx) => {
+    if (!(val instanceof File)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "กรุณาอัพโหลดสลิปการโอนเงิน",
+        fatal: true,
+      });
+      return z.NEVER;
+    }
+    return val;
+  }),
 });
 
-export const DonateForm = () => {
+export const DonateForm = ({ className }: { className?: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,12 +44,15 @@ export const DonateForm = () => {
     },
   });
 
-  // function onSubmit(values: z.infer<typeof formSchema>) {
-  //   console.log(JSON.stringify(values, null, 2));
-  // }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
   return (
     <Form {...form}>
-      <form action={submitDonate} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={`space-y-4${className ? ` ${className}` : ""}`}
+      >
         <FormField
           control={form.control}
           name="name"
@@ -58,9 +73,6 @@ export const DonateForm = () => {
         <FormField
           control={form.control}
           name="email"
-          rules={{
-            required: "กรุณากรอกอีเมล",
-          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -79,10 +91,7 @@ export const DonateForm = () => {
         <FormField
           control={form.control}
           name="slip"
-          rules={{
-            required: "กรุณาอัพโหลดสลิปการโอนเงิน",
-          }}
-          render={({ field: { value, ...field } }) => (
+          render={({ field: { value, onChange, ...field } }) => (
             <FormItem>
               <FormLabel>
                 สลิปการโอนเงิน<span className="text-red-700">*</span>
@@ -92,9 +101,17 @@ export const DonateForm = () => {
                 Code สำหรับตรวจสอบการโอน
               </FormDescription>
               <FormControl>
-                <Input type="file" accept="image/*" {...field} />
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    onChange(e.target?.files?.[0] ?? undefined);
+                  }}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
+              <FormImagePreview />
             </FormItem>
           )}
         />
