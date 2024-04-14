@@ -5,7 +5,7 @@ module.exports = {
   singleQuote: false,
   semi: true,
   importOrder: [
-    "^react(?!-)|next",
+    "^react(?:-dom)?(?!-)|next",
     "<THIRD_PARTY_MODULES>",
     "^@/(.*)$",
     "^[./]",

@@ -166,36 +166,6 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = "FormMessage";
 
-const FormImagePreview = React.forwardRef<
-  HTMLImageElement,
-  Omit<React.HTMLAttributes<HTMLImageElement>, "src">
->(({ className, ...props }, ref) => {
-  const { name } = useFormField();
-  const { watch } = useFormContext();
-  const image = watch(name);
-  const [url, setUrl] = React.useState<string | null>(null);
-  React.useEffect(() => {
-    const newUrl = image ? URL.createObjectURL(image) : undefined;
-    newUrl && setUrl(newUrl);
-    return () => {
-      newUrl && URL.revokeObjectURL(newUrl);
-    };
-  }, [image]);
-  console.log("url", url);
-  if (!url) return null;
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      alt={`Form Image Preview for ${name}`}
-      className={`${className}`}
-      ref={ref}
-      src={url}
-      {...props}
-    />
-  );
-});
-FormImagePreview.displayName = "FormMessage";
-
 export {
   useFormField,
   Form,
@@ -205,5 +175,4 @@ export {
   FormDescription,
   FormMessage,
   FormField,
-  FormImagePreview,
 };
