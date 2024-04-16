@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  react-qr-code@2.0.12:
+    hash: dhn26lvycmrxde4ruftkj3rscu
+    path: patches/react-qr-code@2.0.12.patch
+
 dependencies:
   '@hookform/resolvers':
     specifier: ^3.3.4
@@ -64,7 +69,7 @@ dependencies:
     version: 5.0.1(react@18.2.0)
   react-qr-code:
     specifier: ^2.0.12
-    version: 2.0.12(react@18.2.0)
+    version: 2.0.12(patch_hash=dhn26lvycmrxde4ruftkj3rscu)(react@18.2.0)
   tailwind-merge:
     specifier: ^2.2.2
     version: 2.2.2
@@ -3930,7 +3935,7 @@ packages:
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  /react-qr-code@2.0.12(react@18.2.0):
+  /react-qr-code@2.0.12(patch_hash=dhn26lvycmrxde4ruftkj3rscu)(react@18.2.0):
     resolution: {integrity: sha512-k+pzP5CKLEGBRwZsDPp98/CAJeXlsYRHM2iZn1Sd5Th/HnKhIZCSg27PXO58zk8z02RaEryg+60xa4vyywMJwg==}
     peerDependencies:
       react: ^16.x || ^17.x || ^18.x
@@ -3943,6 +3948,7 @@ packages:
       qr.js: 0.0.0
       react: 18.2.0
     dev: false
+    patched: true
 
   /react-remove-scroll-bar@2.3.6(@types/react@18.2.74)(react@18.2.0):
     resolution: {integrity: sha512-DtSYaao4mBmX+HDo5YWYdBWQwYIQQshUV/dVxFxK+KM26Wjwp1gZ6rv6OC3oujI6Bfu6Xyg3TwK533AQutsn/g==}
