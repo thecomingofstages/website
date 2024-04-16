@@ -6,7 +6,6 @@ import QRCode from "react-qr-code";
 export const generatePromptpayQR = (amount: number) => {
   return (
     <QRCode
-      // @ts-expect-error to make svg fill the container
       size={"100%"}
       value={generatePayload(process.env.DONATION_PROMPTPAY_ID!, {
         amount,
