@@ -26,7 +26,7 @@ export const env = createEnv({
       if (!isValidID) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `PromptPay ID must be an number with 10 (Phone number), 13 (National ID number), or 15 digits (e-Wallet ID). Currently ${numLength} digits.`,
+          message: `PromptPay ID must be a number with 10 (Phone number), 13 (National ID number), or 15 digits (e-Wallet ID). Currently ${numLength} digits.`,
         });
       }
     }),

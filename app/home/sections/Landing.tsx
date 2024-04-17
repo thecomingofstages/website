@@ -10,7 +10,7 @@ import {
   useTransform,
 } from "framer-motion";
 
-import logoRed from "@/app/images/logo-red.png";
+import logoWhite from "@/app/images/logo-white.png";
 
 /* Import only the left side, and flip it on the right cause we want both sides to be symmetric. */
 import { CurtainLeft } from "../graphics/curtain";
@@ -85,9 +85,9 @@ export const LandingSection = () => {
         >
           <div className="max-w-sm landscape:max-w-xs lg:max-w-md xl:max-w-[unset]">
             <Image
-              src={logoRed}
-              width={600}
-              height={600}
+              src={logoWhite}
+              width={250}
+              height={250}
               draggable={false}
               alt="The Coming of Stages"
               placeholder="blur"
