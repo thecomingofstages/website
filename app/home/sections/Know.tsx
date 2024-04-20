@@ -46,7 +46,6 @@ const Desc = ({ className, ...props }: React.ComponentPropsWithoutRef<"p">) => {
 
 export const GettingToKnowUsSection = () => {
   const rootRef = useRef<HTMLElement | null>(null);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div id="know-us">

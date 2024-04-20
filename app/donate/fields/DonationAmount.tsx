@@ -2,7 +2,7 @@
 
 import { forwardRef, useRef, useState } from "react";
 
-import { ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
+import { ControllerRenderProps } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

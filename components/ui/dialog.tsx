@@ -60,6 +60,7 @@ const DialogHeader = ({
       className={cn(
         "flex flex-col space-y-1.5 text-center sm:text-left flex-grow shrink-0"
       )}
+      {...props}
     >
       {children}
     </div>

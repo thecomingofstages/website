@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Section } from "./base";
 
 export const DonateSection = () => {

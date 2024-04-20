@@ -16,7 +16,7 @@ export const generatePromptpayQR = (amount: number) => {
   );
 };
 
-export const getRuntimeRecipent = (previousState: any) => {
+export const getRuntimeRecipent = () => {
   return {
     accountNumber: env.DONATION_ACCOUNT_NUMBER,
     accountBank: env.DONATION_ACCOUNT_BANK,
