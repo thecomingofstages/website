@@ -1,9 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import axios from "axios";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -27,12 +29,21 @@ export const DonateForm = ({ className }: { className?: string }) => {
       name: "",
       email: "",
       amount: "" as never,
+      allowCredit: false,
     },
   });
 
-  function onSubmit(values: FormSchema) {
-    console.log(values);
-  }
+  const onSubmit: SubmitHandler<FormSchema> = async (values, e) => {
+    const form = e?.target as HTMLFormElement;
+    if (!form) return;
+    const formData = new FormData(form);
+    console.log(formData);
+    await axios.post("/donate/submit", formData, {
+      onUploadProgress: (progress) => {
+        console.log(progress);
+      },
+    });
+  };
   return (
     <Form {...form}>
       <form
@@ -68,11 +79,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>ชื่อผู้บริจาค</FormLabel>
-                <FormDescription>
-                  ชื่อของท่านจะถูกรวบรวมในสูจิบัตรของงาน หากไม่ต้องการให้รวบรวม
-                  สามารถเว้นช่องนี้ได้
-                </FormDescription>
+                <FormLabel aria-required>ชื่อผู้บริจาค</FormLabel>
                 <FormControl>
                   <Input placeholder="ชื่อผู้บริจาค" {...field} />
                 </FormControl>
@@ -82,12 +89,33 @@ export const DonateForm = ({ className }: { className?: string }) => {
           />
           <FormField
             control={form.control}
+            name="allowCredit"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>
+                    ประสงค์ให้แสดงชื่อผู้บริจาคในรายชื่อผู้บริจาค
+                  </FormLabel>
+                  <FormDescription>
+                    ชื่อของท่านจะถูกแสดงในรายชื่อผู้บริจาคของสูจิบัตรงานแสดง
+                  </FormDescription>
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  อีเมล<span className="text-red-700">*</span>
-                </FormLabel>
+                <FormLabel aria-required>อีเมล</FormLabel>
                 <FormDescription>
                   อีเมลสำหรับส่งข้อมูลยืนยันการบริจาคของท่านแล้ว
                 </FormDescription>
@@ -103,9 +131,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
             name="slip"
             render={({ field: { value, onChange, ...field } }) => (
               <FormItem>
-                <FormLabel>
-                  สลิปการโอนเงิน<span className="text-red-700">*</span>
-                </FormLabel>
+                <FormLabel aria-required>สลิปการโอนเงิน</FormLabel>
                 <FormDescription>
                   สลิปการโอนเงินเพื่อยืนยันการบริจาคของท่าน โดยสลิปนี้จะต้องมี
                   QR Code สำหรับตรวจสอบการโอน
