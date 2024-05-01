@@ -2,9 +2,15 @@ import * as React from "react";
 
 import { Button, Html } from "@react-email/components";
 
-export default function Email() {
+type EmailProps = {
+  name: string;
+  amount: string;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function Email({ name, amount }: EmailProps) {
   return (
-    <Html>
+    <Html lang="th">
       <Button
         href="https://example.com"
         style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
@@ -14,3 +20,9 @@ export default function Email() {
     </Html>
   );
 }
+
+// Props for previewing the email
+Email.PreviewProps = {
+  name: "นายสมชาย รักเรียนดี",
+  amount: "1000",
+} satisfies EmailProps;
