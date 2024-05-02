@@ -2,6 +2,7 @@ import Navbar from "../์Navbar";
 import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
+import { VisionSection } from "./sections/Vision";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       <main>
         <LandingSection />
         <GettingToKnowUsSection />
+        <VisionSection />
         <DonateSection />
       </main>
     </div>
