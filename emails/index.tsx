@@ -39,7 +39,7 @@ export default function Email({ name, amount }: EmailProps) {
         <Container style={container}>
           <Section>
             <Img
-              className="ml-7 mt-20 "
+              className="ml-7 mt-10 "
               // src={logo}
               width={80}
               height={80}
