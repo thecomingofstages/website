@@ -7,7 +7,7 @@ export const POST = async (request: NextRequest): Promise<Response> => {
     const data = formDataSchema.parse(await request.formData());
     // Do something with the data!
     console.log(data);
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: 1 });
   } catch (err) {
     console.error(err);
     return NextResponse.json(
