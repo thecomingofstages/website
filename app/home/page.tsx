@@ -1,4 +1,4 @@
-import Navbar from "../์Navbar";
+import Navbar from "../Navbar";
 import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
