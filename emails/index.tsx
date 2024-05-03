@@ -1,38 +1,35 @@
 import * as React from "react";
+
 import {
   Body,
   Container,
-  Column,
-  Head,
   Hr,
-  Html,
   Img,
   Link,
   Preview,
   Row,
-  // Section,
+  Tailwind, // Section,
   Text,
-  Button,
-  Tailwind,
 } from "@react-email/components";
+
 import { Section } from "@/app/home/sections/base";
+
 // import logo from "@/emails/static/logo-black-128.png";
 type EmailProps = {
   name: string;
   amount: string;
 };
 
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Email({ name, amount }: EmailProps) {
   const date = new Date(2020, 7, 1);
 
-  const result = date.toLocaleDateString('th-TH', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const result = date.toLocaleDateString("th-TH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
-  
+
   return (
     <Tailwind>
       <Body style={main}>
@@ -47,20 +44,30 @@ export default function Email({ name, amount }: EmailProps) {
             />
           </Section>
           <Section className="mt-10 pl-7">
-            <div className="text-xl font-bold font-head ">ขอขอบพระคุณสำหรับการบริจาค</div>
+            <div className="text-xl font-bold font-head ">
+              ขอขอบพระคุณสำหรับการบริจาค
+            </div>
           </Section>
-          <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" /> 
+          <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
           <Section className="mt-1 pl-7 ">
-            <div className="text-md font-sans ">เรียน <b>{name}</b></div>
-          </Section>    
+            <div className="text-md font-sans ">
+              เรียน <b>{name}</b>
+            </div>
+          </Section>
           <Section className="mt-2 p-7">
             <div className="text-md font-sans">
-            ตามที่ท่านได้มอบเงินบริจาค จำนวน <u>{amount}</u> บาท (<u>บาทไทย</u>) เมื่อวันที่ <u>{result}</u> ให้แก่โครงการ The Coming of Stages เพื่อสนับสนุนโอกาสให้นักเรียนไทยในการจัดการแสดงละครเวที
+              ตามที่ท่านได้มอบเงินบริจาค จำนวน <u>{amount}</u> บาท (
+              <u>บาทไทย</u>) เมื่อวันที่ <u>{result}</u> ให้แก่โครงการ The
+              Coming of Stages
+              เพื่อสนับสนุนโอกาสให้นักเรียนไทยในการจัดการแสดงละครเวที
             </div>
           </Section>
           <Section className=" p-7">
             <div className="text-md font-sans">
-            บัดนี้ ทางโครงการ The Coming of Stages ได้รับเงินจำนวนดังกล่าวเป็นที่เรียบร้อยแล้ว จึงขอขอบคุณในความอนุเคราะห์ของท่านเป็นอย่างยิ่ง และหวังว่าจะได้รับความอนุเคราะห์จากท่านอีกในโอกาสต่อไป            
+              บัดนี้ ทางโครงการ The Coming of Stages
+              ได้รับเงินจำนวนดังกล่าวเป็นที่เรียบร้อยแล้ว
+              จึงขอขอบคุณในความอนุเคราะห์ของท่านเป็นอย่างยิ่ง
+              และหวังว่าจะได้รับความอนุเคราะห์จากท่านอีกในโอกาสต่อไป
             </div>
           </Section>
           <Section className="mt-2 p-7">
@@ -84,8 +91,6 @@ const container = {
   borderRadius: 5,
   overflow: "hidden",
 };
-
-
 
 // Props for previewing the email
 Email.PreviewProps = {
