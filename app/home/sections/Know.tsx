@@ -1,18 +1,12 @@
 "use client";
 
-import React, { MutableRefObject, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import {
-  AskIcon,
-  BusinessIcon,
-  CharacterHighlight,
-  PeopleIcon,
-} from "../graphics/know";
+import { gsap } from "@/lib/gsap";
+
+import { BusinessIcon, CharacterHighlight, PeopleIcon } from "../graphics/know";
 import { Section } from "./base";
 
 const DetailSection = ({
@@ -25,17 +19,12 @@ const DetailSection = ({
   Icon: React.FC<{ className: string }>;
 }) => {
   return (
-    <div className="flex w-screen flex-col md:flex-row py-4 items-center justify-cente gap-8">
-      <div className="flex flex-col gap-4 flex-grow max-w-xl w-full md:w-[500px]">
-        <h3 className="text-4xl font-bold font-head inline-flex items-center gap-2">
-          <Icon className="w-20 h-20 text-white" />
-          {title}
-        </h3>
-        {children}
-      </div>
-      <div className="flex-grow flex justify-end">
-        <CharacterHighlight className="w-[300px]" />
-      </div>
+    <div className="flex flex-col gap-4 flex-grow max-w-xl min-w-fit px-2">
+      <h3 className="text-4xl font-bold font-head inline-flex items-center gap-2">
+        <Icon className="w-20 h-20 text-white" />
+        {title}
+      </h3>
+      {children}
     </div>
   );
 };
@@ -58,10 +47,7 @@ interface StaticData_i {
 export const GettingToKnowUsSection = () => {
   // Ref for use in gsap!
   const wrapper = useRef<HTMLElement | null>(null);
-  const sectionRef = useRef<HTMLElement>(
-    null
-  ) as MutableRefObject<HTMLDivElement>;
-  gsap.registerPlugin(ScrollTrigger);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const StaticData: StaticData_i[] = [
     {
@@ -113,51 +99,53 @@ export const GettingToKnowUsSection = () => {
     },
   ];
 
-  useEffect(() => {
-    const pin = gsap.fromTo(
+  useGSAP(() => {
+    gsap.fromTo(
       sectionRef.current,
       {
         translateX: 0,
       },
       {
-        translateX: "-1800px",
-        ease: "none",
-        duration: 1,
-
+        translateX: "-210%",
         scrollTrigger: {
           trigger: wrapper.current,
-          start: "center center",
-          end: () => "+=300",
+          start: "center center-=125px",
+          end: "bottom top+=100px",
           scrub: 0.6,
-          pin: true,
-          // markers: true
+          snap: [-0.1, 0, 0.29, 0.9],
+          pin: wrapper.current,
+          markers: true,
         },
       }
     );
-
-    return () => {
-      pin.kill();
-    };
-  }, []);
+  });
 
   return (
-    <div id="know-us">
+    <div id="know-us" className=" max-w-[100vw]">
       <Section
         ref={wrapper}
         className="flex flex-col flex-grow gap-6 justify-center relative"
       >
-        <div className="flex flex-col gap-4 pt-36 pb-8 top-0 bg-black">
+        <div className="flex flex-col gap-4 pt-36 pb-8 bg-black">
           <h2 className="text-6xl font-bold font-head">Getting to know us</h2>
-          <p>Short description about what is going on earth.</p>
         </div>
-        <div ref={sectionRef} className="flex gap-4">
-          {StaticData.map((data: StaticData_i, idx: number) => (
-            <DetailSection key={idx} title={data.title} Icon={data.Icon}>
-              {data.description.map((desc, index) => (
-                <Desc key={index}>{desc}</Desc>
-              ))}
-            </DetailSection>
-          ))}
+        <div className="flex w-full flex-1 gap-4">
+          <div className="flex flex-col md:flex-row py-4 items-center justify-center gap-8 max-w-full">
+            <div className="overflow-x-auto h-full scrollbar-hidden basis-2/3">
+              <div ref={sectionRef} className="flex flex-row w-full gap-8">
+                {StaticData.map((data: StaticData_i, idx: number) => (
+                  <DetailSection key={idx} title={data.title} Icon={data.Icon}>
+                    {data.description.map((desc, index) => (
+                      <Desc key={index}>{desc}</Desc>
+                    ))}
+                  </DetailSection>
+                ))}
+              </div>
+            </div>
+            <div className="flex-shrink-0 flex-grow flex justify-end basis-1/3">
+              <CharacterHighlight className="w-[300px]" />
+            </div>
+          </div>
         </div>
       </Section>
     </div>
