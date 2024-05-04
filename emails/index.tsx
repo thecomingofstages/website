@@ -27,11 +27,8 @@ export default function Email({ name, amount, date }: EmailProps) {
     month: "long",
     day: "numeric",
   });
-  // todo: format amount in Thai using the module `bathtext`
   const amountThaiString = bahttext(amount);
-
-  // todo: format number as a currency format (1000 -> 1,000)
-  const amountString = amount;
+  const amountString = amount.toLocaleString();
 
   return (
     <Html lang="th">
