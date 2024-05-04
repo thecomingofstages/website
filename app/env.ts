@@ -4,6 +4,12 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    API_ENDPOINT: z.string(),
+    GOOGLE_Private_key: z.string(),
+    GOOGLE_Client_email: z.string(),
+    GOOGLE_SpreadsheetId: z.string(),
+    GOOGLE_DriveId: z.string(),
+    GOOGLE_Spreadsheet_rangeSheet: z.string(),
     DONATION_ACCOUNT_NUMBER: z.string(),
     DONATION_ACCOUNT_BANK: z.string(),
     DONATION_ACCOUNT_NAME: z.string(),

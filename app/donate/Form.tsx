@@ -21,8 +21,13 @@ import { DonationAmountInput } from "./fields/DonationAmount";
 import { DonationRecipent } from "./fields/DonationRecipent";
 import { FormImageUploadPreview } from "./fields/ImageUploadPreview";
 import { FormSchema, formSchema } from "./schema";
+import { useEffect } from "react";
+import { env } from "../env";
+import { useFormState } from "react-dom";
+import { getRuntimeRecipent } from "./donation.action";
 
 export const DonateForm = ({ className }: { className?: string }) => {
+  const [recipent, fetchRecipent] = useFormState(getRuntimeRecipent, null);
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,23 +37,29 @@ export const DonateForm = ({ className }: { className?: string }) => {
       allowCredit: false,
     },
   });
-
+  useEffect(() => {
+    fetchRecipent()
+  }, [])
   const onSubmit: SubmitHandler<FormSchema> = async (values, e) => {
     const form = e?.target as HTMLFormElement;
     if (!form) return;
     const formData = new FormData(form);
-    console.log(formData);
-    await axios.post("/donate/submit", formData, {
+    await axios.post(recipent?.API_ENDPOINT + "/donate/submit", formData, {
       onUploadProgress: (progress) => {
         console.log(progress);
       },
+    }).then((response) => {
+      console.log(response)
+      // Action On Upload Success jaa
     });
+
   };
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className={`space-y-4${className ? ` ${className}` : ""}`}
+        encType="multipart/form-data"
       >
         <fieldset className="p-6 bg-white/10 rounded-lg space-y-4">
           <legend className="text-xl font-bold -mb-6">
