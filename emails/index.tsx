@@ -14,18 +14,22 @@ import {
 
 type EmailProps = {
   name: string;
-  amount: string;
+  amount: number;
   date: Date;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Email({ name, amount, date }: EmailProps) {
+  // todo: format both date and time in Thai in the format "1 มกราคม 2567 เวลา 22:50 น."
   const dateString = date.toLocaleDateString("th-TH", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
   // todo: format amount in Thai using the module `bathtext`
+  const amountThaiString = amount;
+
+  // todo: format number as a currency format (1000 -> 1,000)
   const amountString = amount;
 
   return (
@@ -59,9 +63,10 @@ export default function Email({ name, amount, date }: EmailProps) {
               </Section>
               <Section className="pl-7 pr-7">
                 <Text className="text-md font-sans">
-                  ตามที่ท่านได้มอบเงินบริจาค จำนวน {amount} บาท ({amountString}{" "}
-                  บาทไทย) เมื่อวันที่ {dateString} ให้แก่โครงการ The Coming of
-                  Stages เพื่อสนับสนุนโอกาสให้นักเรียนไทยในการจัดการแสดงละครเวที
+                  ตามที่ท่านได้มอบเงินบริจาค จำนวน {amountString} บาท (
+                  {amountThaiString} บาทไทย) เมื่อวันที่ {dateString}{" "}
+                  ให้แก่โครงการ The Coming of Stages
+                  เพื่อสนับสนุนโอกาสให้นักเรียนไทยในการจัดการแสดงละครเวที
                 </Text>
               </Section>
               <Section className="pl-7 pr-7">
@@ -99,6 +104,6 @@ const container = {
 // Props for previewing the email
 Email.PreviewProps = {
   name: "นายสมชาย รักเรียนดี",
-  amount: "1000",
-  date: new Date(2020, 7, 1),
+  amount: 1000,
+  date: new Date(2024, 5, 1, 22, 50, 0, 0),
 } satisfies EmailProps;
