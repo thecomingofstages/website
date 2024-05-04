@@ -37,6 +37,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.9.2
         version: 0.9.2(typescript@5.4.4)(zod@3.22.4)
+      bahttext:
+        specifier: ^2.3.0
+        version: 2.3.0
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -2202,6 +2205,9 @@ packages:
   babel-walk@3.0.0:
     resolution: {integrity: sha512-fdRxJkQ9MUSEi4jH2DcV3FAPFktk0wefilxrwNyUuWpoWawQGN7G7cB+fOYTtFfI6XNkFgwqJ/D3G18BoJJ/jg==}
     engines: {node: '>= 10.0.0'}
+
+  bahttext@2.3.0:
+    resolution: {integrity: sha512-ibLXt/YbgDsC5sA0Ofw45BfHPjkVBU44WMKRdBHgCg72yALehvzWIIX0c4JoqH3P+hS1VcV7iuM7VogLvcAR1w==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -7135,6 +7141,8 @@ snapshots:
   babel-walk@3.0.0:
     dependencies:
       '@babel/types': 7.24.0
+
+  bahttext@2.3.0: {}
 
   balanced-match@1.0.2: {}
 
