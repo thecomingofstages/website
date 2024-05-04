@@ -11,6 +11,7 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
+import { bahttext } from "bahttext";
 
 type EmailProps = {
   name: string;
@@ -27,7 +28,7 @@ export default function Email({ name, amount, date }: EmailProps) {
     day: "numeric",
   });
   // todo: format amount in Thai using the module `bathtext`
-  const amountThaiString = amount;
+  const amountThaiString = bahttext(amount);
 
   // todo: format number as a currency format (1000 -> 1,000)
   const amountString = amount;
@@ -64,8 +65,8 @@ export default function Email({ name, amount, date }: EmailProps) {
               <Section className="pl-7 pr-7">
                 <Text className="text-md font-sans">
                   ตามที่ท่านได้มอบเงินบริจาค จำนวน {amountString} บาท (
-                  {amountThaiString} บาทไทย) เมื่อวันที่ {dateString}{" "}
-                  ให้แก่โครงการ The Coming of Stages
+                  {amountThaiString}) เมื่อวันที่ {dateString} ให้แก่โครงการ The
+                  Coming of Stages
                   เพื่อสนับสนุนโอกาสให้นักเรียนไทยในการจัดการแสดงละครเวที
                 </Text>
               </Section>
