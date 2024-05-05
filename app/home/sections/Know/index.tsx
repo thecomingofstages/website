@@ -6,97 +6,10 @@ import { useGSAP } from "@gsap/react";
 
 import { gsap } from "@/lib/gsap";
 
-import { BusinessIcon, CharacterHighlight, PeopleIcon } from "../graphics/know";
-import { Section } from "./base";
-
-const DetailSection = ({
-  title,
-  children,
-  Icon,
-}: {
-  title: string;
-  children: React.ReactNode;
-  Icon: React.FC<{ className: string }>;
-}) => {
-  return (
-    <div className="flex flex-col gap-4 flex-grow max-w-xl min-w-fit px-2">
-      <h3 className="text-4xl font-bold font-head inline-flex items-center gap-2">
-        <Icon className="w-20 h-20 text-white" />
-        {title}
-      </h3>
-      {children}
-    </div>
-  );
-};
-
-const Desc = ({ className, ...props }: React.ComponentPropsWithoutRef<"p">) => {
-  return (
-    <p
-      className={`text-gray-300 leading-7${className ? ` ${className}` : ""}`}
-      {...props}
-    />
-  );
-};
-
-interface StaticData_i {
-  title: string;
-  Icon: React.FC<{ className: string }>;
-  description: React.ReactNode[];
-}
-
-const StaticData: StaticData_i[] = [
-  {
-    title: "Who?",
-    Icon: PeopleIcon,
-    description: [
-      <>
-        พวกเราคือกลุ่มเยาวชนไทยที่เล็งเห็นถึงความเป็นไปได้ในการต่อยอด
-        เเละพัฒนาความสามารถของเยาวชนรุ่นใหม่ โดยเกิดจากการร่วมมือของนักเรียน
-        นักศึกษา จากหลากหลายสถาบัน
-        แต่มีเป้าหมายเดียวกันคือการพัฒนาศักยภาพการทำงานอย่างไร้ขีดจํากัด
-        เพื่อขับเคลื่อนวงการละครเวทีไทยเเละคงไว้ซึ่งคุณค่าสืบต่อไป
-      </>,
-    ],
-  },
-  {
-    title: "What?",
-    Icon: BusinessIcon,
-    description: [
-      <>
-        พวกเราคือกลุ่มเยาวชนไทยที่เล็งเห็นถึงความเป็นไปได้ในการต่อยอด
-        เเละพัฒนาความสามารถของเยาวชนรุ่นใหม่ โดยเกิดจากการร่วมมือของนักเรียน
-        นักศึกษา จากหลากหลายสถาบัน
-        แต่มีเป้าหมายเดียวกันคือการพัฒนาศักยภาพการทำงานอย่างไร้ขีดจํากัด
-        เพื่อขับเคลื่อนวงการละครเวทีไทยเเละคงไว้ซึ่งคุณค่าสืบต่อไป
-      </>,
-      <>
-        พวกเรามีความตั้งใจที่จะส่งเสริมศักยภาพของเด็กไทย
-        และขับเคลื่อนวงการละครเวทีไทยให้ก้าวหน้ายิ่งขึ้น
-        ผ่านการสร้างโปรเจคเพื่อเปิดโอกาสให้เด็กไทยได้สะสมประสบการณ์การทำงานในสถานที่จริง
-        อีกทั้งยังอยากเป็นแรงบันดาลใจให้กับเด็กทุกคนที่มีความฝัน
-        ให้กล้าที่จะลุกขึ้นมาทำสิ่งดีๆเพื่อตนเองเเละสังคม
-      </>,
-    ],
-  },
-  {
-    title: "Why?",
-    Icon: BusinessIcon,
-    description: [
-      <>
-        ในปัจจุบันละครเวทีในประเทศไทยยังไม่ได้เป็นที่นิยม
-        เมื่อเทียบกับละครเวทีในต่างประเทศ เเต่ทว่า
-        ก็ยังมีเด็กไทยจำนวนมากที่มีความชอบและความสนใจในด้านนี้
-        เเต่เพียงขาดโอกาสในการต่อยอดและพัฒนา
-      </>,
-      <>
-        พวกเราจึงมีความตั้งใจอย่างมากที่จะสร้างสถานที่ ที่สามารถลงมือทําได้จริง
-        รวมกับความเชื่อที่ว่า
-        เด็กไทยนั้นมีความสามารถมากพอที่จะประสบความสำเร็จได้
-        จากเเรงสนับสนุนและการร่วมแรงร่วมใจกัน`,
-      </>,
-    ],
-  },
-];
+import { CharacterHighlight } from "../../graphics/know";
+import { Section } from "../base";
+import { Desc, DetailSection } from "./components";
+import { StaticData, StaticData_i } from "./data";
 
 export const GettingToKnowUsSection = () => {
   // Ref for use in gsap!
