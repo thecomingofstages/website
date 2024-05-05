@@ -12,6 +12,11 @@ import {
   Text,
 } from "@react-email/components";
 import { bahttext } from "bahttext";
+import dayjs from 'dayjs';
+import 'dayjs/locale/th'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+dayjs.locale('th');
+dayjs.extend(LocalizedFormat)
 
 type EmailProps = {
   name: string;
@@ -22,11 +27,13 @@ type EmailProps = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function Email({ name, amount, date }: EmailProps) {
   // todo: format both date and time in Thai in the format "1 มกราคม 2567 เวลา 22:50 น."
-  const dateString = date.toLocaleDateString("th-TH", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  
+  // const dateString = date.toLocaleDateString("th-TH", {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  // });
+  const dateString = dayjs(date).format('LLL');
   const amountThaiString = bahttext(amount);
   const amountString = amount.toLocaleString();
 
