@@ -10,16 +10,21 @@ export const CharacterHighlight = (
     {...props}
   >
     <g
-      filter="url(#know-highlight-a)"
+      filter={`url(#know-highlight-a-${props.id ?? "x"})`}
       style={{
         mixBlendMode: "lighten",
       }}
     >
-      <circle cx={408} cy={408} r={358} fill="url(#know-highlight-b)" />
+      <circle
+        cx={408}
+        cy={408}
+        r={358}
+        fill={`url(#know-highlight-b-${props.id ?? "x"})`}
+      />
     </g>
     <defs>
       <linearGradient
-        id="know-highlight-b"
+        id={`know-highlight-b-${props.id ?? "x"}`}
         x1={408}
         x2={408}
         y1={50}
@@ -30,7 +35,7 @@ export const CharacterHighlight = (
         <stop offset={1} stopColor="#302B16" />
       </linearGradient>
       <filter
-        id="know-highlight-a"
+        id={`know-highlight-a-${props.id ?? "x"}`}
         width={816}
         height={816}
         x={0}

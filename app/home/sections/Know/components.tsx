@@ -1,3 +1,12 @@
+import Image from "next/image";
+import { forwardRef, useId } from "react";
+
+import { motion } from "framer-motion";
+
+import character from "@/app/images/bigbosspromaxair.png";
+
+import { CharacterHighlight } from "../../graphics/know";
+
 export const DetailSection = ({
   title,
   children,
@@ -24,8 +33,36 @@ export const Desc = ({
 }: React.ComponentPropsWithoutRef<"p">) => {
   return (
     <p
-      className={`text-sm lg:text-base text-gray-300 leading-6 lg:leading-7${className ? ` ${className}` : ""}`}
+      className={`text-sm md:text-base text-gray-300 leading-6 md:leading-7${className ? ` ${className}` : ""}`}
       {...props}
     />
   );
 };
+
+export const Character = forwardRef<
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<typeof motion.div>
+>(({ className, id, ...props }, ref) => {
+  const internalId = useId();
+  return (
+    <motion.div
+      ref={ref}
+      className={`flex-shrink-0 flex justify-center items-center relative max-w-xs lg:max-w-[unset]  ${className}`}
+      id={id}
+      {...props}
+    >
+      <div className="absolute inset-0 h-full w-full flex items-center justify-center scale-[1.30]">
+        <Image
+          src={character}
+          width={600}
+          height={600}
+          alt="Character"
+          className="-scale-x-100"
+        />
+      </div>
+      <CharacterHighlight id={id ?? internalId} className="w-[400px]" />
+    </motion.div>
+  );
+});
+
+Character.displayName = "Character";
