@@ -8,9 +8,9 @@ export const DetailSection = ({
   Icon: React.FC<{ className: string }>;
 }) => {
   return (
-    <div className="flex flex-col gap-4 flex-grow max-w-xl min-w-fit px-2">
-      <h3 className="text-4xl font-bold font-head inline-flex items-center gap-2">
-        <Icon className="w-20 h-20 text-white" />
+    <div className="flex flex-col gap-4 flex-grow min-w-fit pr-4">
+      <h3 className="text-3xl md:text-4xl font-bold font-head inline-flex items-center gap-2">
+        <Icon className="md:w-20 md:h-20 w-16 h-16 text-white" />
         {title}
       </h3>
       {children}
@@ -24,7 +24,7 @@ export const Desc = ({
 }: React.ComponentPropsWithoutRef<"p">) => {
   return (
     <p
-      className={`text-gray-300 leading-7${className ? ` ${className}` : ""}`}
+      className={`text-sm lg:text-base text-gray-300 leading-6 lg:leading-7${className ? ` ${className}` : ""}`}
       {...props}
     />
   );

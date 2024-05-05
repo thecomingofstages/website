@@ -23,33 +23,35 @@ export const GettingToKnowUsSection = () => {
         translateX: 0,
       },
       {
-        translateX: "-210%",
+        translateX: "-66.66%",
         scrollTrigger: {
           trigger: wrapper.current,
-          start: "center center-=125px",
-          end: "bottom top+=100px",
-          scrub: 0.6,
-          snap: [-0.1, 0, 0.29, 0.9],
+          start: "center center",
+          end: "bottom center-=125px",
+          scrub: 1,
+          snap: [0, 0.29, 1],
           pin: wrapper.current,
-          markers: true,
+          markers: process.env.NODE_ENV === "development",
         },
       }
     );
   });
 
   return (
-    <div id="know-us" className=" max-w-[100vw]">
+    <div id="know-us" className="max-w-[100vw]">
       <Section
         ref={wrapper}
-        className="flex flex-col flex-grow gap-6 justify-center relative"
+        className="flex flex-col flex-grow gap-4 lg:gap-6 justify-center relative"
       >
-        <div className="flex flex-col gap-4 pt-36 pb-8 bg-black">
-          <h2 className="text-6xl font-bold font-head">Getting to know us</h2>
+        <div className="flex flex-col gap-4 pt-8 lg:pt-36 lg:pb-8 bg-black">
+          <h2 className="text-4xl lg:text-6xl font-bold font-head">
+            Getting to know us
+          </h2>
         </div>
-        <div className="flex w-full flex-1 gap-4">
-          <div className="flex flex-col md:flex-row py-4 items-center justify-center gap-8 max-w-full">
-            <div className="overflow-x-auto h-full scrollbar-hidden basis-2/3">
-              <div ref={sectionRef} className="flex flex-row w-full gap-8">
+        <div className="flex w-full gap-4">
+          <div className="flex flex-col lg:flex-row py-4 items-center justify-center gap-8 max-w-full">
+            <div className="overflow-hidden lg:basis-2/3">
+              <div ref={sectionRef} className="grid grid-cols-3 w-[300%]">
                 {StaticData.map((data: StaticData_i, idx: number) => (
                   <DetailSection key={idx} title={data.title} Icon={data.Icon}>
                     {data.description.map((desc, index) => (
@@ -59,7 +61,7 @@ export const GettingToKnowUsSection = () => {
                 ))}
               </div>
             </div>
-            <div className="flex-shrink-0 flex-grow flex justify-end basis-1/3">
+            <div className="hidden flex-shrink-0 flex-grow lg:flex justify-end lg:basis-1/3">
               <CharacterHighlight className="w-[300px]" />
             </div>
           </div>
