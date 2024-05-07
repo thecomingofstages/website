@@ -23,10 +23,11 @@ function SectionWithRef<C extends React.ElementType = "div">(
   return (
     <section
       className={`h-full min-h-screen w-full flex items-center justify-center${getClassName("wrapper")}`}
+      // ref is assigned to the section wrapper element, to handle scroll trigger
+      ref={ref}
     >
       <Component
-        ref={ref}
-        className={`w-full max-w-5xl px-8 md:px-16 py-8${getClassName("content")}`}
+        className={`w-full max-w-6xl px-8 md:px-16 py-8${getClassName("content")}`}
         {...props}
       >
         {children}
