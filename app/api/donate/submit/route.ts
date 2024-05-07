@@ -1,17 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { formDataSchema } from "../../../donate/schema";
-import { insertToSheet, uploadToDrive } from "./lib";
+import { auth, insertToSheet, uploadToDrive } from "./lib";
+
+export const runtime = "edge";
 
 export const POST = async (request: NextRequest) => {
   try {
     const data = formDataSchema.parse(await request.formData());
     try {
-      const { webViewLink } = await uploadToDrive(data);
-      await insertToSheet({
-        ...data,
-        slipUrl: webViewLink,
-      });
+      const token = await auth.getGoogleAuthToken();
+      if (!token) {
+        return NextResponse.json(
+          { success: false, error: "No Server Token" },
+          {
+            status: 500,
+          }
+        );
+      }
+      const { webViewLink } = await uploadToDrive(data, token);
+      await insertToSheet(
+        {
+          ...data,
+          slipUrl: webViewLink,
+        },
+        token
+      );
       return NextResponse.json({ success: true });
     } catch (err) {
       console.error(err);
