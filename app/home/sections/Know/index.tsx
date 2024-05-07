@@ -31,7 +31,7 @@ export const GettingToKnowUsSection = () => {
           scrub: 1,
           snap: [0, 0.29, 1],
           pin: wrapper.current,
-          markers: process.env.NODE_ENV === "development",
+          // markers: process.env.NODE_ENV === "development",
         },
       }
     );
@@ -39,7 +39,7 @@ export const GettingToKnowUsSection = () => {
 
   return (
     <div id="know-us" className="max-w-[100vw]">
-      <div className="pt-24 flex items-center justify-center md:hidden">
+      <div className="pt-24 flex items-center justify-center lg:hidden [@media(min-height:800px)]:hidden">
         <Character
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -82,7 +82,7 @@ export const GettingToKnowUsSection = () => {
                 ))}
               </div>
             </motion.div>
-            <div className="hidden md:flex basis-1/3 justify-end">
+            <div className="hidden [@media(min-height:800px)]:flex md:flex basis-1/3 justify-end">
               <Character
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
