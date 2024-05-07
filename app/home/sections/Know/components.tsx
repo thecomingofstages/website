@@ -47,7 +47,7 @@ export const Character = forwardRef<
   return (
     <motion.div
       ref={ref}
-      className={`flex-shrink-0 flex justify-center items-center relative max-w-xs lg:max-w-[unset]  ${className}`}
+      className={`flex-shrink-0 flex justify-center items-center relative max-w-xs xl:max-w-[unset]  ${className}`}
       id={id}
       {...props}
     >

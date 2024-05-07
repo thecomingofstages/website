@@ -49,14 +49,14 @@ export const GettingToKnowUsSection = () => {
       </div>
       <Section
         ref={wrapper}
-        className="flex flex-col flex-grow gap-4 lg:gap-6 md:justify-center relative"
+        className="flex flex-col flex-grow gap-4 xl:gap-6 md:justify-center relative"
       >
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
           viewport={{ amount: 0.7, once: true }}
-          className="flex flex-col gap-4 pt-16 lg:pb-8 bg-black"
+          className="flex flex-col gap-4 pt-8 xl:pt-16 xl:pb-8"
         >
           <h2 className="font-bold font-head flex flex-wrap gap-x-4 gap-y-1 leading-8">
             <span className="text-4xl lg:text-6xl">Getting to</span>
