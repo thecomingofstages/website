@@ -1,6 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
+
+import { useGSAP } from "@gsap/react";
+
+import { gsap } from "@/lib/gsap";
 
 import styles from "./vision.module.css";
 
@@ -18,6 +22,7 @@ export const Eye = () => {
 };
 
 export const Eyes = () => {
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [size, setSize] = React.useState<{ cols: number; rows: number }>();
   React.useEffect(() => {
     const set = () => {
@@ -33,13 +38,36 @@ export const Eyes = () => {
     return () => window.removeEventListener("resize", set);
   }, []);
 
-  useEffect(() => {
-    console.log(size);
-  }, [size]);
+  useGSAP(
+    () => {
+      if (!wrapperRef.current) return;
+      console.log("a", Array.from(wrapperRef.current.children));
+      gsap.fromTo(
+        `.${styles.eyes}`,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: "top center",
+            end: "center center",
+            scrub: 0.7,
+            // once: true,
+            markers: process.env.NODE_ENV === "development",
+          },
+        }
+      );
+    },
+    { scope: wrapperRef.current as HTMLDivElement, dependencies: [size] }
+  );
+
   if (!size) return null;
   return (
     <div
       className="lg:p-8 w-full h-full grid"
+      ref={wrapperRef}
       style={{
         gridTemplateColumns: `repeat(${size.cols}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${size.rows}, minmax(0, 1fr))`,
