@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 
 import { gsap } from "@/lib/gsap";
 
-import styles from "./vision.module.css";
+import styles from "./graphics.module.css";
 
 export const Eye = () => {
   return (

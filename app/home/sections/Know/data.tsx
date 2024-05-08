@@ -1,4 +1,4 @@
-import { BusinessIcon, PeopleIcon } from "../../graphics/know";
+import { BusinessIcon, PeopleIcon } from "./graphics";
 
 export interface StaticData_i {
   title: string;

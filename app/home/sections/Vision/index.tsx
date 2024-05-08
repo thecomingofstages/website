@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Eyes } from "../graphics/vision";
-import { Section } from "./base";
+import { Section } from "../base";
+import { Eyes } from "./graphics";
 
 export const VisionSection = () => {
   return (

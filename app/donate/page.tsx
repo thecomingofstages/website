@@ -1,5 +1,7 @@
 import { DonateForm } from "./Form";
 
+export const runtime = "edge";
+
 export default function DonatePage() {
   return (
     <div className="flex flex-col flex-1">

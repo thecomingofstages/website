@@ -3,9 +3,8 @@ import { forwardRef, useId } from "react";
 
 import { motion } from "framer-motion";
 
-import character from "@/app/images/bigbosspromaxair.png";
-
-import { CharacterHighlight } from "../../graphics/know";
+import character from "./bigbosspromaxair.png";
+import { CharacterHighlight } from "./graphics";
 
 export const DetailSection = ({
   title,
