@@ -41,7 +41,6 @@ export const Eyes = () => {
   useGSAP(
     () => {
       if (!wrapperRef.current) return;
-      console.log("a", Array.from(wrapperRef.current.children));
       gsap.fromTo(
         `.${styles.eyes}`,
         {
@@ -55,7 +54,7 @@ export const Eyes = () => {
             end: "center center",
             scrub: 0.7,
             // once: true,
-            markers: process.env.NODE_ENV === "development",
+            // markers: process.env.NODE_ENV === "development",
           },
         }
       );

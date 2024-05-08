@@ -11,7 +11,7 @@ export const VisionSection = () => {
       </div>
       <div className="relative z-10 flex justify-center items-center">
         <div className="space-y-8 bg-black max-w-screen-md p-10 lg:p-16 rounded-lg bg-opacity-75 backdrop-blur-md">
-          <h4 className="text-5xl font-bold font-head text-center">
+          <h4 className="text-5xl font-bold font-serif text-center">
             Vision & Mission
           </h4>
           <p className="text-sm leading-6 md:text-base md:leading-7 text-center opacity-95">
