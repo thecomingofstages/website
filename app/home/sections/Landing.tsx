@@ -68,7 +68,7 @@ export const LandingSection = () => {
       </div>
       <Section
         className={
-          "z-10 h-[80vh] md:pb-24 portrait:h-[75vh] flex flex-col items-center justify-center"
+          "z-10 h-[80vh] md:pb-32 portrait:h-[75vh] flex flex-col items-center justify-center"
         }
       >
         <motion.div

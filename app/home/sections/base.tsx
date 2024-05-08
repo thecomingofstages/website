@@ -16,9 +16,10 @@ function SectionWithRef<C extends React.ElementType = "div">(
 ) {
   const Component = as || "div";
   const getClassName = (type: PropTargetType) => {
-    return className
-      ? ` ${typeof className === "object" ? className[type] : className}`
-      : "";
+    if (typeof className === "object") {
+      return className[type] ? ` ${className[type]}` : "";
+    }
+    return className && type == "content" ? ` ${className}` : "";
   };
   return (
     <section
