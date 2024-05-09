@@ -1,4 +1,5 @@
 import Navbar from "../Navbar";
+import ContactSection from "./sections/Contact";
 import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
@@ -27,6 +28,7 @@ export default function HomePage() {
         <GettingToKnowUsSection />
         <VisionSection />
         <DonateSection />
+        <ContactSection />
       </main>
     </>
   );
