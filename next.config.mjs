@@ -4,12 +4,12 @@ const nextConfig = {
     return {
       afterFiles: [
         {
-          source: "/",
-          destination: "/link",
+          source: "/:slug",
+          destination: "/link/:slug",
           has: [
             {
               type: "host",
-              value: "link.thecomingofstages.com",
+              value: "localhost",
             },
           ],
         },
@@ -20,6 +20,17 @@ const nextConfig = {
     return [
       {
         source: "/",
+        destination: "/recruitment",
+        permanent: false,
+        has: [
+          {
+            type: "host",
+            value: "localhost",
+          },
+        ],
+      },
+      {
+        source: "/",
         destination: "/home",
         // Permanent redirect on local environment may conflict with other projects working locally.
         // Only redirect permanently in production.
@@ -27,7 +38,7 @@ const nextConfig = {
         missing: [
           {
             type: "host",
-            value: "link.thecomingofstages.com",
+            value: "localhost",
           },
         ],
       },
