@@ -9,7 +9,7 @@ const nextConfig = {
           has: [
             {
               type: "host",
-              value: "localhost",
+              value: "link.thecomingofstages.com",
             },
           ],
         },
@@ -25,7 +25,7 @@ const nextConfig = {
         has: [
           {
             type: "host",
-            value: "localhost",
+            value: "link.thecomingofstages.com",
           },
         ],
       },
@@ -38,7 +38,7 @@ const nextConfig = {
         missing: [
           {
             type: "host",
-            value: "localhost",
+            value: "link.thecomingofstages.com",
           },
         ],
       },
