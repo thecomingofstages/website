@@ -24,6 +24,7 @@ const Conceptofourplay = () => {
         <Section
           className={{ wrapper: "relative", content: "px-0 md:px-0 pt-0" }}
         >
+          <div className="absolute left-0 -top-[95px] h-24 bg-gradient-to-b from-transparent to-black w-full" />
           <div
             id="Details"
             className="z-10 h-full flex items-center w-full flex-col gap-6 lg:gap-10 py-2"
@@ -72,6 +73,7 @@ const Conceptofourplay = () => {
               </div>
             </div>
           </div>
+          <div className="z-10 absolute left-0 -bottom-[90px] h-24 bg-gradient-to-t from-transparent to-black w-full" />
         </Section>
         <div className="h-[200px] xl:h-[300px] relative">
           <div className="absolute w-full left-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent z-10" />
