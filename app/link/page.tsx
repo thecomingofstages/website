@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Image from "next/image";
 
 import { ArrowRightIcon, FileTextIcon, SendHorizonalIcon } from "lucide-react";
@@ -20,6 +21,12 @@ const links = [
     className: "bg-red-800 hover:bg-red-700",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Recruitment",
+  description:
+    "รับสมัคร นักแสดงและนักเต้น ละครเวทีเรื่อง Hansel and Gretel: Home Sweet Home The Musical ในโครงการ The Coming of Stages (เด็กไทยติดเวที) ปีที่ 1",
+};
 export default function LinkPage() {
   return (
     <main className="flex bg-gradient-to-b from-zinc-800 via-black to-zinc-900 flex-col w-full h-full min-h-screen items-center justify-center p-6 gap-4">
