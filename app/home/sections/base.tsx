@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 
+import { cn } from "@/lib/utils";
+
 type PropTargetType = "wrapper" | "content";
 interface SectionCustomProps<C extends React.ElementType> {
   children: React.ReactNode;
@@ -28,7 +30,10 @@ function SectionWithRef<C extends React.ElementType = "div">(
       ref={ref}
     >
       <Component
-        className={`w-full max-w-6xl px-8 md:px-16 py-8${getClassName("content")}`}
+        className={cn(
+          "w-full max-w-6xl px-8 md:px-16 py-8",
+          getClassName("content")
+        )}
         {...props}
       >
         {children}
