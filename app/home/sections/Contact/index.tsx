@@ -1,12 +1,13 @@
 import Image from "next/image";
 import React from "react";
 
-import Facebook from "@/app/home/sections/Contact/Facebook_logo.png";
-import IG from "@/app/home/sections/Contact/IG_logo.png";
-import Email from "@/app/home/sections/Contact/Mail_logo.png";
-import TikTok from "@/app/home/sections/Contact/TikTok_logo.png";
-import Candy from "@/app/home/sections/Contact/background.png";
 import logoWhite from "@/app/images/logo-white.png";
+
+import Facebook from "./Facebook_logo.png";
+import IG from "./IG_logo.png";
+import Email from "./Mail_logo.png";
+import TikTok from "./TikTok_logo.png";
+import Candy from "./background.png";
 
 export const ContactSection = () => {
   return (
