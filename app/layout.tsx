@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   description:
     "Youth Power of Thai Theatre (เด็กไทยติดเวที) : พื้นที่พัฒนาศักยภาพเด็กไทยเเละส่งเสริมงานสร้างสรรค์ในวงการละครเวที",
   metadataBase:
-    process.env.CF_PAGES_BRANCH === "app--link"
+    process.env.NODE_ENV === "production"
       ? new URL("https://link.thecomingofstages.com")
-      : undefined,
+      : new URL(`http://localhost:${process.env.PORT ?? 3000}`),
 };
 
 export default function RootLayout({
