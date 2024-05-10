@@ -1,5 +1,5 @@
 import Navbar from "../Navbar";
-import Conceptofourplay from "./sections/Conceptofourplay";
+import { ConceptOfOurPlaySection } from "./sections/Conceptofourplay";
 import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
@@ -27,7 +27,7 @@ export default function HomePage() {
         <LandingSection />
         <GettingToKnowUsSection />
         <VisionSection />
-        <Conceptofourplay />
+        <ConceptOfOurPlaySection />
         <DonateSection />
       </main>
     </>

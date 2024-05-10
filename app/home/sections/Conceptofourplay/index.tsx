@@ -10,7 +10,7 @@ import Gim from "./Gim.png";
 import backgroundBottom from "./background-bottom.png";
 import backgroundTop from "./background-top.png";
 
-const Conceptofourplay = () => {
+export const ConceptOfOurPlaySection = () => {
   return (
     <>
       <div id="our-play" className="relative">
@@ -104,5 +104,3 @@ const Conceptofourplay = () => {
     </>
   );
 };
-
-export default Conceptofourplay;
