@@ -27,8 +27,8 @@ export default function HomePage() {
         <LandingSection />
         <GettingToKnowUsSection />
         <VisionSection />
-        <DonateSection />
         <Conceptofourplay />
+        <DonateSection />
       </main>
     </>
   );
