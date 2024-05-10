@@ -1,24 +1,21 @@
 import { Section } from "../base";
+import { Bubble } from "./components/bubbles";
+import { missionBubble } from "./components/bubbles/1-mission";
+import { futureBubble } from "./components/bubbles/2-future";
+import { howToBubble } from "./components/bubbles/3-howto";
+
+const bubbles = [missionBubble, futureBubble, howToBubble];
 
 export const DonateSection = () => {
   return (
-    <Section>
-      <h2 className="text-6xl font-bold font-serif">Donate</h2>
-      <p>
-        We are a non-profit organization and rely on donations to keep our
-        servers running.
-      </p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-      asperiores eaque odio nulla repudiandae illo, maxime dolore ad, itaque
-      mollitia ducimus veritatis quis cum reprehenderit, aspernatur architecto
-      rem! Non delectus eveniet impedit autem? Minima ipsum asperiores quibusdam
-      nisi aut officia? Exercitationem suscipit tempore laudantium delectus,
-      recusandae minus veritatis aspernatur, quia error provident quas quae qui
-      corrupti? Facilis ipsam expedita minima facere quam, omnis, eveniet
-      accusamus alias a consequatur fugiat maiores nostrum! Laboriosam sint
-      iusto provident ipsa fugiat, minus perspiciatis, molestias dicta quis,
-      vitae magni? Vero, consectetur debitis vel ea dolorem iste quasi omnis
-      aliquam alias iure ratione. Non, corrupti odio?
+    <Section className={"flex flex-col items-center justify-center gap-2"}>
+      <h2 className="text-6xl font-bold font-serif italic">SUPPORT US</h2>
+      <span className="text-medium text-xl">ทำไมถึงควรร่วมบริจาคกับเรา</span>
+      <div className="flex flex-col">
+        {bubbles.map((bubble) => (
+          <Bubble key={bubble.title} {...bubble} />
+        ))}
+      </div>
     </Section>
   );
 };
