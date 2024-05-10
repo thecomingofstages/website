@@ -3,6 +3,8 @@
 import Image from "next/image";
 import React from "react";
 
+import { motion } from "framer-motion";
+
 import { Section } from "../base";
 import Gim from "./Gim.png";
 import backgroundBottom from "./background-bottom.png";
@@ -29,13 +31,21 @@ const Conceptofourplay = () => {
             id="Details"
             className="z-10 h-full flex items-center w-full flex-col gap-6 lg:gap-10 py-2"
           >
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              viewport={{ amount: 0.7, once: true }}
               id="head"
               className="text-4xl md:text-5xl font-serif font-bold px-6 text-center"
             >
               CONCEPT OF OUR PLAY
-            </div>
-            <p
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              viewport={{ amount: 0.7, once: true }}
               id="content"
               className="text-sm sm:text-base leading-6 sm:leading-7 max-w-[800px] opacity-90 text-center w-full px-6"
             >
@@ -47,8 +57,14 @@ const Conceptofourplay = () => {
               เพราะความโลภทําให้ผู้คนอยากครอบครองบางอย่างจนขาดสติ
               และตัดสินใจที่จะทําทุกอย่างเพื่อที่จะนํามาซึ่งการครอบครอง
               แม้ว่าสิ่งนั้นจะเป็นสิ่งที่ผิดก็ตาม
-            </p>
-            <div className="relative py-4">
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, transform: "translateY(20px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.5 }}
+              viewport={{ amount: 0.5, once: true }}
+              className="relative py-4"
+            >
               <div
                 id="foot"
                 className="absolute inset-0 w-full flex flex-col text-center h-[150px] justify-center"
@@ -71,7 +87,7 @@ const Conceptofourplay = () => {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="z-10 absolute left-0 -bottom-[90px] h-24 bg-gradient-to-t from-transparent to-black w-full" />
         </Section>
