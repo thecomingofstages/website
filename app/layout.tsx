@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Prompt, STIX_Two_Text } from "next/font/google";
 
@@ -41,6 +42,10 @@ export default function RootLayout({
       >
         {children}
       </body>
+      {process.env.NODE_ENV === "production" &&
+        process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
     </html>
   );
 }
