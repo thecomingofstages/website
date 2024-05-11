@@ -44,6 +44,7 @@ async function main() {
     if (!file.endsWith(".png")) continue;
     const { name: fileName } = parse(file);
     const [name, title] = fileName.split(" - ");
+    if (!title || !name) continue;
     /**
      * @type {import("./types").DepartmentImage}
      */
@@ -55,7 +56,7 @@ async function main() {
     content.push(
       tsCodeOutput(
         tsExportConst(
-          camelCase(name.toLowerCase()),
+          camelCase(name.toLowerCase()) + "Image",
           tsSatisfies(
             tsAsConst(
               tsObj({
