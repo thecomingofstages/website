@@ -1,7 +1,7 @@
 import Navbar from "../Navbar";
 import { ConceptOfOurPlaySection } from "./sections/Conceptofourplay";
 import { ContactSection } from "./sections/Contact";
-import DepartmentsSection from "./sections/Departments";
+import { DepartmentsSection } from "./sections/Departments";
 import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";

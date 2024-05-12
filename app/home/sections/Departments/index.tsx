@@ -8,7 +8,7 @@ import { gsap } from "@/lib/gsap";
 import { DepartmentImages } from "./images";
 import background from "./images/background.png";
 
-export default function DepartmentsSection() {
+export function DepartmentsSection() {
   const wrapper = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   useLayoutEffect(() => {
