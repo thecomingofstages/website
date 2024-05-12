@@ -1,4 +1,6 @@
 import Navbar from "../Navbar";
+import { ConceptOfOurPlaySection } from "./sections/Conceptofourplay";
+import { ContactSection } from "./sections/Contact";
 import DepartmentsSection from "./sections/Departments";
 import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
@@ -27,8 +29,10 @@ export default function HomePage() {
         <LandingSection />
         <GettingToKnowUsSection />
         <VisionSection />
+        <ConceptOfOurPlaySection />
         <DonateSection />
         <DepartmentsSection />
+        <ContactSection />
       </main>
     </>
   );
