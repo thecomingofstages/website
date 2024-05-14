@@ -8,14 +8,20 @@ const bubbles = [missionBubble, futureBubble, howToBubble];
 
 export const DonateSection = () => {
   return (
-    <Section className={"flex flex-col items-center justify-center gap-2"}>
-      <h2 className="text-6xl font-bold font-serif italic">SUPPORT US</h2>
-      <span className="text-medium text-xl">ทำไมถึงควรร่วมบริจาคกับเรา</span>
-      <div className="flex flex-col">
-        {bubbles.map((bubble) => (
-          <Bubble key={bubble.title} {...bubble} />
-        ))}
-      </div>
-    </Section>
+    <div id="support">
+      <Section className={"flex flex-col items-center justify-center gap-6"}>
+        <div className="gap-2 flex flex-col items-center justify-center text-center">
+          <h2 className="text-6xl font-bold font-serif italic">SUPPORT US</h2>
+          <span className="text-medium text-xl">
+            ทำไมถึงควรร่วมบริจาคกับเรา
+          </span>
+        </div>
+        <div className="flex flex-col md:flex-row gap-10 justify-center items-center w-full">
+          {bubbles.map((bubble) => (
+            <Bubble key={bubble.title} {...bubble} />
+          ))}
+        </div>
+      </Section>
+    </div>
   );
 };
