@@ -23,6 +23,7 @@ export const Bubble = ({ bubbleFront, content, title }: BubbleData) => {
           transform: !open ? "rotateY(0deg)" : "rotateY(180deg)",
         }}
         onClick={() => setOpen(!open)}
+        title={title}
       >
         <div
           data-type="front"
@@ -36,7 +37,13 @@ export const Bubble = ({ bubbleFront, content, title }: BubbleData) => {
             left: 0,
           }}
         >
-          <Image src={bubbleFront} alt={title} width={300} height={300} />
+          <Image
+            draggable={false}
+            src={bubbleFront}
+            alt={title}
+            width={300}
+            height={300}
+          />
         </div>
         <div
           data-type="back"

@@ -24,11 +24,11 @@ export default function HomePage() {
         ]}
       />
       <main>
-        {/* <LandingSection />
+        <LandingSection />
         <GettingToKnowUsSection />
-        <VisionSection /> */}
+        <VisionSection />
         <DonateSection />
-        {/* <ContactSection /> */}
+        <ContactSection />
       </main>
     </>
   );
