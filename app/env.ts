@@ -4,6 +4,11 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
+    GOOGLE_PRIVATE_KEY: z.string(),
+    GOOGLE_CLIENT_EMAIL: z.string(),
+    GOOGLE_DONATE_SUBMIT_SHEET_ID: z.string(),
+    GOOGLE_DONATE_SLIP_FOLDER_ID: z.string(),
+    GOOGLE_DONATE_SUBMIT_SHEET_RANGE: z.string(),
     DONATION_ACCOUNT_NUMBER: z.string(),
     DONATION_ACCOUNT_BANK: z.string(),
     DONATION_ACCOUNT_NAME: z.string(),

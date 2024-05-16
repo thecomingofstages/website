@@ -16,8 +16,6 @@ const bodyFont = Prompt({
   weight: ["400", "500", "700"],
 });
 
-export const runtime = "edge";
-
 export const metadata: Metadata = {
   title: {
     template: "%s | The Coming of Stages",
@@ -34,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${titleFont.variable} ${bodyFont.variable} bg-black text-white font-sans`}
+        className={`${titleFont.variable} ${bodyFont.variable} bg-black text-white font-sans overflow-x-hidden`}
       >
         {children}
       </body>

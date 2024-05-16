@@ -1,6 +1,9 @@
 // @ts-check
+import dotenv from "dotenv";
 import createJiti from "jiti";
 import { fileURLToPath } from "node:url";
+
+dotenv.config();
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
@@ -39,10 +42,37 @@ const nextConfig = {
       },
     ];
   },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/api/:path*",
+  //       headers: [
+  //         { key: "Access-Control-Allow-Credentials", value: "true" },
+  //         {
+  //           key: "Access-Control-Allow-Origin",
+  //           value: "http://localhost:30001/",
+  //         },
+  //         {
+  //           key: "Access-Control-Allow-Methods",
+  //           value: "GET,DELETE,PATCH,POST,PUT",
+  //         },
+  //         {
+  //           key: "Access-Control-Allow-Headers",
+  //           value:
+  //             "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
   experimental: {
     serverActions: {
       allowedOrigins: getServerActionsOrigin(),
     },
+  },
+  env: {
+    Google_private_key: process.env.Google_private_key,
+    Google_client_email: process.env.Google_client_email,
   },
 };
 
