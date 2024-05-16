@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 
+import { cn } from "@/lib/utils";
+
 type PropTargetType = "wrapper" | "content";
 interface SectionCustomProps<C extends React.ElementType> {
   children: React.ReactNode;
@@ -16,17 +18,22 @@ function SectionWithRef<C extends React.ElementType = "div">(
 ) {
   const Component = as || "div";
   const getClassName = (type: PropTargetType) => {
-    return className
-      ? ` ${typeof className === "object" ? className[type] : className}`
-      : "";
+    if (typeof className === "object") {
+      return className[type] ? ` ${className[type]}` : "";
+    }
+    return className && type == "content" ? ` ${className}` : "";
   };
   return (
     <section
       className={`h-full min-h-screen w-full flex items-center justify-center${getClassName("wrapper")}`}
+      // ref is assigned to the section wrapper element, to handle scroll trigger
+      ref={ref}
     >
       <Component
-        ref={ref}
-        className={`w-full max-w-5xl px-8 md:px-16 py-8${getClassName("content")}`}
+        className={cn(
+          "w-full max-w-6xl px-8 md:px-16 py-8",
+          getClassName("content")
+        )}
         {...props}
       >
         {children}

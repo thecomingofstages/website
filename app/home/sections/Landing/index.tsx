@@ -12,10 +12,11 @@ import {
 
 import logoWhite from "@/app/images/logo-white.png";
 
+import { Section } from "../base";
+
 /* Import only the left side, and flip it on the right cause we want both sides to be symmetric. */
-import { CurtainLeft } from "../graphics/curtain";
-import { Highlight, Spotlight, Stage } from "../graphics/stage";
-import { Section } from "./base";
+import { CurtainLeft } from "./curtain";
+import { Highlight, Spotlight, Stage } from "./stage";
 
 export const LandingSection = () => {
   const sectionRef = useRef(null);
@@ -68,7 +69,7 @@ export const LandingSection = () => {
       </div>
       <Section
         className={
-          "z-10 h-[80vh] md:pb-24 portrait:h-[75vh] flex flex-col items-center justify-center"
+          "z-10 h-[80vh] md:pb-32 portrait:h-[75vh] flex flex-col items-center justify-center"
         }
       >
         <motion.div
