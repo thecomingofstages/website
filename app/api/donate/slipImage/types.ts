@@ -1,7 +1,8 @@
-export type RecieptColor = "green" | "purple" | "red" | "white";
+export const receiptColors = ["green", "purple", "red", "white"] as const;
+export type ReceiptColor = (typeof receiptColors)[number];
 
 export type ReceiptTheme = Record<
-  RecieptColor,
+  ReceiptColor,
   {
     orderColor: string;
     nameColor: string;

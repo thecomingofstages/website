@@ -4,7 +4,7 @@
 import { ImageResponse } from "next/og";
 import { ImageResponseOptions, NextRequest } from "next/server";
 
-import { ReceiptTheme, RecieptColor } from "./types";
+import { ReceiptColor, ReceiptTheme } from "./types";
 import { ErrorImage, getLocalAsset } from "./utils";
 
 export const runtime = "edge";
@@ -13,6 +13,7 @@ export const runtime = "edge";
 const themes: ReceiptTheme = {
   green: {
     bgImageUrl: new URL(`./graphics/receipt-green.png`, import.meta.url),
+    orderColor: "white",
   },
   purple: {
     bgImageUrl: new URL(`./graphics/receipt-purple.png`, import.meta.url),
@@ -32,7 +33,7 @@ const imageOptions: ImageResponseOptions = {
 
 export const GET = async (request: NextRequest) => {
   const params = request.nextUrl.searchParams;
-  const color = params.get("color") as RecieptColor;
+  const color = params.get("color") as ReceiptColor;
   const theme = themes[color];
   try {
     if (!theme) {
@@ -43,9 +44,16 @@ export const GET = async (request: NextRequest) => {
       (
         <div tw="relative w-full h-full flex flex-col">
           <img tw="absolute inset-0 w-full h-full" src={bgImage} />
-
-          <div tw="relative inset-0 z-10 flex flex-col w-full text-black text-5xl">
-            {/* <span tw="absolute top-[600px]">Test</span> */}
+          {/** add content here! */}
+          <div tw="relative inset-0 left-[50px] flex flex-col w-full text-black">
+            <span
+              tw="absolute top-[600px] text-5xl"
+              style={{
+                color: theme.orderColor,
+              }}
+            >
+              Example Text
+            </span>
           </div>
         </div>
       ),
