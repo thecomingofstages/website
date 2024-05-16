@@ -1,4 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useLayoutEffect, useRef } from "react";
+
+import { useGSAP } from "@gsap/react";
+
+import { gsap } from "@/lib/gsap";
 
 import { Section } from "../base";
 import { DonateArtwork } from "./components/artwork";
@@ -10,8 +17,45 @@ import { howToBubble } from "./components/bubbles/3-howto";
 const bubbles = [missionBubble, futureBubble, howToBubble];
 
 export const DonateSection = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const bubbleRef = useRef<HTMLDivElement | null>(null);
+  useLayoutEffect(() => {
+    const scroller = bubbleRef.current?.parentElement;
+    if (!scroller || !bubbleRef.current) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 980px)", () => {
+      gsap.set(scroller, {
+        width: "300px",
+      });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "center center+=200px",
+          end: "bottom center-=125px",
+          scrub: 1,
+          // snap: [0, 0.29, 1],
+          pin: true,
+          markers: true,
+        },
+      });
+      tl.addLabel("start");
+      tl.fromTo(
+        bubbleRef.current,
+        {
+          translateX: 0,
+        },
+        {
+          translateX: "-69.5%",
+        }
+      );
+      return () => tl.revert();
+    });
+    return () => mm.revert();
+  });
   return (
-    <div id="support" className="scroll-mt-16 py-20">
+    <div id="support" ref={sectionRef} className="scroll-mt-16 py-20">
       <Section className={"flex flex-col items-center justify-center gap-12"}>
         <div className="gap-2 flex flex-col items-center justify-center text-center">
           <h2 className="text-6xl font-bold font-serif italic">SUPPORT US</h2>
@@ -19,10 +63,15 @@ export const DonateSection = () => {
             ทำไมถึงควรร่วมบริจาคกับเรา
           </span>
         </div>
-        <div className="flex flex-col md:flex-row gap-10 justify-center items-center w-full">
-          {bubbles.map((bubble) => (
-            <Bubble key={bubble.title} {...bubble} />
-          ))}
+        <div className="overflow-x-hidden">
+          <div
+            ref={bubbleRef}
+            className="flex flex-row gap-10 justify-center items-center w-[980px]"
+          >
+            {bubbles.map((bubble) => (
+              <Bubble key={bubble.title} {...bubble} />
+            ))}
+          </div>
         </div>
         <div className="gap-6 flex flex-col items-center justify-center text-center pb-10">
           <h3 className="text-2xl sm:text-3xl font-bold">
