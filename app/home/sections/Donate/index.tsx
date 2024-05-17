@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
-import { useGSAP } from "@gsap/react";
-
 import { gsap } from "@/lib/gsap";
 
 import { Section } from "../base";
@@ -26,30 +24,52 @@ export const DonateSection = () => {
     const mm = gsap.matchMedia();
 
     mm.add("(max-width: 980px)", () => {
-      gsap.set(scroller, {
-        width: "300px",
-      });
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center center+=200px",
+          start: "center bottom-=50px",
           end: "bottom center-=125px",
           scrub: 1,
           // snap: [0, 0.29, 1],
           pin: true,
           markers: true,
+          snap: {
+            snapTo: "labels",
+          },
         },
       });
-      tl.addLabel("start");
-      tl.fromTo(
-        bubbleRef.current,
-        {
-          translateX: 0,
-        },
-        {
-          translateX: "-69.5%",
+      const children = Array.from(bubbleRef.current!.children);
+      for (let i = 0; i < children.length; i++) {
+        gsap.set(children[i], {
+          position: "absolute",
+          top: "150px",
+          translateY: "-50%",
+        });
+        tl.addLabel(`start-${i}`);
+        if (i > 0) {
+          tl.to(
+            children[i - 1],
+            {
+              opacity: 0,
+              translateX: "100%",
+            },
+            `start-${i}`
+          );
         }
-      );
+        tl.fromTo(
+          children[i],
+          {
+            opacity: 0,
+            translateX: "-100%",
+          },
+          {
+            opacity: 1,
+            translateX: 0,
+            delay: i === 0 ? 0 : 0.5,
+          },
+          `start-${i}`
+        );
+      }
       return () => tl.revert();
     });
     return () => mm.revert();
@@ -63,10 +83,10 @@ export const DonateSection = () => {
             ทำไมถึงควรร่วมบริจาคกับเรา
           </span>
         </div>
-        <div className="overflow-x-hidden">
+        <div className="w-full relative h-[300px]">
           <div
             ref={bubbleRef}
-            className="flex flex-row gap-10 justify-center items-center w-[980px]"
+            className="flex flex-row gap-10 justify-center items-center"
           >
             {bubbles.map((bubble) => (
               <Bubble key={bubble.title} {...bubble} />
