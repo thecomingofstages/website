@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 import { ImageResponseOptions, NextRequest } from "next/server";
 
 import { ReceiptColor, ReceiptTheme } from "./types";
-import { ErrorImage, getLocalAsset } from "./utils";
+import { ErrorImage, FontOptions, getFonts, getLocalAsset } from "./utils";
 
 export const runtime = "edge";
 
@@ -26,10 +26,18 @@ const themes: ReceiptTheme = {
   },
 };
 
-const imageOptions: ImageResponseOptions = {
-  width: 573,
-  height: 1920,
-};
+const fonts: FontOptions[] = [
+  {
+    name: "Prompt",
+    url: new URL(`./fonts/Prompt-Regular.ttf`, import.meta.url),
+    weight: 400,
+  },
+  {
+    name: "Prompt",
+    url: new URL(`./fonts/Prompt-Medium.ttf`, import.meta.url),
+    weight: 500,
+  },
+];
 
 export const GET = async (request: NextRequest) => {
   const params = request.nextUrl.searchParams;
@@ -40,9 +48,14 @@ export const GET = async (request: NextRequest) => {
       throw `Invalid color and theme: ${color}`;
     }
     const bgImage = await getLocalAsset(theme.bgImageUrl);
+    const imageOptions: ImageResponseOptions = {
+      width: 573,
+      height: 1920,
+      fonts: await getFonts(fonts),
+    };
     return new ImageResponse(
       (
-        <div tw="relative w-full h-full flex flex-col">
+        <div tw="relative w-full h-full flex flex-col font-[Prompt]">
           <img tw="absolute inset-0 w-full h-full" src={bgImage} />
           {/** add content here! */}
           <div tw="relative inset-0 left-[50px] flex flex-col w-full text-black">

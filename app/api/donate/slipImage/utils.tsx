@@ -1,6 +1,8 @@
 import { ImageResponse } from "next/og";
 import { ImageResponseOptions } from "next/server";
 
+import { FontOptions } from "./types";
+
 export const ErrorImage = (
   error: string | Error,
   imageOptions: ImageResponseOptions
@@ -20,4 +22,18 @@ export const ErrorImage = (
 
 export const getLocalAsset = (url: URL): Promise<any> => {
   return fetch(url).then((res) => res.arrayBuffer());
+};
+
+type SatoriFontOptions = NonNullable<ImageResponseOptions["fonts"]>[number];
+export type FontOptions = Omit<SatoriFontOptions, "data"> & {
+  url: URL;
+};
+
+export const getFonts = (fonts: FontOptions[]) => {
+  return Promise.all<SatoriFontOptions>(
+    fonts.map(async ({ url, ...font }) => ({
+      ...font,
+      data: await getLocalAsset(url),
+    }))
+  );
 };
