@@ -3,6 +3,7 @@ import { Prompt, STIX_Two_Text } from "next/font/google";
 
 import "../fonts/avenir/index.css";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const titleFont = STIX_Two_Text({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body
         className={`${titleFont.variable} ${bodyFont.variable} bg-black text-white font-sans overflow-x-hidden`}
       >
+        <Toaster />
         {children}
       </body>
     </html>

@@ -21,6 +21,7 @@ import { DonationAmountInput } from "./fields/DonationAmount";
 import { DonationRecipent } from "./fields/DonationRecipent";
 import { FormImageUploadPreview } from "./fields/ImageUploadPreview";
 import { FormSchema, formSchema } from "./schema";
+import { toast } from "sonner";
 
 export const DonateForm = ({ className }: { className?: string }) => {
   const form = useForm<FormSchema>({
@@ -28,6 +29,9 @@ export const DonateForm = ({ className }: { className?: string }) => {
     defaultValues: {
       name: "",
       email: "",
+      accountName: "",
+      dateTransfer: undefined,
+      timeTransfer: undefined,
       amount: "" as never,
       allowCredit: false,
     },
@@ -37,6 +41,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
     const form = e?.target as HTMLFormElement;
     if (!form) return;
     const formData = new FormData(form);
+
     await axios
       .post("/api/donate/submit", formData, {
         onUploadProgress: (progress) => {
@@ -44,9 +49,11 @@ export const DonateForm = ({ className }: { className?: string }) => {
         },
       })
       .then((response) => {
+        toast("Thank You For Donate!")
         console.log(response);
         // Action On Upload Success jaa
       });
+    console.log('test')
   };
   return (
     <Form {...form}>
@@ -87,6 +94,45 @@ export const DonateForm = ({ className }: { className?: string }) => {
                 <FormLabel aria-required>ชื่อผู้บริจาค</FormLabel>
                 <FormControl>
                   <Input placeholder="ชื่อผู้บริจาค" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="accountName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel aria-required>ชื่อบัญชีผู้บริจาค</FormLabel>
+                <FormControl>
+                  <Input placeholder="ชื่อบัญชีผู้บริจาค" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="dateTransfer"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel aria-required>วันที่โอน</FormLabel>
+                <FormControl>
+                  <Input aria-label="Choose date" className="w-full" id="time" type="date" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="timeTransfer"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel aria-required>วันที่โอน</FormLabel>
+                <FormControl>
+                  <Input aria-label="Choose time" className="w-full" id="time" type="time" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
