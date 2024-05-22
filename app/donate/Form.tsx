@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,7 +22,6 @@ import { DonationAmountInput } from "./fields/DonationAmount";
 import { DonationRecipent } from "./fields/DonationRecipent";
 import { FormImageUploadPreview } from "./fields/ImageUploadPreview";
 import { FormSchema, formSchema } from "./schema";
-import { toast } from "sonner";
 
 export const DonateForm = ({ className }: { className?: string }) => {
   const form = useForm<FormSchema>({
@@ -49,11 +49,11 @@ export const DonateForm = ({ className }: { className?: string }) => {
         },
       })
       .then((response) => {
-        toast("Thank You For Donate!")
+        toast("Thank You For Donate!");
         console.log(response);
         // Action On Upload Success jaa
       });
-    console.log('test')
+    console.log("test");
   };
   return (
     <Form {...form}>
@@ -119,7 +119,13 @@ export const DonateForm = ({ className }: { className?: string }) => {
               <FormItem>
                 <FormLabel aria-required>วันที่โอน</FormLabel>
                 <FormControl>
-                  <Input aria-label="Choose date" className="w-full" id="time" type="date" {...field} />
+                  <Input
+                    aria-label="Choose date"
+                    className="w-full"
+                    id="time"
+                    type="date"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -132,7 +138,13 @@ export const DonateForm = ({ className }: { className?: string }) => {
               <FormItem>
                 <FormLabel aria-required>วันที่โอน</FormLabel>
                 <FormControl>
-                  <Input aria-label="Choose time" className="w-full" id="time" type="time" {...field} />
+                  <Input
+                    aria-label="Choose time"
+                    className="w-full"
+                    id="time"
+                    type="time"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

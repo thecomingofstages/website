@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Prompt, STIX_Two_Text } from "next/font/google";
 
+import { Toaster } from "sonner";
+
 import "../fonts/avenir/index.css";
 import "./globals.css";
-import { Toaster } from "sonner";
 
 const titleFont = STIX_Two_Text({
   subsets: ["latin"],

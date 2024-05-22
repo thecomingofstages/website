@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.11",
     "framer-motion": "^11.0.25",
     "googleapis": "^136.0.0",
     "gsap": "^3.12.5",
