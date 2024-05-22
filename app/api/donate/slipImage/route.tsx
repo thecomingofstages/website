@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 
 /* eslint-disable @next/next/no-img-element */
-import { ImageResponse, } from "next/og";
-import { ImageResponseOptions, NextRequest, } from "next/server";
+import { ImageResponse } from "next/og";
+import { ImageResponseOptions, NextRequest } from "next/server";
 
-import { ReceiptColor, ReceiptTheme,  } from "./types";
-import { FontOptions, getFonts, getLocalAsset,  } from "./utils";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
+
+import { ReceiptColor, ReceiptTheme } from "./types";
+import { ErrorImage, FontOptions, getFonts, getLocalAsset } from "./utils";
 
 export const runtime = "edge";
 
@@ -52,31 +53,30 @@ const fonts: FontOptions[] = [
   // {
   //   name: "Source Serif Italic",
   //   url: new URL(`./fonts/SourceSerif-Italic.ttf`, import.meta.url),
-  //   weight: 400, 
+  //   weight: 400,
   // },
-
 ];
 
 export const GET = async (request: NextRequest) => {
   const params = request.nextUrl.searchParams;
   const color = params.get("color") as ReceiptColor;
   const theme = themes[color];
-  const amount = 1000;
+  const amount = 100000000;
   const amountString = amount.toLocaleString();
   const name = "สมชาย ใจดี";
   const date = new Date(2024, 5, 1, 22, 50, 0, 0);
-  const day = dayjs(date).format('MM/DD/YY')
-  const time = dayjs(date).format('HH:mm')
+  const day = dayjs(date).format("MM/DD/YY");
+  const time = dayjs(date).format("HH:mm");
+  const imageOptions: ImageResponseOptions = {
+    width: 573,
+    height: 1920,
+  };
   try {
     if (!theme) {
       throw `Invalid color and theme: ${color}`;
     }
     const bgImage = await getLocalAsset(theme.bgImageUrl);
-    const imageOptions: ImageResponseOptions = {
-      width: 573,
-      height: 1920,
-      fonts: await getFonts(fonts),
-    };
+    imageOptions.fonts = await getFonts(fonts);
     return new ImageResponse(
       (
         <div tw="relative w-full h-full flex flex-col">
@@ -90,36 +90,36 @@ export const GET = async (request: NextRequest) => {
             >
               00001
             </span>
-            <span 
+            <span
               tw="absolute top-[710px] left-[50px] text-5xl "
               style={{
                 color: theme.nameColor,
               }}
-              >
+            >
               {name}
             </span>
-            <span 
+            <span
               tw="absolute top-[808px] right-[50px] text-4xl "
               style={{
                 color: theme.dateTimeColor,
               }}
-              >
+            >
               {amountString}฿
             </span>
-            <span 
+            <span
               tw="absolute top-[868px] right-[50px] text-4xl "
               style={{
                 color: theme.dateTimeColor,
               }}
-              >
+            >
               {day}
             </span>
-            <span 
+            <span
               tw="absolute top-[928px] right-[50px] text-4xl "
               style={{
                 color: theme.dateTimeColor,
               }}
-              >
+            >
               {time}
             </span>
           </div>
@@ -128,7 +128,7 @@ export const GET = async (request: NextRequest) => {
       imageOptions
     );
   } catch (err) {
-    // console.error(err);
-    // return ErrorImage(err as never, imageOptions);
+    console.error(err);
+    return ErrorImage(err as never, imageOptions);
   }
 };
