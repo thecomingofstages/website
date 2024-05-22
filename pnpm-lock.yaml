@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  react-qr-code@2.0.12:
+    hash: dhn26lvycmrxde4ruftkj3rscu
+    path: patches/react-qr-code@2.0.12.patch
+
 importers:
 
   .:
@@ -109,7 +114,7 @@ importers:
         version: 5.1.0(react@18.3.1)
       react-qr-code:
         specifier: ^2.0.12
-        version: 2.0.12(react@18.3.1)
+        version: 2.0.12(patch_hash=dhn26lvycmrxde4ruftkj3rscu)(react@18.3.1)
       sonner:
         specifier: ^1.4.41
         version: 1.4.41(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7331,7 +7336,7 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-qr-code@2.0.12(react@18.3.1):
+  react-qr-code@2.0.12(patch_hash=dhn26lvycmrxde4ruftkj3rscu)(react@18.3.1):
     dependencies:
       prop-types: 15.8.1
       qr.js: 0.0.0
