@@ -12,7 +12,12 @@ export const formSchema = z.object({
   allowCredit: z.boolean().default(false),
   accountName: zfd.text(
     z.string({
-      required_error: "กรุณากรอกชื่อบัญชีผู้โอน",
+      required_error: "กรุณากรอกชื่อบัญชี",
+    })
+  ),
+  accountBank: zfd.text(
+    z.string({
+      required_error: "กรุณากรอกชื่อธนาคาร",
     })
   ),
   dateTransfer: z.preprocess(

@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DateInput, TimeInput } from "@/components/ui/date-time-input";
 import {
   Form,
   FormControl,
@@ -32,6 +33,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
       accountName: "",
       dateTransfer: undefined,
       timeTransfer: undefined,
+      accountBank: "",
       amount: "" as never,
       allowCredit: false,
     },
@@ -101,57 +103,6 @@ export const DonateForm = ({ className }: { className?: string }) => {
           />
           <FormField
             control={form.control}
-            name="accountName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel aria-required>ชื่อบัญชีผู้บริจาค</FormLabel>
-                <FormControl>
-                  <Input placeholder="ชื่อบัญชีผู้บริจาค" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="dateTransfer"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel aria-required>วันที่โอน</FormLabel>
-                <FormControl>
-                  <Input
-                    aria-label="Choose date"
-                    className="w-full"
-                    id="time"
-                    type="date"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="timeTransfer"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel aria-required>วันที่โอน</FormLabel>
-                <FormControl>
-                  <Input
-                    aria-label="Choose time"
-                    className="w-full"
-                    id="time"
-                    type="time"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="allowCredit"
             render={({ field }) => (
               <FormItem className="flex flex-row items-start space-x-3 space-y-0">
@@ -214,6 +165,61 @@ export const DonateForm = ({ className }: { className?: string }) => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="accountName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel aria-required>ชื่อบัญชี</FormLabel>
+                <FormControl>
+                  <Input placeholder="ชื่อบัญชี" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* todo: change accountBank to select list */}
+          <FormField
+            control={form.control}
+            name="accountBank"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel aria-required>บัญชีธนาคาร</FormLabel>
+                <FormControl>
+                  <Input placeholder="ธนาคาร" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex flex-col lg:flex-row gap-4">
+            <FormField
+              control={form.control}
+              name="dateTransfer"
+              render={({ field }) => (
+                <FormItem className="basis-3/5">
+                  <FormLabel aria-required>วันที่โอน</FormLabel>
+                  <FormControl>
+                    <DateInput {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="timeTransfer"
+              render={({ field }) => (
+                <FormItem className="basis-2/5">
+                  <FormLabel aria-required>เวลาโอน</FormLabel>
+                  <FormControl>
+                    <TimeInput {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </fieldset>
         <Button type="submit">บริจาค</Button>
       </form>
