@@ -6,7 +6,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 
 import { DepartmentImages } from "./images";
-import background from "./images/background.png";
+import background from "./images/background-long.png";
 
 export function DepartmentsSection() {
   const wrapper = useRef<HTMLDivElement | null>(null);
@@ -16,7 +16,8 @@ export function DepartmentsSection() {
     const sharedConfig: ScrollTrigger.Vars = {
       trigger: wrapper.current,
       scrub: 1,
-      markers: false,
+      markers: true,
+      pin: wrapper.current,
     };
     mm.add(`(min-width: 1024px)`, () => {
       gsap.fromTo(
@@ -27,8 +28,8 @@ export function DepartmentsSection() {
         {
           translateX: "-50%",
           scrollTrigger: {
-            start: "center center+=100px",
-            end: "bottom center+=100px",
+            start: "center center",
+            end: "bottom top+=100px",
             ...sharedConfig,
           },
         }
@@ -41,10 +42,10 @@ export function DepartmentsSection() {
           translateX: 0,
         },
         {
-          translateX: "-100%",
+          translateX: "-50%",
           scrollTrigger: {
             start: "center center+=100px",
-            end: "bottom top+=150px",
+            end: "bottom center-=175px",
             ...sharedConfig,
           },
         }
@@ -58,7 +59,7 @@ export function DepartmentsSection() {
       <div className="overflow-hidden w-full">
         <div
           ref={sectionRef}
-          className="relative z-10 h-[500px] xl:h-[700px] aspect-[87/26]"
+          className="relative z-10 h-[500px] xl:h-[700px] aspect-[1117/167]"
         >
           <div className="absolute left-[90.69px] top-[63.77px] xl:left-[126.96px] xl:top-[89.28px] z-10">
             <div className="flex h-[370px] xl:h-[520px] gap-x-[3.5px] gap-y-[3px] xl:gap-x-[4.5px] xl:gap-y-[4px] flex-col flex-wrap">
