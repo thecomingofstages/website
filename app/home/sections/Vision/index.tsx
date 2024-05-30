@@ -7,7 +7,7 @@ export const VisionSection = () => {
   return (
     <div id="vision">
       <Section className={{ wrapper: "relative", content: "px-0" }}>
-        <div className="absolute top-0 left-0 w-[95vw] h-screen">
+        <div className="absolute top-0 left-0 w-[95vw] h-[90vh]">
           <Eyes />
         </div>
         <div className="relative z-10 flex justify-center items-center">
