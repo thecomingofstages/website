@@ -16,7 +16,7 @@ export function DepartmentsSection() {
     const sharedConfig: ScrollTrigger.Vars = {
       trigger: wrapper.current,
       scrub: 1,
-      markers: true,
+      // markers: true,
       pin: wrapper.current,
     };
     mm.add(`(min-width: 1024px)`, () => {
