@@ -72,7 +72,7 @@ export const DonateSection = () => {
           );
         }
         const flipper = children[i].querySelector("[data-type=flipper]");
-        tl.addLabel(`flip-${i}`, !slide && i === 0 ? undefined : "+=1");
+        tl.addLabel(`flip-${i}`, i === 0 ? "+=2" : slide ? "+=1" : "+=4");
         // console.log(i, flipper);
         tl.fromTo(
           flipper,
@@ -94,16 +94,6 @@ export const DonateSection = () => {
               opacity: 100,
             },
             "end"
-          );
-        } else if (!slide) {
-          // more time for scrolling!
-          tl.addLabel(`scroll-${i}`, "+=3");
-          tl.to(
-            children[i],
-            {
-              opacity: 100,
-            },
-            `scroll-${i}`
           );
         }
       }
@@ -147,7 +137,11 @@ export const DonateSection = () => {
     return () => mm.revert();
   });
   return (
-    <div id="support" ref={sectionRef} className="scroll-mt-16 py-20">
+    <div
+      id="support"
+      ref={sectionRef}
+      className="scroll-mt-36 lg:scroll-mt-64 py-20"
+    >
       <Section
         className={"flex flex-col items-center justify-center gap-12 md:gap-16"}
       >
