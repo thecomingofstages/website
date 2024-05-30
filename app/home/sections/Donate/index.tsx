@@ -25,54 +25,54 @@ export const DonateSection = () => {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(max-width: 980px)", () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "center bottom",
-          end: "bottom center-=150px",
-          scrub: 1,
-          // snap: [0, 0.29, 1],
-          pin: true,
-          markers: true,
-          snap: {
-            snapTo: "labels",
-          },
-        },
-      });
+    const scrollTriggerConfig: ScrollTrigger.Vars = {
+      trigger: sectionRef.current,
+      scrub: 1,
+      // snap: [0, 0.29, 1],
+      pin: true,
+      // markers: true,
+      snap: {
+        snapTo: "labels",
+      },
+    };
+
+    const bubbleScrollTimeline = (tl: gsap.core.Timeline, slide = true) => {
       const children = Array.from(bubbleRef.current!.children);
       for (let i = 0; i < children.length; i++) {
-        gsap.set(children[i], {
-          position: "absolute",
-          top: "150px",
-          translateY: "-50%",
-        });
-        tl.addLabel(`start-${i}`, i === 0 ? undefined : "+=0.7");
-        if (i > 0) {
-          tl.to(
-            children[i - 1],
+        // setup position and trigger slide animations
+        if (slide) {
+          gsap.set(children[i], {
+            position: "absolute",
+            top: "150px",
+            translateY: "-50%",
+          });
+          tl.addLabel(`start-${i}`, i === 0 ? undefined : "+=2");
+          if (i > 0) {
+            tl.to(
+              children[i - 1],
+              {
+                opacity: 0,
+                translateX: "100%",
+              },
+              `start-${i}`
+            );
+          }
+          tl.fromTo(
+            children[i],
             {
               opacity: 0,
-              translateX: "100%",
+              translateX: "-100%",
+            },
+            {
+              opacity: 1,
+              translateX: 0,
+              delay: i === 0 ? 0 : 0.5,
             },
             `start-${i}`
           );
         }
-        tl.fromTo(
-          children[i],
-          {
-            opacity: 0,
-            translateX: "-100%",
-          },
-          {
-            opacity: 1,
-            translateX: 0,
-            delay: i === 0 ? 0 : 0.5,
-          },
-          `start-${i}`
-        );
         const flipper = children[i].querySelector("[data-type=flipper]");
-        tl.addLabel(`flip-${i}`, "+=0.3");
+        tl.addLabel(`flip-${i}`, !slide && i === 0 ? undefined : "+=1");
         // console.log(i, flipper);
         tl.fromTo(
           flipper,
@@ -87,7 +87,7 @@ export const DonateSection = () => {
         );
         if (i + 1 === children.length) {
           // hack to create more time for the last flip
-          tl.addLabel("end", "+=0.5");
+          tl.addLabel("end", "+=2");
           tl.to(
             children[i],
             {
@@ -95,17 +95,66 @@ export const DonateSection = () => {
             },
             "end"
           );
+        } else if (!slide) {
+          // more time for scrolling!
+          tl.addLabel(`scroll-${i}`, "+=3");
+          tl.to(
+            children[i],
+            {
+              opacity: 100,
+            },
+            `scroll-${i}`
+          );
         }
       }
       return () => tl.revert();
+    };
+
+    mm.add("(max-height: 1000px) and (max-width: 1100px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          ...scrollTriggerConfig,
+          start: "center bottom",
+          end: "bottom center-=150px",
+        },
+      });
+
+      return bubbleScrollTimeline(tl);
     });
+
+    mm.add("(min-height: 1001px) and (max-width: 1100px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          ...scrollTriggerConfig,
+          start: "center center+=150px",
+          end: "bottom center-=150px",
+        },
+      });
+      return bubbleScrollTimeline(tl);
+    });
+
+    mm.add("(min-width: 1101px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          ...scrollTriggerConfig,
+          start: "center center+=425px",
+          end: "bottom center",
+        },
+      });
+      return bubbleScrollTimeline(tl, false);
+    });
+
     return () => mm.revert();
   });
   return (
     <div id="support" ref={sectionRef} className="scroll-mt-16 py-20">
-      <Section className={"flex flex-col items-center justify-center gap-12"}>
+      <Section
+        className={"flex flex-col items-center justify-center gap-12 md:gap-16"}
+      >
         <div className="gap-2 flex flex-col items-center justify-center text-center">
-          <h2 className="text-6xl font-bold font-serif italic">SUPPORT US</h2>
+          <h2 className="text-5xl md:text-6xl font-bold font-serif italic">
+            SUPPORT US
+          </h2>
           <span className="text-medium text-xl">
             ทำไมถึงควรร่วมบริจาคกับเรา
           </span>
@@ -142,7 +191,8 @@ export const DonateSection = () => {
         <DonateArtwork>
           <Link
             href="/donate"
-            className="bg-black px-8 py-6 rounded text-white font-bold text-3xl lg:text-4xl font-serif hover:bg-zinc-800 transition-colors duration-200"
+            title="Donate to The Coming of Stages"
+            className="bg-black px-8 py-6 rounded text-white font-bold text-3xl lg:text-4xl font-serif hover:bg-zinc-800 scale-100 hover:scale-105 transition-all duration-200"
           >
             DONATE HERE
           </Link>

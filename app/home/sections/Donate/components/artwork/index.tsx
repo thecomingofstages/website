@@ -12,7 +12,7 @@ export const DonateArtwork = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const common = { alt: "Theme Example" };
+  const common = { alt: "Donate Collage" };
   const {
     props: { srcSet: original, ...rest },
   } = getImageProps({ ...common, src: Arrows.src, width: 864, height: 800 });
