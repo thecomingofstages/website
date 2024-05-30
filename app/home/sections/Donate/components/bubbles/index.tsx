@@ -20,7 +20,7 @@ export const Bubble = ({ bubbleFront, content, title }: BubbleData) => {
         className="flex flex-row relative duration-500 w-[300px] h-[300px]"
         style={{
           transformStyle: "preserve-3d",
-          transform: !open ? "rotateY(0deg)" : "rotateY(180deg)",
+          // transform: !open ? "rotateY(0deg)" : "rotateY(180deg)",
         }}
         onClick={() => setOpen(!open)}
         title={title}

@@ -1,6 +1,6 @@
 import Image, { getImageProps } from "next/image";
 
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 import Collage from "./Collage Artwork.png";
 import Arrows from "./Original Arrows.png";
@@ -8,9 +8,10 @@ import VerticalArrows from "./Vertical Arrows.png";
 
 export const DonateArtwork = ({
   children,
-  className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) => {
+}: {
+  children: React.ReactNode;
+}) => {
   const common = { alt: "Theme Example" };
   const {
     props: { srcSet: original, ...rest },
@@ -24,13 +25,18 @@ export const DonateArtwork = ({
     height: 1151,
   });
   return (
-    <div className={"relative"}>
+    <motion.div
+      className={"relative"}
+      initial={{ opacity: 0, translateY: 100 }}
+      whileInView={{ opacity: 100, translateY: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ amount: 0.5, once: true }}
+    >
       <div
         {...props}
-        className={cn(
-          "w-full absolute left-0 bottom-0 flex items-start justify-center z-20 h-[40%]",
-          className
-        )}
+        className={
+          "w-full absolute left-0 bottom-0 flex items-start justify-center z-20 h-[40%]"
+        }
       >
         {children}
       </div>
@@ -43,6 +49,6 @@ export const DonateArtwork = ({
         {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img {...rest} />
       </picture>
-    </div>
+    </motion.div>
   );
 };

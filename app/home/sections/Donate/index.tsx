@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 
+import { motion } from "framer-motion";
+
 import { gsap } from "@/lib/gsap";
 
 import { Section } from "../base";
@@ -27,8 +29,8 @@ export const DonateSection = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center bottom-=50px",
-          end: "bottom center-=125px",
+          start: "center bottom",
+          end: "bottom center-=150px",
           scrub: 1,
           // snap: [0, 0.29, 1],
           pin: true,
@@ -45,7 +47,7 @@ export const DonateSection = () => {
           top: "150px",
           translateY: "-50%",
         });
-        tl.addLabel(`start-${i}`);
+        tl.addLabel(`start-${i}`, i === 0 ? undefined : "+=0.7");
         if (i > 0) {
           tl.to(
             children[i - 1],
@@ -69,6 +71,31 @@ export const DonateSection = () => {
           },
           `start-${i}`
         );
+        const flipper = children[i].querySelector("[data-type=flipper]");
+        tl.addLabel(`flip-${i}`, "+=0.3");
+        // console.log(i, flipper);
+        tl.fromTo(
+          flipper,
+          {
+            rotateY: 0,
+          },
+          {
+            rotateY: 180,
+            duration: 0.1,
+          },
+          `flip-${i}`
+        );
+        if (i + 1 === children.length) {
+          // hack to create more time for the last flip
+          tl.addLabel("end", "+=0.5");
+          tl.to(
+            children[i],
+            {
+              opacity: 100,
+            },
+            "end"
+          );
+        }
       }
       return () => tl.revert();
     });
@@ -93,7 +120,13 @@ export const DonateSection = () => {
             ))}
           </div>
         </div>
-        <div className="gap-6 flex flex-col items-center justify-center text-center pb-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ amount: 0.9, once: true }}
+          className="gap-6 flex flex-col items-center justify-center text-center pb-10"
+        >
           <h3 className="text-2xl sm:text-3xl font-bold">
             การบริจาคของคุณจะช่วยให้เรา
           </h3>
@@ -105,7 +138,7 @@ export const DonateSection = () => {
             <li>จัดหาอุปกรณ์และเครื่องแต่งกายที่จำเป็น</li>
             <li>เสริมสร้างโอกาสในการเข้าถึงละครเวทีสำหรับเด็กจากทุกภูมิหลัง</li>
           </ul>
-        </div>
+        </motion.div>
         <DonateArtwork>
           <Link
             href="/donate"
