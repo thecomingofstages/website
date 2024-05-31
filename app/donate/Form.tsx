@@ -1,7 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -25,6 +29,8 @@ import { FormImageUploadPreview } from "./fields/ImageUploadPreview";
 import { FormSchema, formSchema } from "./schema";
 
 export const DonateForm = ({ className }: { className?: string }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
+  const router = useRouter();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,22 +55,28 @@ export const DonateForm = ({ className }: { className?: string }) => {
       } else if (typeof value === "boolean") {
         formData.append(key, value ? "true" : "");
       } else {
-        formData.append(key, value.toString());
+        formData.append(key, value?.toString());
       }
     });
-
-    await axios
-      .post("/api/donate/submit", formData, {
+    try {
+      setIsSubmit(true);
+      await axios.post("/api/donate/submit", formData, {
         // onUploadProgress: (progress) => {
         //   console.log(progress);
         // },
-      })
-      .then((response) => {
-        toast("Thank You For Donate!");
-        console.log(response);
-        // Action On Upload Success jaa
       });
-    console.log("test");
+
+      return router.replace("/donate/success");
+      // Action On Upload Success jaa
+    } catch (err) {
+      console.error(err);
+      setIsSubmit(false);
+      toast.error("เกิดข้อผิดพลาดในการส่งคำขอ", {
+        dismissible: false,
+        duration: Number.POSITIVE_INFINITY,
+        description: "ไม่สามารถส่งคำขอได้ในขณะนี้",
+      });
+    }
   };
   return (
     <Form {...form}>
@@ -73,7 +85,10 @@ export const DonateForm = ({ className }: { className?: string }) => {
         className={`space-y-4${className ? ` ${className}` : ""}`}
         encType="multipart/form-data"
       >
-        <fieldset className="p-6 bg-white/10 rounded-lg space-y-4">
+        <fieldset
+          disabled={isSubmit}
+          className="p-6 bg-white/10 rounded-lg space-y-4"
+        >
           <legend className="text-xl font-bold -mb-6">
             โอนเงินผ่านบัญชีธนาคาร
           </legend>
@@ -95,7 +110,10 @@ export const DonateForm = ({ className }: { className?: string }) => {
             )}
           />
         </fieldset>
-        <fieldset className="p-6 bg-white/10 rounded-lg space-y-4">
+        <fieldset
+          disabled={isSubmit}
+          className="p-6 bg-white/10 rounded-lg space-y-4"
+        >
           <legend className="text-xl font-bold -mb-6">ข้อมูลผู้บริจาค</legend>
           <FormField
             control={form.control}
@@ -230,7 +248,10 @@ export const DonateForm = ({ className }: { className?: string }) => {
             />
           </div>
         </fieldset>
-        <Button type="submit">บริจาค</Button>
+        <Button type="submit" disabled={isSubmit}>
+          {isSubmit && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {isSubmit ? "กำลังส่งแบบฟอร์ม..." : "ส่งแบบฟอร์มบริจาค"}
+        </Button>
       </form>
     </Form>
   );

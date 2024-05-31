@@ -45,3 +45,11 @@
 body {
   overflow-x: hidden;
 }
+
+/** Overiding styles is a nightmare. */
+:where([data-sonner-toast]) :where([data-title]) {
+  @apply font-sans text-base;
+}
+:where([data-sonner-toast]) :where([data-description]) {
+  @apply font-sans text-sm;
+}
