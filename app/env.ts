@@ -9,10 +9,12 @@ export const env = createEnv({
     GOOGLE_DONATE_SUBMIT_SHEET_ID: z.string(),
     GOOGLE_DONATE_SLIP_FOLDER_ID: z.string(),
     GOOGLE_DONATE_SUBMIT_SHEET_RANGE: z.string(),
-    DONATION_ACCOUNT_NUMBER: z.string(),
-    DONATION_ACCOUNT_BANK: z.string(),
-    DONATION_ACCOUNT_NAME: z.string(),
-    DONATION_PROMPTPAY_ID: z.string().superRefine((arg, ctx) => {
+  },
+  client: {
+    NEXT_PUBLIC_DONATION_ACCOUNT_NUMBER: z.string(),
+    NEXT_PUBLIC_DONATION_ACCOUNT_BANK: z.string(),
+    NEXT_PUBLIC_DONATION_ACCOUNT_NAME: z.string(),
+    NEXT_PUBLIC_DONATION_PROMPTPAY_ID: z.string().superRefine((arg, ctx) => {
       // We can't use parseInt cause phone number can start with 0
       const isAllNumber = /^[0-9]*$/.test(arg);
       if (!isAllNumber) {
@@ -36,5 +38,14 @@ export const env = createEnv({
       }
     }),
   },
-  experimental__runtimeEnv: {},
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_DONATION_ACCOUNT_BANK:
+      process.env.NEXT_PUBLIC_DONATION_ACCOUNT_BANK,
+    NEXT_PUBLIC_DONATION_ACCOUNT_NAME:
+      process.env.NEXT_PUBLIC_DONATION_ACCOUNT_NAME,
+    NEXT_PUBLIC_DONATION_ACCOUNT_NUMBER:
+      process.env.NEXT_PUBLIC_DONATION_ACCOUNT_NUMBER,
+    NEXT_PUBLIC_DONATION_PROMPTPAY_ID:
+      process.env.NEXT_PUBLIC_DONATION_PROMPTPAY_ID,
+  },
 });

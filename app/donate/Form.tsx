@@ -55,9 +55,9 @@ export const DonateForm = ({ className }: { className?: string }) => {
 
     await axios
       .post("/api/donate/submit", formData, {
-        onUploadProgress: (progress) => {
-          console.log(progress);
-        },
+        // onUploadProgress: (progress) => {
+        //   console.log(progress);
+        // },
       })
       .then((response) => {
         toast("Thank You For Donate!");
