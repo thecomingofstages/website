@@ -75,6 +75,7 @@ export const insertToSheet = async (
     amount,
     email,
     accountName,
+    accountBank,
     dateTransfer,
     timeTransfer,
     slipUrl,
@@ -88,17 +89,17 @@ export const insertToSheet = async (
     valueInputOption: "USER_ENTERED",
     range: env.GOOGLE_DONATE_SUBMIT_SHEET_RANGE,
     requestBody: {
-      // todo: make sure timezone works!
       values: [
         [
           nanoid(),
           `${dayjs(dateTransfer).format("DD/MM/YYYY")} ${timeTransfer}`,
           name,
-          accountName,
           allowCredit,
           amount,
           email,
           slipUrl,
+          accountName,
+          accountBank,
         ],
       ],
     },

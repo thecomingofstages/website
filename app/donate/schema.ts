@@ -7,7 +7,7 @@ export const formSchema = z.object({
       required_error: "กรุณากรอกชื่อผู้บริจาค",
     })
   ),
-  allowCredit: z.boolean().default(false),
+  allowCredit: z.coerce.boolean().default(false),
   accountName: zfd.text(
     z.string({
       required_error: "กรุณากรอกชื่อบัญชี",
@@ -20,7 +20,6 @@ export const formSchema = z.object({
   ),
   dateTransfer: z.preprocess(
     (val) => {
-      console.log(val);
       if (val && typeof val === "string") return new Date(val);
       if (val instanceof Date) return val;
     },

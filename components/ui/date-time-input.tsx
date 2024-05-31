@@ -189,7 +189,9 @@ const TimeInput = ({ value, onChange }: TimeInputProps) => {
       onChange?.("Invalid Time");
       return;
     }
-    onChange?.(`${hour}:${minute}`);
+    onChange?.(
+      `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`
+    );
   };
 
   return (

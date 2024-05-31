@@ -39,10 +39,19 @@ export const DonateForm = ({ className }: { className?: string }) => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormSchema> = async (values, e) => {
-    const form = e?.target as HTMLFormElement;
-    if (!form) return;
-    const formData = new FormData(form);
+  const onSubmit: SubmitHandler<FormSchema> = async (values) => {
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      if (key === "slip") {
+        formData.append(key, value as File);
+      } else if (value instanceof Date) {
+        formData.append(key, value.toISOString());
+      } else if (typeof value === "boolean") {
+        formData.append(key, value ? "true" : "");
+      } else {
+        formData.append(key, value.toString());
+      }
+    });
 
     await axios
       .post("/api/donate/submit", formData, {
