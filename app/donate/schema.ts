@@ -1,6 +1,4 @@
-// Why don't we use Remix if we need to import their packages at the end?
-import { isDate, isValid } from "date-fns";
-import { z } from "zod";
+import { ZodParsedType, z } from "zod";
 import { zfd } from "zod-form-data";
 
 export const formSchema = z.object({
@@ -22,18 +20,33 @@ export const formSchema = z.object({
   ),
   dateTransfer: z.preprocess(
     (val) => {
-      if (isValid(isDate(val))) return val;
-      if (typeof val === "string") {
-        const date = new Date(val);
-        if (isValid(date)) return date;
-      }
+      console.log(val);
+      if (val && typeof val === "string") return new Date(val);
+      if (val instanceof Date) return val;
     },
     z.date({
-      required_error: "กรุณากรอกวันที่ที่โอนเงิน",
+      errorMap: (issue, ctx) => {
+        if (
+          issue.code === z.ZodIssueCode.invalid_type &&
+          issue.received === ZodParsedType.undefined
+        ) {
+          return {
+            message: "กรุณากรอกวันที่ที่โอนเงิน",
+          };
+        }
+        if (issue.code === z.ZodIssueCode.invalid_date) {
+          return {
+            message: "กรุณากรอกวันที่ที่ถูกต้อง",
+          };
+        }
+        return z.getErrorMap()(issue, ctx);
+      },
     })
   ),
   timeTransfer: zfd.text(
-    z.string({ required_error: "กรุณากรอกเวลาที่โอนเงิน" })
+    z
+      .string({ required_error: "กรุณากรอกเวลาที่โอนเงิน" })
+      .refine((val) => val.split(":").length === 2, "กรุณากรอกเวลาที่ถูกต้อง")
   ),
   amount: zfd.numeric(
     z

@@ -2,7 +2,7 @@
 
 import React, { RefObject, useEffect, useRef } from "react";
 
-import { isExists } from "date-fns";
+import { isExists, isValid } from "date-fns";
 
 import { Input, InputProps } from "./input";
 
@@ -29,10 +29,7 @@ const DateTimeInputField = React.forwardRef<
 
     const formatOnBlur = (e: React.FocusEvent<HTMLInputElement>) => {
       onBlur?.(e);
-      if (
-        (inputType === "hour" && e.currentTarget.value === "24") ||
-        (inputType === "minute" && e.currentTarget.value === "60")
-      ) {
+      if (inputType === "hour" && e.currentTarget.value === "24") {
         e.currentTarget.value = "0";
         onChange(e.currentTarget.value);
       }
@@ -99,7 +96,7 @@ const DateInput = ({ value, onChange }: DateInputProps) => {
   });
 
   useEffect(() => {
-    if (value) {
+    if (value && isValid(value)) {
       fieldValues.current.day = value.getDate();
       fieldValues.current.month = value.getMonth();
       fieldValues.current.year = value.getFullYear();
