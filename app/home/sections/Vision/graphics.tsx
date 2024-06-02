@@ -21,22 +21,23 @@ export const Eye = () => {
   );
 };
 
-export const Eyes = () => {
+export const Eyes = ({ minHeight }: { minHeight: number }) => {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [size, setSize] = React.useState<{ cols: number; rows: number }>();
   React.useEffect(() => {
     const set = () => {
       const offset = window.matchMedia("(max-width: 768px)").matches ? 0 : 100;
       const width = window.matchMedia("(max-width: 640px)").matches ? 200 : 300;
+      const height = Math.max(window.innerHeight, minHeight);
       setSize({
-        cols: Math.floor((window.innerWidth - offset) / width),
-        rows: Math.floor((window.innerHeight - offset) / 110),
+        cols: Math.floor((window.innerWidth - offset) / 400),
+        rows: Math.floor((height - offset) / 110),
       });
     };
     set();
     window.addEventListener("resize", set);
     return () => window.removeEventListener("resize", set);
-  }, []);
+  }, [minHeight]);
 
   useGSAP(
     () => {
@@ -73,7 +74,9 @@ export const Eyes = () => {
       }}
     >
       {new Array(size.cols * size.rows).fill(null).map((_, i) => (
-        <Eye key={i} />
+        <div key={i} className="w-full h-full flex items-center justify-center">
+          <Eye />
+        </div>
       ))}
     </div>
   );

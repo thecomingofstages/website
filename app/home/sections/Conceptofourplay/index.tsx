@@ -37,7 +37,7 @@ export const ConceptOfOurPlaySection = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               viewport={{ amount: 0.7, once: true }}
               id="head"
-              className="text-4xl md:text-5xl font-serif font-bold px-6 text-center"
+              className="text-4xl md:text-5xl font-serif font-bold px-10 text-center"
             >
               CONCEPT OF OUR PLAY
             </motion.div>
@@ -47,16 +47,17 @@ export const ConceptOfOurPlaySection = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               viewport={{ amount: 0.7, once: true }}
               id="content"
-              className="text-sm sm:text-base leading-6 sm:leading-7 max-w-[800px] opacity-90 text-center w-full px-6"
+              className="text-base leading-7 max-w-[800px] opacity-90 text-center w-full px-10"
             >
-              หนึ่งในธีมที่ละครปีนี้จะหยิบยกมาเล่าคือเรื่องของความโลภและวัฏจักรความไม่รู้จักพอของมนุษย์
-              ในมุมหนึ่งก็มีคนบางบางกลุ่มที่เชื่อว่าความโลภคือสิ่งที่ดี
-              เพราะมันคือสิ่งที่ถูกมองว่าเป็นแรงผลักดันให้ผู้คนพัฒนา
-              แต่ในขณะเดียวกัน หากผู้ใดที่มีความโลภมากจนเกินไป
-              ก็จะนํามาซึ่งหายนะ
-              เพราะความโลภทําให้ผู้คนอยากครอบครองบางอย่างจนขาดสติ
-              และตัดสินใจที่จะทําทุกอย่างเพื่อที่จะนํามาซึ่งการครอบครอง
-              แม้ว่าสิ่งนั้นจะเป็นสิ่งที่ผิดก็ตาม
+              หนึ่งในธีมที่ละครปีนี้จะหยิบยกมาเล่าคือเรื่องของ
+              <b>ความโลภและวัฏจักรความไม่รู้จักพอของมนุษย์</b>{" "}
+              ในมุมหนึ่งก็มีคนบางกลุ่มที่เชื่อว่าความโลภคือสิ่งที่ดี
+              เพราะมันคือสิ่งที่ถูกมองว่า<b>เป็นแรงผลักดันให้ผู้คนพัฒนา</b>{" "}
+              แต่ในขณะเดียวกัน หากผู้ใดที่<b>มีความโลภมากจนเกินไป</b>
+              ก็จะนํามาซึ่งหายนะ เพราะความโลภทําให้ผู้คน
+              <b>อยากครอบครองบางอย่างจนขาดสติ</b>
+              และตัดสินใจที่จะทําทุกอย่างเพื่อที่จะนํามาซึ่งการครอบครอง แม้ว่า
+              <b>สิ่งนั้นจะเป็นสิ่งที่ผิด</b>ก็ตาม
             </motion.p>
             <motion.div
               initial={{ opacity: 0, transform: "translateY(20px)" }}
@@ -69,12 +70,10 @@ export const ConceptOfOurPlaySection = () => {
                 id="foot"
                 className="absolute inset-0 w-full flex flex-col text-center h-[150px] justify-center"
               >
-                <span className="text-3xl md:text-4xl font-bold font-serif">
+                <span className="text-4xl font-bold font-serif">
                   Hansel & Gretel
                 </span>
-                <span className="text-xl md:text-2xl italic">
-                  : Home Sweet Home
-                </span>
+                <span className="text-2xl italic">: Home Sweet Home</span>
               </div>
               <div id="gimmig" className="flex items-center justify-center">
                 <div className="max-w-5xl">

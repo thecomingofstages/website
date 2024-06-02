@@ -58,9 +58,9 @@ export const GettingToKnowUsSection = () => {
           viewport={{ amount: 0.7, once: true }}
           className="flex flex-col gap-4 pt-8 xl:pt-16 xl:pb-8"
         >
-          <h2 className="font-bold font-serif flex flex-wrap gap-x-4 gap-y-1 leading-8">
-            <span className="text-4xl lg:text-6xl">Getting to</span>
-            <span className="text-5xl md:text-4xl lg:text-6xl">know us</span>
+          <h2 className="font-bold font-serif flex flex-wrap gap-2 leading-8">
+            <span className="text-5xl">Getting to</span>
+            <span className="text-5xl">know us</span>
           </h2>
         </motion.div>
         <div className="flex w-full gap-4">
