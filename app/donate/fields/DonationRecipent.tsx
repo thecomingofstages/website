@@ -38,6 +38,7 @@ export const DonationRecipent = ({ value }: { value?: number }) => {
           value={generatePayload(env.NEXT_PUBLIC_DONATION_PROMPTPAY_ID, {
             amount: value,
           })}
+          className="max-h-[min(300px,30vh)]"
         />
       </div>
     </div>

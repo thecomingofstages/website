@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { BankSelect } from "./fields/BankSelect";
 import { DonationAmountInput } from "./fields/DonationAmount";
 import { DonationRecipent } from "./fields/DonationRecipent";
 import { FormImageUploadPreview } from "./fields/ImageUploadPreview";
@@ -197,23 +198,26 @@ export const DonateForm = ({ className }: { className?: string }) => {
             name="accountName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel aria-required>ชื่อบัญชี</FormLabel>
+                <FormLabel aria-required>ชื่อบัญชีผู้โอน</FormLabel>
                 <FormControl>
-                  <Input placeholder="ชื่อบัญชี" {...field} />
+                  <Input placeholder="ชื่อบัญชีผู้โอน" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* todo: change accountBank to select list */}
           <FormField
             control={form.control}
             name="accountBank"
-            render={({ field }) => (
+            render={({ field: { value, onChange, disabled } }) => (
               <FormItem>
-                <FormLabel aria-required>บัญชีธนาคาร</FormLabel>
+                <FormLabel aria-required>ธนาคารบัญชีผู้โอน</FormLabel>
                 <FormControl>
-                  <Input placeholder="ธนาคาร" {...field} />
+                  <BankSelect
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -223,11 +227,15 @@ export const DonateForm = ({ className }: { className?: string }) => {
             <FormField
               control={form.control}
               name="dateTransfer"
-              render={({ field }) => (
+              render={({ field: { onChange, value, disabled } }) => (
                 <FormItem className="basis-3/5">
                   <FormLabel aria-required>วันที่โอน</FormLabel>
                   <FormControl>
-                    <DateInput {...field} />
+                    <DateInput
+                      value={value}
+                      onChange={onChange}
+                      disabled={disabled}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -236,11 +244,15 @@ export const DonateForm = ({ className }: { className?: string }) => {
             <FormField
               control={form.control}
               name="timeTransfer"
-              render={({ field }) => (
+              render={({ field: { onChange, value, disabled } }) => (
                 <FormItem className="basis-2/5">
                   <FormLabel aria-required>เวลาโอน</FormLabel>
                   <FormControl>
-                    <TimeInput {...field} />
+                    <TimeInput
+                      value={value}
+                      onChange={onChange}
+                      disabled={disabled}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
