@@ -37,6 +37,7 @@ export const env = createEnv({
         });
       }
     }),
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_DONATION_ACCOUNT_BANK:
@@ -47,5 +48,6 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_DONATION_ACCOUNT_NUMBER,
     NEXT_PUBLIC_DONATION_PROMPTPAY_ID:
       process.env.NEXT_PUBLIC_DONATION_PROMPTPAY_ID,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   },
 });

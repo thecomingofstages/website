@@ -5,6 +5,7 @@ import { Prompt, STIX_Two_Text } from "next/font/google";
 import { Toaster } from "sonner";
 
 import "../fonts/avenir/index.css";
+import { env } from "./env";
 import "./globals.css";
 
 const titleFont = STIX_Two_Text({
@@ -46,8 +47,8 @@ export default function RootLayout({
         {children}
       </body>
       {process.env.NODE_ENV === "production" &&
-        process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}
     </html>
   );
