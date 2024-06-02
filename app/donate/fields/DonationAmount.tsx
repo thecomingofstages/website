@@ -10,13 +10,13 @@ import { Input } from "@/components/ui/input";
 import { FormSchema } from "../schema";
 
 const prefilledAmounts: Array<number | "custom"> = [
-  20,
   50,
   100,
   200,
   500,
   1000,
   5000,
+  10000,
   "custom",
 ];
 
