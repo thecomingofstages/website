@@ -19,9 +19,10 @@ export const FormImageUploadPreview = React.forwardRef<
     // eslint-disable-next-line @next/next/no-img-element
     <img
       alt={`Form File Image Preview : ${src?.name}`}
+      {...props}
       ref={ref}
       src={url}
-      {...props}
+      className="w-full max-h-[50vh] object-contain rounded-md border border-zinc-700 bg-zinc-800"
     />
   );
 });

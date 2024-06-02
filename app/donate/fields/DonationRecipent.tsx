@@ -1,48 +1,25 @@
-import { useEffect, useState, useTransition } from "react";
-import { useFormState } from "react-dom";
+import generatePayload from "promptpay-qr";
+import QRCode from "react-qr-code";
 
-import { useDebounce } from "use-debounce";
-
-import { generatePromptpayQR, getRuntimeRecipent } from "../donation.action";
+import { env } from "@/app/env";
 
 export const DonationRecipent = ({ value }: { value?: number }) => {
-  const [amount] = useDebounce(value, 500);
-  const [recipent, fetchRecipent] = useFormState(getRuntimeRecipent, null);
-  const [QRCode, setQRCode] = useState<JSX.Element | null>(null);
-  const [isTransitionLoading, startTransition] = useTransition();
-
-  const [isLoading] = useDebounce(isTransitionLoading, 50);
-  useEffect(() => {
-    startTransition(() => {
-      fetchRecipent();
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    if (amount) {
-      startTransition(() => {
-        setQRCode(generatePromptpayQR(amount));
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount]);
-
-  if (!recipent || !amount) return null;
+  if (!value) return null;
   return (
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 p-4 lg:p-6 border bg-white text-black rounded-lg">
       <div className="flex flex-col gap-1.5 text-sm flex-grow flex-shrink-0 ">
         <b className="text-lg">โอนเงินเข้าสู่บัญชีธนาคาร</b>
-        <span>ธนาคาร{recipent.accountBank}</span>
+        <span>ธนาคาร{env.NEXT_PUBLIC_DONATION_ACCOUNT_BANK}</span>
         <span>
           หมายเลขบัญชี{" "}
           <span className="font-medium select-all text-red-600">
-            {recipent.accountNumber}
+            {env.NEXT_PUBLIC_DONATION_ACCOUNT_NUMBER}
           </span>
         </span>
         <span>
           ชื่อบัญชี{" "}
           <span className="font-medium select-all text-red-600">
-            {recipent.accountName}
+            {env.NEXT_PUBLIC_DONATION_ACCOUNT_NAME}
           </span>
         </span>
         <span>
@@ -51,11 +28,19 @@ export const DonationRecipent = ({ value }: { value?: number }) => {
             {new Intl.NumberFormat("th-TH", {
               style: "currency",
               currency: "THB",
-            }).format(amount)}
+            }).format(value)}
           </span>
         </span>
       </div>
-      <div>{isLoading ? "กำลังโหลด..." : QRCode}</div>
+      <div>
+        <QRCode
+          size={"100%"}
+          value={generatePayload(env.NEXT_PUBLIC_DONATION_PROMPTPAY_ID, {
+            amount: value,
+          })}
+          className="max-h-[min(300px,30vh)]"
+        />
+      </div>
     </div>
   );
 };

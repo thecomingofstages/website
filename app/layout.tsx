@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Prompt, STIX_Two_Text } from "next/font/google";
 
+import { Toaster } from "sonner";
+
 import "../fonts/avenir/index.css";
 import "./globals.css";
 
@@ -34,6 +36,7 @@ export default function RootLayout({
       <body
         className={`${titleFont.variable} ${bodyFont.variable} bg-black text-white font-sans overflow-x-hidden`}
       >
+        <Toaster />
         {children}
       </body>
     </html>
