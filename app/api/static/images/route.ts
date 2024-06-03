@@ -61,6 +61,59 @@ const imageEncoder = async (format: string) => {
   }
 };
 
+const decodeImage = async (img: Response, extension: string) => {
+  const buffer = await img.clone().arrayBuffer();
+  console.log("Begin decode");
+  const decode = await imageDecoder(extension);
+  return await decode(buffer);
+};
+const resizeImage = async (imageData: ImageData, width: number) => {
+  try {
+    console.log("Begin resize");
+    await initResize(RESIZE_ENC_WASM);
+    return await resize(imageData, {
+      fitMethod: "contain",
+      width,
+      height: Math.round((width / imageData.width) * imageData.height),
+    });
+  } catch (err) {
+    console.error(err);
+    return imageData;
+  }
+};
+
+const encodeImage = async (
+  imageData: ImageData,
+  {
+    extension,
+    isWebpSupported,
+    quality,
+  }: {
+    extension: string;
+    isWebpSupported: boolean;
+    quality: number;
+  }
+) => {
+  if (isWebpSupported) {
+    try {
+      console.log("Begin encode webp");
+      await initWebpWasm(WEBP_ENC_WASM);
+      return {
+        buffer: await encodeWebp(imageData, { quality }),
+        contentType: "image/webp",
+      };
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  console.log("Begin encode");
+  const encode = await imageEncoder(extension);
+  return {
+    buffer: await encode(imageData, { quality }),
+    contentType: `image/${extension}`,
+  };
+};
+
 export const GET = async (nextRequest: NextRequest) => {
   const { nextUrl, headers } = nextRequest;
   const params = nextUrl.searchParams;
@@ -103,44 +156,14 @@ export const GET = async (nextRequest: NextRequest) => {
     return new Response("Image not found", { status: 404 });
   }
 
-  const resizeImage = async () => {
-    const buffer = await img.clone().arrayBuffer();
-    console.log("Begin decode");
-    const decode = await imageDecoder(extension);
-    let imageData = await decode(buffer);
-    try {
-      console.log("Begin resize");
-      await initResize(RESIZE_ENC_WASM);
-      imageData = await resize(imageData, {
-        fitMethod: "contain",
-        width,
-        height: Math.round((width / imageData.width) * imageData.height),
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    if (isWebpSupported) {
-      try {
-        console.log("Begin encode webp");
-        await initWebpWasm(WEBP_ENC_WASM);
-        return {
-          buffer: await encodeWebp(imageData, { quality }),
-          contentType: "image/webp",
-        };
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    console.log("Begin encode");
-    const encode = await imageEncoder(extension);
-    return {
-      buffer: await encode(imageData, { quality }),
-      contentType: `image/${extension}`,
-    };
-  };
-
   try {
-    const image = await resizeImage();
+    const decodedImage = await decodeImage(img, extension);
+    const resizedImage = await resizeImage(decodedImage, width);
+    const image = await encodeImage(resizedImage, {
+      extension,
+      isWebpSupported,
+      quality,
+    });
     let filename = url.split("/").pop() as string;
     if (isWebpSupported) filename = filename.replace(`.${extension}`, ".webp");
     const response = new Response(image.buffer, {
