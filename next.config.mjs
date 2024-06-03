@@ -1,4 +1,6 @@
 // @ts-check
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
+
 import dotenv from "dotenv";
 import createJiti from "jiti";
 import { fileURLToPath } from "node:url";
@@ -8,6 +10,10 @@ dotenv.config();
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
 jiti(`./app/env`);
+
+if (process.env.NODE_ENV === "development") {
+  await setupDevPlatform();
+}
 
 if (process.env.NODE_ENV === "production") {
   // Check for mandatory environment variables required in build time
@@ -95,6 +101,15 @@ const nextConfig = {
       },
     ];
   },
+  // webpack(config, { isServer }) {
+  //   // if (isServer) {
+  //   config.module.rules.push({
+  //     test: /\.wasm/,
+  //     type: "asset/resource",
+  //   });
+  //   // }
+  //   return config;
+  // },
   experimental: {
     serverActions: {
       allowedOrigins: getServerActionsOrigin(),
