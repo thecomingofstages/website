@@ -42,7 +42,7 @@ export const ContactSection = () => {
                   title="Facebook"
                   target="_blank"
                   rel="noreferrer"
-                  href="https://www.facebook.com/profile.php?id=61557725535970&mibextid=LQQJ4d"
+                  href="https://www.facebook.com/profile.php?id=61557725535970"
                 >
                   <Image
                     src={Facebook}

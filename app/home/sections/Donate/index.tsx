@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 
+import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 
 import { gsap } from "@/lib/gsap";
@@ -19,7 +20,7 @@ const bubbles = [missionBubble, futureBubble, howToBubble];
 export const DonateSection = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const bubbleRef = useRef<HTMLDivElement | null>(null);
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const scroller = bubbleRef.current?.parentElement;
     if (!scroller || !bubbleRef.current) return;
 
@@ -43,8 +44,8 @@ export const DonateSection = () => {
         if (slide) {
           gsap.set(children[i], {
             position: "absolute",
-            top: "150px",
-            translateY: "-50%",
+            top: "0px",
+            // translateY: "-50%",
           });
           tl.addLabel(`start-${i}`, i === 0 ? undefined : "+=2");
           if (i > 0) {
@@ -135,12 +136,12 @@ export const DonateSection = () => {
     });
 
     return () => mm.revert();
-  });
+  }, []);
   return (
     <div
       id="support"
       ref={sectionRef}
-      className="scroll-mt-36 lg:scroll-mt-64 py-20"
+      className="scroll-mt-36 lg:scroll-mt-64 py-20 overflow-hidden"
     >
       <Section
         className={"flex flex-col items-center justify-center gap-12 md:gap-16"}
@@ -156,7 +157,7 @@ export const DonateSection = () => {
         <div className="w-full relative h-[300px]">
           <div
             ref={bubbleRef}
-            className="flex flex-row gap-10 justify-center items-center"
+            className="flex flex-row gap-10 justify-center items-center h-full"
           >
             {bubbles.map((bubble) => (
               <Bubble key={bubble.title} {...bubble} />
