@@ -13,6 +13,9 @@ importers:
 
   .:
     dependencies:
+      '@cf-wasm/photon':
+        specifier: ^0.1.20
+        version: 0.1.20
       '@gsap/react':
         specifier: ^2.1.1
         version: 2.1.1
@@ -292,6 +295,9 @@ packages:
   '@babel/types@7.24.0':
     resolution: {integrity: sha512-+j7a5c253RfKh8iABBhywc8NSfP5LURe7Uh4qpsh6jc+aLJguvmIUBdjSdEMQv2bENrCR5MfRdjGo7vzS/ob7w==}
     engines: {node: '>=6.9.0'}
+
+  '@cf-wasm/photon@0.1.20':
+    resolution: {integrity: sha512-txQcza5YEmc/BKDtSZmxDVPj5eHHqvrcijyjE/ah1oi09+p9cDpZnLacMtuX5cPpiY3CLIahPvD2veQ5A1ndyA==}
 
   '@cloudflare/kv-asset-handler@0.3.2':
     resolution: {integrity: sha512-EeEjMobfuJrwoctj7FA1y1KEbM0+Q1xSjobIEyie9k4haVEBB7vkDvsasw1pM3rO39mL2akxIAzLMUAtrMHZhA==}
@@ -4239,6 +4245,8 @@ snapshots:
       '@babel/helper-string-parser': 7.24.1
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
+
+  '@cf-wasm/photon@0.1.20': {}
 
   '@cloudflare/kv-asset-handler@0.3.2':
     dependencies:

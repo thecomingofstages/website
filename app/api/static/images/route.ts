@@ -1,29 +1,5 @@
+import * as photon from "@cf-wasm/photon/next";
 import { NextRequest } from "next/server";
-
-// [JPEG] Decode module
-// @ts-ignore wasm import
-import JPEG_DEC_WASM from "@jsquash/jpeg/codec/dec/mozjpeg_dec.wasm?module";
-// [JPEG] Encode module
-// @ts-ignore wasm import
-import JPEG_ENC_WASM from "@jsquash/jpeg/codec/enc/mozjpeg_enc.wasm?module";
-import decodeJpeg, { init as initJpegDecode } from "@jsquash/jpeg/decode";
-import encodeJpeg, { init as initJpegEncode } from "@jsquash/jpeg/encode";
-// [PNG] Decode module
-// @ts-ignore wasm import
-import PNG_DEC_WASM from "@jsquash/png/codec/pkg/squoosh_png_bg.wasm?module";
-// [PNG] Encode module
-// @ts-ignore wasm
-import PNG_ENC_WASM from "@jsquash/png/codec/pkg/squoosh_png_bg.wasm?module";
-import decodePng, { init as initPngDecode } from "@jsquash/png/decode";
-import encodePng, { init as initPngEncode } from "@jsquash/png/encode";
-// Resize Module
-import resize, { initResize } from "@jsquash/resize";
-// @ts-ignore wasm import
-import RESIZE_ENC_WASM from "@jsquash/resize/lib/resize/pkg/squoosh_resize_bg.wasm?module";
-// [WebP] Encode Module
-// @ts-ignore wasm import
-import WEBP_ENC_WASM from "@jsquash/webp/codec/enc/webp_enc_simd.wasm?module";
-import encodeWebp, { init as initWebpWasm } from "@jsquash/webp/encode";
 
 export const runtime = "edge";
 
@@ -33,85 +9,19 @@ const getDefaultCache = () => {
     : null;
 };
 
-const imageDecoder = async (format: string) => {
-  switch (format) {
-    case "jpeg":
-    case "jpg":
-      await initJpegDecode(JPEG_DEC_WASM);
-      return decodeJpeg;
-    case "png":
-      await initPngDecode(PNG_DEC_WASM);
-      return decodePng;
-    default:
-      throw new Error("Unsupported image format");
-  }
-};
-
-const imageEncoder = async (format: string) => {
-  switch (format) {
-    case "jpeg":
-    case "jpg":
-      await initJpegEncode(JPEG_ENC_WASM);
-      return encodeJpeg;
-    case "png":
-      await initPngEncode(PNG_ENC_WASM);
-      return encodePng;
-    default:
-      throw new Error("Unsupported image format");
-  }
-};
-
-const decodeImage = async (img: Response, extension: string) => {
-  const buffer = await img.clone().arrayBuffer();
-  console.log("Begin decode");
-  const decode = await imageDecoder(extension);
-  return await decode(buffer);
-};
-const resizeImage = async (imageData: ImageData, width: number) => {
-  try {
-    console.log("Begin resize");
-    await initResize(RESIZE_ENC_WASM);
-    return await resize(imageData, {
-      fitMethod: "contain",
-      width,
-      height: Math.round((width / imageData.width) * imageData.height),
-    });
-  } catch (err) {
-    console.error(err);
-    return imageData;
-  }
-};
-
-const encodeImage = async (
-  imageData: ImageData,
-  {
-    extension,
-    isWebpSupported,
-    quality,
-  }: {
-    extension: string;
-    isWebpSupported: boolean;
-    quality: number;
-  }
+const encodeImage = (
+  image: photon.PhotonImage,
+  format: string,
+  quality: number
 ) => {
-  if (isWebpSupported) {
-    try {
-      console.log("Begin encode webp");
-      await initWebpWasm(WEBP_ENC_WASM);
-      return {
-        buffer: await encodeWebp(imageData, { quality }),
-        contentType: "image/webp",
-      };
-    } catch (err) {
-      console.error(err);
-    }
+  switch (format) {
+    case "webp":
+      return image.get_bytes_webp();
+    case "jpeg":
+      return image.get_bytes_jpeg(quality);
+    case "png":
+      return image.get_bytes();
   }
-  console.log("Begin encode");
-  const encode = await imageEncoder(extension);
-  return {
-    buffer: await encode(imageData, { quality }),
-    contentType: `image/${extension}`,
-  };
 };
 
 export const GET = async (nextRequest: NextRequest) => {
@@ -140,11 +50,9 @@ export const GET = async (nextRequest: NextRequest) => {
 
   const cache = getDefaultCache();
   if (cache) {
-    console.log("Cache is available");
     const cached = await cache.match(cacheKey);
     if (cached) return cached;
   }
-  console.log("Cache not found. Begin fetch");
   const requestHeaders = new Headers({
     "Accept-Encoding": headers.get("Accept-Encoding") ?? "",
     "If-None-Match": headers.get("If-None-Match") ?? "",
@@ -157,19 +65,38 @@ export const GET = async (nextRequest: NextRequest) => {
   }
 
   try {
-    const decodedImage = await decodeImage(img, extension);
-    const resizedImage = await resizeImage(decodedImage, width);
-    const image = await encodeImage(resizedImage, {
-      extension,
-      isWebpSupported,
-      quality,
-    });
+    const input = photon.PhotonImage.new_from_byteslice(
+      new Uint8Array(await img.clone().arrayBuffer())
+    );
+    const resized = photon.resize(
+      input,
+      width,
+      (input.get_height() / input.get_width()) * width,
+      // @ts-ignore
+      1
+    );
+
+    const buffer = encodeImage(
+      resized,
+      isWebpSupported ? "webp" : extension,
+      quality
+    );
+
+    input.free();
+    resized.free();
+
+    const contentType = isWebpSupported
+      ? "image/webp"
+      : extension === "png"
+        ? "image/png"
+        : "image/jpeg";
+
     let filename = url.split("/").pop() as string;
     if (isWebpSupported) filename = filename.replace(`.${extension}`, ".webp");
-    const response = new Response(image.buffer, {
+    const response = new Response(buffer, {
       status: 200,
       headers: {
-        "Content-Type": image.contentType,
+        "Content-Type": contentType,
         "Cache-Control":
           img.headers.get("Cache-Control") ??
           "public, max-age=315360000, immutable",

@@ -95,13 +95,10 @@ const nextConfig = {
       },
     ];
   },
-  images:
-    process.env.NODE_ENV === "production"
-      ? {
-          loader: "custom",
-          loaderFile: "./cf-image-loader.js",
-        }
-      : undefined,
+  images: {
+    loader: "custom",
+    loaderFile: "./cf-image-loader.js",
+  },
   experimental: {
     serverActions: {
       allowedOrigins: getServerActionsOrigin(),
