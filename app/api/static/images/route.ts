@@ -40,6 +40,10 @@ export const GET = async (nextRequest: NextRequest) => {
     return new Response("Invalid image extension", { status: 400 });
   }
 
+  if (!url.startsWith("/_next/static")) {
+    return new Response("Invalid image URL", { status: 400 });
+  }
+
   const isWebpSupported =
     headers.get("accept")?.includes("image/webp") ?? false;
   const cacheKeyUrl = isWebpSupported
