@@ -96,7 +96,7 @@ const nextConfig = {
     ];
   },
   images:
-    process.env.CF_PAGES !== "1"
+    process.env.NODE_ENV === "production"
       ? {
           loader: "custom",
           loaderFile: "./cf-image-loader.js",
