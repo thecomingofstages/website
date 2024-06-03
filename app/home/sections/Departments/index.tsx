@@ -73,8 +73,9 @@ export function DepartmentsSection() {
           <Image
             src={background}
             alt="background"
-            fill
-            className="object-contain"
+            width={2154}
+            height={700}
+            className="absolute inset-0 w-full h-full object-cover z-0"
           />
         </div>
       </div>

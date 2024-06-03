@@ -159,7 +159,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
               <FormItem>
                 <FormLabel aria-required>อีเมล</FormLabel>
                 <FormDescription>
-                  อีเมลสำหรับส่งข้อมูลยืนยันการบริจาคของท่านแล้ว
+                  อีเมลสำหรับติดต่อเพื่อส่งการตอบรับยืนยันการบริจาคของท่านแล้ว
                 </FormDescription>
                 <FormControl>
                   <Input placeholder="อีเมลผู้บริจาค" {...field} />
@@ -175,8 +175,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
               <FormItem>
                 <FormLabel aria-required>สลิปการโอนเงิน</FormLabel>
                 <FormDescription>
-                  สลิปการโอนเงินเพื่อยืนยันการบริจาคของท่าน โดยสลิปนี้จะต้องมี
-                  QR Code สำหรับตรวจสอบการโอน
+                  สลิปการโอนเงินเพื่อยืนยันการบริจาคของท่าน
                 </FormDescription>
                 <FormControl>
                   <Input
@@ -229,7 +228,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
               name="dateTransfer"
               render={({ field: { onChange, value, disabled } }) => (
                 <FormItem className="basis-3/5">
-                  <FormLabel aria-required>วันที่โอน</FormLabel>
+                  <FormLabel aria-required>วันที่โอนเงิน</FormLabel>
                   <FormControl>
                     <DateInput
                       value={value}
@@ -246,7 +245,7 @@ export const DonateForm = ({ className }: { className?: string }) => {
               name="timeTransfer"
               render={({ field: { onChange, value, disabled } }) => (
                 <FormItem className="basis-2/5">
-                  <FormLabel aria-required>เวลาโอน</FormLabel>
+                  <FormLabel aria-required>เวลาที่โอนเงิน</FormLabel>
                   <FormControl>
                     <TimeInput
                       value={value}

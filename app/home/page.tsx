@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import Navbar from "../Navbar";
 import { ConceptOfOurPlaySection } from "./sections/Conceptofourplay";
 import { ContactSection } from "./sections/Contact";
@@ -6,6 +8,10 @@ import { DonateSection } from "./sections/Donate";
 import { GettingToKnowUsSection } from "./sections/Know";
 import { LandingSection } from "./sections/Landing";
 import { VisionSection } from "./sections/Vision";
+
+export const metadata: Metadata = {
+  title: "หน้าหลัก",
+};
 
 export default function HomePage() {
   return (
