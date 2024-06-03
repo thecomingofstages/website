@@ -95,15 +95,13 @@ const nextConfig = {
       },
     ];
   },
-  // webpack(config, { isServer }) {
-  //   // if (isServer) {
-  //   config.module.rules.push({
-  //     test: /\.wasm/,
-  //     type: "asset/resource",
-  //   });
-  //   // }
-  //   return config;
-  // },
+  images:
+    process.env.CF_PAGES !== "1"
+      ? {
+          loader: "custom",
+          loaderFile: "./cf-image-loader.js",
+        }
+      : undefined,
   experimental: {
     serverActions: {
       allowedOrigins: getServerActionsOrigin(),

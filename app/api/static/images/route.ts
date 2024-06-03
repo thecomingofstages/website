@@ -96,12 +96,9 @@ export const GET = async (nextRequest: NextRequest) => {
     "Accept-Encoding": headers.get("Accept-Encoding") ?? "",
     "If-None-Match": headers.get("If-None-Match") ?? "",
   });
-  const img = await fetch(
-    new URL(url, "https://staging.tcos-website.pages.dev").toString(),
-    {
-      headers: requestHeaders,
-    }
-  );
+  const img = await fetch(new URL(url, nextUrl.origin).toString(), {
+    headers: requestHeaders,
+  });
   if (img.status !== 200) {
     return new Response("Image not found", { status: 404 });
   }
@@ -144,12 +141,16 @@ export const GET = async (nextRequest: NextRequest) => {
 
   try {
     const image = await resizeImage();
+    let filename = url.split("/").pop() as string;
+    if (isWebpSupported) filename = filename.replace(`.${extension}`, ".webp");
     const response = new Response(image.buffer, {
       status: 200,
       headers: {
         "Content-Type": image.contentType,
         "Cache-Control":
-          img.headers.get("Cache-Control") ?? "public, max-age=31536000",
+          img.headers.get("Cache-Control") ??
+          "public, max-age=315360000, immutable",
+        "Content-Disposition": `inline; filename="${filename}"`,
         ETag: img.headers.get("ETag") ?? "",
       },
     });
