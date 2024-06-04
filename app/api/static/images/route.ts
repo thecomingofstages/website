@@ -77,7 +77,7 @@ export const GET = async (nextRequest: NextRequest) => {
       width,
       (input.get_height() / input.get_width()) * width,
       // @ts-ignore
-      1
+      5
     );
 
     const buffer = encodeImage(
