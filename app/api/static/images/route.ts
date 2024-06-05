@@ -1,4 +1,5 @@
-import * as photon from "@cf-wasm/photon/next";
+import type { PhotonImage } from "@cf-wasm/photon/next";
+import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
 import { NextRequest } from "next/server";
 
 export const runtime = "edge";
@@ -10,17 +11,23 @@ const getDefaultCache = () => {
 };
 
 const encodeImage = (
-  image: photon.PhotonImage,
+  image: PhotonImage,
+  isWebpSupported: boolean,
   format: string,
   quality: number
 ) => {
+  if (isWebpSupported) {
+    try {
+      return [image.get_bytes_webp(), "image/webp"] as const;
+    } catch (err) {
+      console.error(err);
+    }
+  }
   switch (format) {
-    case "webp":
-      return image.get_bytes_webp();
     case "jpeg":
-      return image.get_bytes_jpeg(quality);
-    case "png":
-      return image.get_bytes();
+      return [image.get_bytes_jpeg(quality), "image/jpeg"] as const;
+    default:
+      return [image.get_bytes(), "image/png"] as const;
   }
 };
 
@@ -69,47 +76,50 @@ export const GET = async (nextRequest: NextRequest) => {
   }
 
   try {
+    const photon = await import("@cf-wasm/photon/next");
     const input = photon.PhotonImage.new_from_byteslice(
       new Uint8Array(await img.clone().arrayBuffer())
     );
-    const resized = photon.resize(
-      input,
-      width,
-      (input.get_height() / input.get_width()) * width,
-      // @ts-ignore
-      5
-    );
+    let resized;
+    if (input.get_width() < width) {
+      resized = photon.resize(
+        input,
+        width,
+        (input.get_height() / input.get_width()) * width,
+        // @ts-ignore
+        5
+      );
+    }
 
-    const buffer = encodeImage(
-      resized,
-      isWebpSupported ? "webp" : extension,
+    const [buffer, contentType] = encodeImage(
+      resized ?? input,
+      isWebpSupported,
+      extension,
       quality
     );
 
     input.free();
-    resized.free();
-
-    const contentType = isWebpSupported
-      ? "image/webp"
-      : extension === "png"
-        ? "image/png"
-        : "image/jpeg";
+    resized?.free();
 
     let filename = url.split("/").pop() as string;
     if (isWebpSupported) filename = filename.replace(`.${extension}`, ".webp");
+    const newHeaders = new Headers({
+      "Content-Type": contentType,
+      "Cache-Control":
+        img.headers.get("Cache-Control") ??
+        "public, max-age=315360000, immutable",
+      "Content-Disposition": `inline; filename="${encodeURIComponent(filename)}"`,
+      ETag: img.headers.get("ETag") ?? "",
+    });
+
     const response = new Response(buffer, {
       status: 200,
-      headers: {
-        "Content-Type": contentType,
-        "Cache-Control":
-          img.headers.get("Cache-Control") ??
-          "public, max-age=315360000, immutable",
-        "Content-Disposition": `inline; filename="${filename}"`,
-        ETag: img.headers.get("ETag") ?? "",
-      },
+      headers: newHeaders,
     });
-    if (cache) {
-      cache.put(cacheKey, response.clone());
+
+    const requestCtx = getOptionalRequestContext();
+    if (requestCtx && cache) {
+      requestCtx.ctx.waitUntil(cache.put(cacheKey, response.clone()));
     }
     return response;
   } catch (err) {
