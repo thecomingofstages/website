@@ -2,10 +2,6 @@ import type { PhotonImage } from "@cf-wasm/photon/next";
 import { getOptionalRequestContext } from "@cloudflare/next-on-pages";
 import { NextRequest } from "next/server";
 
-// @ts-ignore
-import WEBP_ENC_WASM from "@jsquash/webp/codec/enc/webp_enc_simd.wasm?module";
-import encode, { init as initWebpEncode } from "@jsquash/webp/encode";
-
 export const runtime = "edge";
 
 const getDefaultCache = () => {
@@ -14,28 +10,18 @@ const getDefaultCache = () => {
     : null;
 };
 
-const encodeImage = async (
+const encodeImage = (
   image: PhotonImage,
   isWebpSupported: boolean,
   format: string,
   quality: number
 ) => {
-  if (isWebpSupported && typeof ImageData !== "undefined") {
+  if (isWebpSupported) {
     try {
-      initWebpEncode(WEBP_ENC_WASM);
-      const imgData = image.get_image_data();
-      const webp = await encode(imgData, {
-        quality,
-      });
-      return [webp, "image/webp"] as const;
+      return [image.get_bytes_webp(), "image/webp"] as const;
     } catch (err) {
       console.error(err);
     }
-    // try {
-    //   return [image.get_bytes_webp(), "image/webp"] as const;
-    // } catch (err) {
-    //   console.error(err);
-    // }
   }
   switch (format) {
     case "jpeg":
@@ -105,7 +91,7 @@ export const GET = async (nextRequest: NextRequest) => {
       );
     }
 
-    const [buffer, contentType] = await encodeImage(
+    const [buffer, contentType] = encodeImage(
       resized ?? input,
       isWebpSupported,
       extension,
