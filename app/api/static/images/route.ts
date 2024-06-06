@@ -80,19 +80,16 @@ export const GET = async (nextRequest: NextRequest) => {
     const input = photon.PhotonImage.new_from_byteslice(
       new Uint8Array(await img.clone().arrayBuffer())
     );
-    let resized;
-    if (input.get_width() > width) {
-      resized = photon.resize(
-        input,
-        width,
-        (input.get_height() / input.get_width()) * width,
-        // @ts-ignore nearest downsampling is fastest
-        1
-      );
-    }
+    const resized = photon.resize(
+      input,
+      width,
+      (input.get_height() / input.get_width()) * width,
+      // @ts-ignore nearest downsampling is fastest
+      1
+    );
 
     const [buffer, contentType] = encodeImage(
-      resized ?? input,
+      resized,
       isWebpSupported,
       extension,
       quality
