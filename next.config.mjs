@@ -1,4 +1,6 @@
 // @ts-check
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
+
 import dotenv from "dotenv";
 import createJiti from "jiti";
 import { fileURLToPath } from "node:url";
@@ -8,6 +10,10 @@ dotenv.config();
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
 jiti(`./app/env`);
+
+if (process.env.NODE_ENV === "development") {
+  setupDevPlatform();
+}
 
 if (process.env.NODE_ENV === "production") {
   // Check for mandatory environment variables required in build time
@@ -94,6 +100,10 @@ const nextConfig = {
         ],
       },
     ];
+  },
+  images: {
+    loader: "custom",
+    loaderFile: "./cf-image-loader.js",
   },
   experimental: {
     serverActions: {
