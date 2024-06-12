@@ -59,11 +59,11 @@ export default function Navbar<T extends NavigationType>(
   return (
     <Menu
       as="nav"
-      className="z-40 top-0 left-0 w-[100vw] flex items-center justify-end xl:justify-center p-6 lg:p-8 fixed"
+      className="z-40 top-0 left-0 w-[100vw] flex items-center justify-end nav:justify-center p-6 lg:p-8 fixed"
     >
       {({ close }) => (
         <>
-          <div className="backdrop-blur-lg bg-white/20 shadow-lg hidden xl:flex gap-10 px-12 py-2 items-center rounded-2xl">
+          <div className="backdrop-blur-lg bg-white/20 shadow-lg hidden nav:flex gap-10 px-12 py-2 items-center rounded-2xl">
             <Link
               href={props.navigationType === "multi" ? "/" : "#top"}
               onClick={() => {
@@ -95,7 +95,7 @@ export default function Navbar<T extends NavigationType>(
               ))}
             </div>
           </div>
-          <MenuButton className="xl:hidden bg-black hover:bg-zinc-700 border-2 border-zinc-700 p-3 rounded-lg">
+          <MenuButton className="nav:hidden bg-black hover:bg-zinc-700 border-2 border-zinc-700 p-3 rounded-lg">
             <AlignJustify className="h-6 w-6" />
           </MenuButton>
           <Transition

@@ -8,12 +8,12 @@ export const VisionSection = () => {
     <div id="vision">
       <Section
         className={{
-          wrapper: "relative min-h-[max(896px,100vh)]",
+          wrapper: "relative min-h-screen",
           content: "px-0",
         }}
       >
-        <div className="absolute top-0 left-0 w-[99vw] h-[max(806px,90vh)]">
-          <Eyes minHeight={896} />
+        <div className="absolute top-0 left-0 w-[99vw] h-[90vh]">
+          <Eyes />
         </div>
         <div className="relative z-10 flex justify-center items-center">
           <div className="space-y-8 bg-black max-w-screen-md p-10 lg:p-16 rounded-lg bg-opacity-75 backdrop-blur-md">

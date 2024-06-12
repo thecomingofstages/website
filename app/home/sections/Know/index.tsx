@@ -49,7 +49,7 @@ export const GettingToKnowUsSection = () => {
       </div>
       <Section
         ref={wrapper}
-        className="flex flex-col flex-grow gap-4 xl:gap-6 md:justify-center relative"
+        className="flex flex-col flex-grow gap-4 nav:gap-6 md:justify-center relative"
       >
         <motion.div
           initial={{ opacity: 0 }}

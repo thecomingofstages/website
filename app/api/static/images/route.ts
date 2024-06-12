@@ -31,6 +31,12 @@ const encodeImage = (
   }
 };
 
+/**
+ * [Note]
+ * If image API contains breaking changes, please increment the version number,
+ * located in the cf-image-loader.js file.
+ */
+
 export const GET = async (nextRequest: NextRequest) => {
   const { nextUrl, headers } = nextRequest;
   const params = nextUrl.searchParams;
@@ -80,16 +86,19 @@ export const GET = async (nextRequest: NextRequest) => {
     const input = photon.PhotonImage.new_from_byteslice(
       new Uint8Array(await img.clone().arrayBuffer())
     );
-    const resized = photon.resize(
-      input,
-      width,
-      (input.get_height() / input.get_width()) * width,
-      // @ts-ignore nearest downsampling is fastest
-      1
-    );
+    let resized;
+    if (input.get_width() > width) {
+      resized = photon.resize(
+        input,
+        width,
+        (input.get_height() / input.get_width()) * width,
+        // @ts-ignore using lanczos3 for better quality
+        5
+      );
+    }
 
     const [buffer, contentType] = encodeImage(
-      resized,
+      resized ?? input,
       isWebpSupported,
       extension,
       quality

@@ -21,14 +21,14 @@ export const Eye = () => {
   );
 };
 
-export const Eyes = ({ minHeight }: { minHeight: number }) => {
+export const Eyes = () => {
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [size, setSize] = React.useState<{ cols: number; rows: number }>();
   React.useEffect(() => {
     const set = () => {
       const offset = window.matchMedia("(max-width: 768px)").matches ? 0 : 100;
-      const width = window.matchMedia("(max-width: 640px)").matches ? 200 : 300;
-      const height = Math.max(window.innerHeight, minHeight);
+      // const width = window.matchMedia("(max-width: 640px)").matches ? 200 : 300;
+      const height = window.innerHeight * 0.9;
       setSize({
         cols: Math.floor((window.innerWidth - offset) / 400),
         rows: Math.floor((height - offset) / 110),
@@ -37,7 +37,7 @@ export const Eyes = ({ minHeight }: { minHeight: number }) => {
     set();
     window.addEventListener("resize", set);
     return () => window.removeEventListener("resize", set);
-  }, [minHeight]);
+  }, []);
 
   useGSAP(
     () => {

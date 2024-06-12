@@ -59,14 +59,14 @@ export function DepartmentsSection() {
       <div className="overflow-hidden w-full">
         <div
           ref={sectionRef}
-          className="relative z-10 h-[500px] xl:h-[700px] aspect-[1117/167]"
+          className="relative z-10 h-[500px] nav:h-[700px] aspect-[1117/167]"
         >
-          <div className="absolute left-[90.69px] top-[63.77px] xl:left-[126.96px] xl:top-[89.28px] z-10">
-            <div className="flex h-[370px] xl:h-[520px] gap-x-[3.5px] gap-y-[3px] xl:gap-x-[4.5px] xl:gap-y-[4px] flex-col flex-wrap">
+          <div className="absolute left-[90.69px] top-[63.77px] nav:left-[126.96px] nav:top-[89.28px] z-10">
+            <div className="flex h-[370px] nav:h-[520px] gap-x-[3.5px] gap-y-[3px] nav:gap-x-[4.5px] nav:gap-y-[4px] flex-col flex-wrap">
               <DepartmentImages
                 width={257}
                 height={257}
-                className="w-[183.26px] h-[183.26px] xl:w-[257px] xl:h-[257px]"
+                className="w-[183.26px] h-[183.26px] nav:w-[257px] nav:h-[257px]"
               />
             </div>
           </div>

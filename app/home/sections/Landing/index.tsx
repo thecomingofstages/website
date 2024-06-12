@@ -55,7 +55,7 @@ export const LandingSection = () => {
             }
             style={{ transform: curtainRightTransformStr }}
           />
-          <div className="z-30 absolute bottom-0 h-[300px] w-full bg-gradient-to-b from-transparent to-black"></div>
+          <div className="z-30 absolute bottom-0 h-[min(30vh,300px)] w-full bg-gradient-to-b from-transparent to-black"></div>
         </div>
         <div className="absolute inset-0 w-full flex flex-col items-center justify-center">
           <Stage className={"absolute bottom-0"} />
