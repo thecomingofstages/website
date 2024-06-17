@@ -1,0 +1,143 @@
+.spotlight {
+  --spotlight-translateX: 0rem;
+  --spotlight-translateY: 0;
+  --spotlight-scaleX: 1;
+  --spotlight-scaleY: 1;
+  --spotlight-height: unset;
+  height: var(--spotlight-height);
+  transform: translateX(var(--spotlight-translateX))
+    translateY(var(--spotlight-translateY)) scaleX(var(--spotlight-scaleX))
+    scaleY(var(--spotlight-scaleY));
+  transform-origin: bottom;
+}
+
+.highlight {
+  --highlight-translateX: 0;
+  --highlight-translateY: 0;
+  --highlight-scaleX: 1;
+  --highlight-scaleY: 1;
+  --highlight-height: unset;
+  height: var(--highlight-height);
+  transform: translateY(var(--highlight-translateY))
+    translateX(var(--highlight-translateX)) scaleX(var(--highlight-scaleX))
+    scaleY(var(--highlight-scaleY));
+}
+
+.stage {
+  --stage-height: 100vh;
+  --stage-scale: 1;
+  --stage-translateY: 0%;
+  height: var(--stage-height);
+  width: 100vw;
+  transform: translateY(var(--stage-translateY));
+  scale: var(--stage-scale);
+}
+
+/**
+ * Small viewport / Portait (Focused)
+ * spotlight covers the screen, stage is scaled to be smaller.
+ */
+
+@media screen and (max-width: 767px) {
+  .spotlight {
+    --spotlight-translateX: 0.5%;
+    --spotlight-translateY: -10%;
+    --spotlight-scaleX: 0.45;
+    --spotlight-scaleY: 1.2;
+    --spotlight-height: 100vh;
+  }
+  .highlight {
+    --highlight-scaleX: 1.3;
+    --highlight-scaleY: 1.5;
+    --highlight-translateY: -6vh;
+    /* display: none; */
+  }
+  .stage {
+    --stage-height: 100vh;
+    --stage-scale: 2;
+    --stage-translateY: 18%;
+  }
+}
+
+/**
+ * Small viewport / Landscape
+ * not enough space for showing elements, hide them.
+ */
+
+@media screen and (max-height: 500px) {
+  .spotlight {
+    display: none;
+  }
+  .highlight {
+    display: none;
+  }
+  .stage {
+    display: none;
+  }
+}
+
+/**
+ * Medium viewport / Portait
+ * position the spotlight and highlight to be more centered, while scaling based on the viewport.
+ */
+
+@media screen and (min-width: 768px) and (max-width: 900px) {
+  .spotlight {
+    --spotlight-translateX: 0.5%;
+    --spotlight-translateY: -10%;
+    --spotlight-scaleX: 0.5;
+    --spotlight-scaleY: 1.2;
+    --spotlight-height: 150vh;
+  }
+  .highlight {
+    --highlight-scaleX: 1;
+    --highlight-scaleY: 1.2;
+    --highlight-translateY: -6vh;
+  }
+  .stage {
+    --stage-height: 100vh;
+    --stage-scale: 2;
+    --stage-translateY: 18%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .spotlight {
+    --spotlight-translateX: 0.5%;
+    --spotlight-translateY: -10%;
+    --spotlight-scaleX: 0.5;
+    --spotlight-scaleY: 1.2;
+    --spotlight-height: 150vh;
+  }
+  .highlight {
+    --highlight-scaleX: 1;
+    --highlight-scaleY: 1.2;
+    --highlight-translateY: -6vh;
+  }
+  .stage {
+    --stage-height: 100vh;
+    --stage-scale: 2;
+    --stage-translateY: 18%;
+  }
+}
+
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+  .spotlight {
+    --spotlight-translateX: 0.5%;
+    --spotlight-translateY: -10%;
+    --spotlight-scaleX: 0.8;
+    --spotlight-scaleY: 1.2;
+    --spotlight-height: 100%;
+  }
+  .highlight {
+    --highlight-scaleX: 1;
+    --highlight-scaleY: 1.2;
+    --highlight-translateY: -6vh;
+    --highlight-height: 15%;
+  }
+  .stage {
+    --stage-height: 100%;
+    --stage-scale: 2;
+    --stage-translateY: 18vh;
+  }
+}

@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /out/
+/.env.local/
 
 # production
 /build
@@ -34,3 +35,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Netlify folder
+.netlify

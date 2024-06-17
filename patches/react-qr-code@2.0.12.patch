@@ -1,0 +1,39 @@
+diff --git a/lib/QRCodeSvg/index.js b/lib/QRCodeSvg/index.js
+index b510e5118d432657a04c43ebbfeeef292194e233..7a61e5ec786f9324a81d39219cf6ea1767086fc1 100644
+--- a/lib/QRCodeSvg/index.js
++++ b/lib/QRCodeSvg/index.js
+@@ -23,7 +23,7 @@ var propTypes = {
+   bgD: _propTypes2.default.string.isRequired,
+   fgColor: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.string]).isRequired,
+   fgD: _propTypes2.default.string.isRequired,
+-  size: _propTypes2.default.number.isRequired,
++  size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+   title: _propTypes2.default.string,
+   viewBoxSize: _propTypes2.default.number.isRequired,
+   xmlns: _propTypes2.default.string
+diff --git a/lib/index.js b/lib/index.js
+index 03a11e8a3b4316bf696951edab1fd108fdc78830..9bb5ac22e8ebad63b75e36442c1697695483a45e 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -36,7 +36,7 @@ var propTypes = {
+   bgColor: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.string]),
+   fgColor: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.string]),
+   level: _propTypes2.default.string,
+-  size: _propTypes2.default.number,
++  size: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+   value: _propTypes2.default.string.isRequired
+ };
+ 
+diff --git a/types/index.d.ts b/types/index.d.ts
+index 2e738c02ef3c961423b0f07d7c273723186453bc..71ca9b79439a6e8be691d7dc51b25cc263e33c74 100644
+--- a/types/index.d.ts
++++ b/types/index.d.ts
+@@ -3,7 +3,7 @@ declare module "react-qr-code" {
+ 
+   export interface QRCodeProps extends React.SVGProps<SVGSVGElement> {
+     value: string;
+-    size?: number; // defaults to 128
++    size?: number | string; // defaults to 128
+     bgColor?: string; // defaults to '#FFFFFF'
+     fgColor?: string; // defaults to '#000000'
+     level?: string; // defaults to 'L' , Can be one of 'L,M,H,Q'
