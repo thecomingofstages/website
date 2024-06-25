@@ -141,7 +141,7 @@ export const DonateSection = () => {
     <div
       id="support"
       ref={sectionRef}
-      className="scroll-mt-36 lg:scroll-mt-64 py-20 overflow-hidden"
+      className="scroll-mt-36 nav:scroll-mt-64 py-20 overflow-hidden"
     >
       <Section
         className={"flex flex-col items-center justify-center gap-12 md:gap-16"}

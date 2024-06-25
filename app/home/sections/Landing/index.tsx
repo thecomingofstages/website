@@ -95,7 +95,7 @@ export const LandingSection = () => {
               priority
             />
           </div>
-          <div className="flex flex-col gap-2 items-end flex-shrink-0">
+          <div className="-mt-6 flex flex-col gap-2 items-end flex-shrink-0">
             <div className="text-2xl max-w-2xl md:text-3xl md:leading-snug xl:text-4xl xl:leading-snug text-center flex flex-row flex-wrap items-center justify-center">
               <span>
                 พื้นที่<b>พัฒนาศักยภาพ</b>เด็กไทย

@@ -55,7 +55,7 @@ export function DepartmentsSection() {
   }, []);
 
   return (
-    <section id="departments" ref={wrapper}>
+    <section id="departments" className="scroll-mt-72 nav:scroll-mt-36" ref={wrapper}>
       <div className="overflow-hidden w-full">
         <div
           ref={sectionRef}

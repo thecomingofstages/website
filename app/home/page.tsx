@@ -20,15 +20,23 @@ export default function HomePage() {
         navigationType={"single"}
         items={[
           {
-            name: "Getting to know us",
+            name: "Know us",
             path: "#know-us",
           },
           { name: "Vision & Mission", path: "#vision" },
           {
-            name: "Concept of our play",
+            name: "Concept",
             path: "#our-play",
           },
-          { name: "Support us", path: "#support" },
+          { name: "Support", path: "#support" },
+          {
+            name: "Departments",
+            path: "#departments",
+          },
+          {
+            name: "Contact",
+            path: "#contact",
+          },
         ]}
       />
       <main>

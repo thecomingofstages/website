@@ -91,7 +91,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
-        nav: { raw: "(min-height: 768px) and (min-width: 1280px)" },
+        nav: { raw: "(min-height: 768px) and (min-width: 1024px)" },
       },
     },
   },
