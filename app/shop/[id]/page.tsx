@@ -45,6 +45,7 @@ export default function ShopItemPage({
               สั่งซื้อสินค้า
             </h2>
             <PurchaseForm
+              title={product.title}
               id={product.id}
               price={product.price}
               size={product.size}

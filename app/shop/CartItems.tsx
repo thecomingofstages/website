@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo } from "react";
 
 import { useAtomValue } from "jotai";
@@ -22,9 +23,12 @@ export const CartItems = () => {
         <b className="font-bold text-lg">สินค้าในตะกร้าของคุณ</b>
         <p className="pb-1 text-sm">{totalItems} รายการ</p>
         {totalItems > 0 && (
-          <button className="bg-black/10 px-4 py-2 rounded-lg font-bold">
+          <Link
+            href="/shop/cart"
+            className="bg-black/10 px-4 py-2 rounded-lg font-bold"
+          >
             ดูตะกร้า
-          </button>
+          </Link>
         )}
       </div>
     </div>

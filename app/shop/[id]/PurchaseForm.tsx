@@ -5,6 +5,7 @@ import { startTransition, useCallback, useState } from "react";
 
 import { useAtomCallback } from "jotai/utils";
 import { Minus, Plus } from "lucide-react";
+import { nanoid } from "nanoid";
 import { toast } from "sonner";
 
 import { ProductData } from "../data";
@@ -14,29 +15,31 @@ export const PurchaseForm = ({
   id,
   price,
   size,
-}: Pick<ProductData, "id" | "price" | "size">) => {
+  title,
+}: Pick<ProductData, "id" | "price" | "size" | "title">) => {
   const router = useRouter();
   const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSize] = useState<string | null>(null);
-  const currency = new Intl.NumberFormat("th-TH", {
-    style: "currency",
-    currency: "THB",
-  });
-  const total = currency.format(price * quantity);
+  const total = price * quantity;
 
   const addToCart = useAtomCallback(
     useCallback(
       (get, set) => {
         const items = [...get(shopItems)];
         const existingItem = items.findIndex(
-          (item) => item.id === id && item.size === selectedSize
+          (item) => item.id === id && item.size === (selectedSize ?? undefined)
         );
 
         if (existingItem !== -1) {
+          items[existingItem].total += total;
           items[existingItem].quantity += quantity;
         } else {
           items.push({
             id,
+            cartItemId: nanoid(),
+            title,
+            price,
+            total,
             quantity,
             ...(selectedSize ? { size: selectedSize } : {}),
           });
@@ -95,7 +98,7 @@ export const PurchaseForm = ({
       <div className="flex items-center gap-2">
         <span className="flex-grow">จำนวนเงิน</span>
         <div className="flex items-center">
-          <span className="px-4 font-bold">{total}</span>
+          <span className="px-4 font-bold">{total.toLocaleString()}฿</span>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
