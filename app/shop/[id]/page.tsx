@@ -5,6 +5,8 @@ import "react-multi-carousel/lib/styles.css";
 import { products } from "../data";
 import { ProductCarousel } from "./ProductCarousel";
 
+export const runtime = "edge";
+
 export async function generateStaticParams() {
   return products.map(({ id }) => ({ id }));
 }
