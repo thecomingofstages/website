@@ -14,11 +14,16 @@ export const products: ProductData[] = [
     id: "t-shirt",
     title: "T-Shirt",
     description: (
-      <p>
-        เสื้อยืดผ้า cotton poly สีขาว ด้านหน้า :
-        สกรีนลายที่ได้รับแรงบันดาลใจมาจากฉากหนึ่งในละครเวทีปีนี้ Hansel & Gretel
-        ด้านหลัง : โลโก้ TCOS
-      </p>
+      <>
+        <p>
+          เสื้อยืดผ้า cotton poly สีขาว ด้านหน้า :
+          สกรีนลายที่ได้รับแรงบันดาลใจมาจากฉากหนึ่งในละครเวทีปีนี้ Hansel &
+          Gretel ด้านหลัง : โลโก้ TCOS
+        </p>
+        <p className="font-bold">
+          เสื้อขนาดไซส์ S, M, L, XL, XXXL สามารถดูตารางเทียบไซส์ได้ที่รูปสุดท้าย
+        </p>
+      </>
     ),
     price: 279,
     size: ["S", "M", "L", "XL", "XXXL"],
@@ -83,7 +88,7 @@ export const products: ProductData[] = [
   },
   {
     id: "sticker",
-    title: "Sticker",
+    title: "Stickers",
     description: (
       <p>
         สติกเกอร์ไดคัท ขนาด a5

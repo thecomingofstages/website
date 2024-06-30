@@ -5,21 +5,21 @@ import { products } from "./data";
 
 export function ProductList() {
   return (
-    <div className="grid grid-cols-2 gap-6 py-4">
+    <div className="grid grid-cols-2 gap-6">
       {products.map((product) => (
         <Link
           key={product.title}
           href={`/shop/${product.id}`}
-          className="flex flex-col bg-white/10 px-4 pt-4 rounded-sm"
+          className="flex flex-col bg-white/10"
         >
           <Image
             src={product.images[0]}
             alt={product.title}
             width={500}
             height={500}
-            className="rounded"
+            className="rounded-t-md"
           />
-          <div className="flex flex-col py-4">
+          <div className="flex flex-col px-3 py-5 rounded-b-md">
             <b className="text-xl font-serif">{product.title}</b>
             <span>{product.price}฿</span>
           </div>
