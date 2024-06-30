@@ -11,7 +11,7 @@ const mockLiff: Pick<Liff, "sendMessages" | "getProfile" | "closeWindow"> = {
       userId: "U1234567890",
     };
   },
-  closeWindow: () => console.log("closeWindow"),
+  closeWindow: () => {},
 };
 
 export const liffAtom = atom(() => {

@@ -43,7 +43,7 @@ export default function RootLayout({
       <body
         className={`${titleFont.variable} ${bodyFont.variable} bg-black text-white font-sans overflow-x-hidden`}
       >
-        <Toaster />
+        <Toaster position="top-center" />
         {children}
       </body>
       {process.env.NODE_ENV === "production" &&

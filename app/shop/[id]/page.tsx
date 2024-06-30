@@ -15,13 +15,14 @@ export async function generateStaticParams() {
 }
 
 export default function ShopItemPage({
-  params: { id },
+  params: { id, cartItemId },
 }: {
-  params: { id: string };
+  params: { id: string; cartItemId?: string };
 }) {
   const product = products.find((product) => product.id === id);
+  const backUrl = cartItemId ? "/shop/cart" : "/shop";
   if (!product) {
-    return redirect("/shop");
+    return redirect(backUrl);
   }
   return (
     <div className="flex min-h-screen h-full justify-center">
@@ -29,11 +30,13 @@ export default function ShopItemPage({
         <ProductCarousel title={product.title} images={product.images} />
         <div className="px-6 py-8 space-y-1">
           <Link
-            href="/shop"
+            href={backUrl}
             className="bg-white/15 text-sm px-4 py-3 rounded-lg font-medium"
           >
             <ArrowLeft className="w-5 h-5 -mt-1 inline mr-2" />
-            <span>กลับไปยังหน้ารายการสินค้า</span>
+            <span>
+              กลับไปยังหน้า{cartItemId ? "ตะกร้าสินค้า" : "รายการสินค้า"}
+            </span>
           </Link>
           <h1 className="text-4xl font-serif font-bold pt-6">
             {product.title}
@@ -42,7 +45,7 @@ export default function ShopItemPage({
           <div className="leading-7 space-y-2 py-2">{product.description}</div>
           <div className="pt-2">
             <h2 className="rounded-t-lg text-black bg-white px-4 py-3 font-bold text-lg">
-              สั่งซื้อสินค้า
+              {cartItemId ? "แก้ไขรายการสินค้า" : "สั่งซื้อสินค้า"}
             </h2>
             <PurchaseForm
               title={product.title}

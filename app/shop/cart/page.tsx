@@ -35,12 +35,15 @@ export default function ShopCartPage() {
                   className="flex justify-between py-3"
                 >
                   <div className="flex flex-col">
-                    <span className="font-medium text-lg">{item.title}</span>
-                    {item.size && (
-                      <span className="text-zinc-300 text-sm">
-                        ไซส์ {item.size}
-                      </span>
-                    )}
+                    <span className="font-bold text-lg">
+                      {item.title} {item.size && `(ไซส์ ${item.size})`}
+                    </span>
+                    <Link
+                      href={`/shop/${item.id}/${item.cartItemId}`}
+                      className="text-zinc-200 text-sm"
+                    >
+                      คลิกเพื่อแก้ไขหรือลบรายการ
+                    </Link>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="font-medium text-lg">
@@ -65,7 +68,7 @@ export default function ShopCartPage() {
                 {totalPrice.toLocaleString()}฿
               </span>
               <span className="text-zinc-400 text-sm">
-                จำนวน {totalQuantity} รายการ
+                {items.length} รายการ จำนวน {totalQuantity} ชิ้น
               </span>
             </div>
           </div>

@@ -20,12 +20,15 @@ import { shopItems } from "../store";
 export const ClearCart = () => {
   const router = useRouter();
   const clearCart = useAtomCallback(
-    useCallback((_, set) => {
-      startTransition(() => {
-        router.replace("/shop");
-      });
-      set(shopItems, []);
-    }, [])
+    useCallback(
+      (_, set) => {
+        startTransition(() => {
+          router.replace("/shop");
+        });
+        set(shopItems, []);
+      },
+      [router]
+    )
   );
   return (
     <AlertDialog>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { startTransition, useCallback, useState } from "react";
 
 import { useAtomCallback } from "jotai/utils";
@@ -9,7 +9,8 @@ import { nanoid } from "nanoid";
 import { toast } from "sonner";
 
 import { ProductData } from "../data";
-import { shopItems } from "../store";
+import { ShopItem, shopItems } from "../store";
+import { useCartItemValue } from "./useCartItemValue";
 
 export const PurchaseForm = ({
   id,
@@ -18,39 +19,79 @@ export const PurchaseForm = ({
   title,
 }: Pick<ProductData, "id" | "price" | "size" | "title">) => {
   const router = useRouter();
-  const [quantity, setQuantity] = useState(0);
-  const [selectedSize, setSize] = useState<string | null>(null);
+  const { cartItemId } = useParams() as { cartItemId?: string };
+  const initial = useCartItemValue(cartItemId);
+  const [quantity, setQuantity] = useState(initial.quantity);
+  const [selectedSize, setSize] = useState(initial.size);
   const total = price * quantity;
+
+  const addOrMergeItem = useCallback(
+    (items: ShopItem[]) => {
+      const existingItem = items.findIndex(
+        (item) => item.id === id && item.size === selectedSize
+      );
+      if (existingItem !== -1) {
+        items[existingItem].total += total;
+        items[existingItem].quantity += quantity;
+      } else {
+        items.push({
+          id,
+          cartItemId: nanoid(),
+          title,
+          price,
+          total,
+          quantity,
+          ...(selectedSize ? { size: selectedSize } : {}),
+        });
+      }
+      return items;
+    },
+    [quantity, selectedSize, id, price, title, total]
+  );
 
   const addToCart = useAtomCallback(
     useCallback(
       (get, set) => {
-        const items = [...get(shopItems)];
-        const existingItem = items.findIndex(
-          (item) => item.id === id && item.size === (selectedSize ?? undefined)
-        );
-
-        if (existingItem !== -1) {
-          items[existingItem].total += total;
-          items[existingItem].quantity += quantity;
-        } else {
-          items.push({
-            id,
-            cartItemId: nanoid(),
-            title,
-            price,
-            total,
-            quantity,
-            ...(selectedSize ? { size: selectedSize } : {}),
-          });
-        }
-        set(shopItems, items);
+        const currentItems = [...get(shopItems)];
+        const newItems = addOrMergeItem(currentItems);
+        set(shopItems, newItems);
         startTransition(() => {
           toast("เพิ่มสินค้าในตะกร้าเรียบร้อยแล้ว");
           router.replace("/shop");
         });
       },
-      [selectedSize, quantity, id, price, router, title, total]
+      [router, addOrMergeItem]
+    )
+  );
+
+  const modifyCart = useAtomCallback(
+    useCallback(
+      (get, set) => {
+        const items = [...get(shopItems)];
+        const current = items.findIndex((i) => i.cartItemId === cartItemId);
+        if (current === -1) {
+          addOrMergeItem(items);
+        } else if (items[current].size !== selectedSize) {
+          // size change, remove existing one and add new item
+          const newItems = addOrMergeItem(
+            items.filter((_, i) => i !== current)
+          );
+          set(shopItems, newItems);
+        } else if (quantity === 0) {
+          const newItems = items.filter((_, i) => i !== current);
+          set(shopItems, newItems);
+        } else {
+          const newItems = [...items];
+          newItems[current].quantity = quantity;
+          newItems[current].total = total;
+          set(shopItems, newItems);
+        }
+        startTransition(() => {
+          toast("บันทึกการแก้ไขเรียบร้อยแล้ว");
+          router.replace("/shop/cart");
+        });
+      },
+      [router, addOrMergeItem, cartItemId, selectedSize, quantity, total]
     )
   );
 
@@ -104,19 +145,25 @@ export const PurchaseForm = ({
       <div className="grid grid-cols-2 gap-3">
         <button
           onClick={() => {
-            setQuantity(0);
-            setSize(null);
+            setQuantity(initial.quantity);
+            setSize(initial.size);
           }}
           className="bg-white/10 rounded-lg text-center text-white px-4 py-2"
         >
           รีเซ็ต
         </button>
         <button
-          disabled={!(quantity > 0 && (size ? selectedSize : true))}
-          onClick={addToCart}
+          disabled={
+            cartItemId ? false : !(quantity > 0 && (size ? selectedSize : true))
+          }
+          onClick={cartItemId ? modifyCart : addToCart}
           className="transition-colors duration-300 bg-white disabled:bg-white/10 disabled:text-gray-500 rounded-lg text-center font-medium text-black px-4 py-2"
         >
-          เพิ่มลงในตะกร้า
+          {cartItemId
+            ? quantity === 0
+              ? "ลบออกจากตะกร้า"
+              : "บันทึกในตะกร้า"
+            : "เพิ่มลงในตะกร้า"}
         </button>
       </div>
     </div>
