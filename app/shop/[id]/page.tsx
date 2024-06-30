@@ -1,12 +1,13 @@
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import "react-multi-carousel/lib/styles.css";
 
-import LogoWhite from "@/app/images/logo-black.png";
-
 import { products } from "../data";
 import { ProductCarousel } from "./ProductCarousel";
+
+export async function generateStaticParams() {
+  return products.map(({ id }) => ({ id }));
+}
 
 export default function ShopItemPage({
   params: { id },

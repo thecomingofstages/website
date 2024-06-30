@@ -23,7 +23,7 @@ export default function ShopMainPage() {
         <div className="px-6">
           <div className="p-6 space-y-4 bg-white/15 rounded-xl">
             <p className="leading-7">
-              <b>Pre-Order สินค้า TCOS' Merchandise</b>{" "}
+              <b>Pre-Order สินค้า TCOS&apos; Merchandise</b>{" "}
               โดยสินค้าทั้งหมดถูกออกแบบโดยได้รับแรงบันดาลใจจากละครเวทีของเราในปีนี้
               นั่นก็คือเรื่อง Hansel & Gretel 👧🏽🧒🏼
               <br />
