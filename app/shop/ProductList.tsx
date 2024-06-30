@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { products } from "./data";
 
@@ -6,8 +7,9 @@ export function ProductList() {
   return (
     <div className="grid grid-cols-2 gap-6 py-4">
       {products.map((product) => (
-        <div
+        <Link
           key={product.title}
+          href={`/shop/${product.id}`}
           className="flex flex-col bg-white/10 px-4 pt-4 rounded-sm"
         >
           <Image
@@ -21,7 +23,7 @@ export function ProductList() {
             <b className="text-xl font-serif">{product.title}</b>
             <span>{product.price}฿</span>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
