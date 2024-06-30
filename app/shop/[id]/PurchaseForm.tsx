@@ -50,7 +50,7 @@ export const PurchaseForm = ({
           router.replace("/shop");
         });
       },
-      [selectedSize, quantity, id]
+      [selectedSize, quantity, id, price, router, title, total]
     )
   );
 

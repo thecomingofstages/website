@@ -6,6 +6,7 @@ import { useAtom } from "jotai";
 
 import { ShopHeader } from "../Header";
 import { shopItems } from "../store";
+import { SubmitCart } from "./SubmitCart";
 
 export default function ShopCartPage() {
   const [items] = useAtom(shopItems);
@@ -23,31 +24,40 @@ export default function ShopCartPage() {
         <div className="px-6 space-y-4 flex-grow flex flex-col">
           <div className="flex gap-6">
             <h1 className="font-bold text-3xl flex-grow">ตะกร้าของคุณ</h1>
-            <button className="bg-white/15 px-4 py-2 rounded-lg">
-              ล้างตะกร้า
-            </button>
+            {items.length > 0 && (
+              <button className="bg-white/15 px-4 py-2 rounded-lg">
+                ล้างตะกร้า
+              </button>
+            )}
           </div>
           <div className="divide-y divide-zinc-600 flex-grow">
-            {items.map((item) => (
-              <div key={item.cartItemId} className="flex justify-between py-3">
-                <div className="flex flex-col">
-                  <span className="font-medium text-lg">{item.title}</span>
-                  {item.size && (
-                    <span className="text-zinc-300 text-sm">
-                      ไซส์ {item.size}
+            {items.length > 0 ? (
+              items.map((item) => (
+                <div
+                  key={item.cartItemId}
+                  className="flex justify-between py-3"
+                >
+                  <div className="flex flex-col">
+                    <span className="font-medium text-lg">{item.title}</span>
+                    {item.size && (
+                      <span className="text-zinc-300 text-sm">
+                        ไซส์ {item.size}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="font-medium text-lg">
+                      {item.total.toLocaleString()}฿
                     </span>
-                  )}
+                    <span className="text-zinc-400 text-sm">
+                      {item.quantity} x {item.price}฿
+                    </span>
+                  </div>
                 </div>
-                <div className="flex flex-col items-end">
-                  <span className="font-medium text-lg">
-                    {item.total.toLocaleString()}฿
-                  </span>
-                  <span className="text-zinc-400 text-sm">
-                    {item.quantity} x {item.price}฿
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <span>ยังไม่มีรายการสินค้าในตะกร้า</span>
+            )}
           </div>
         </div>
         <div className="p-6 space-y-4">
@@ -62,16 +72,16 @@ export default function ShopCartPage() {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div
+            className={`grid ${totalQuantity > 0 ? "grid-cols-2 " : ""}gap-3`}
+          >
             <Link
               href="/shop"
               className="bg-white/15 rounded-lg text-center text-white px-4 py-2"
             >
               เลือกรายการเพิ่ม
             </Link>
-            <button className="transition-colors duration-300 bg-white disabled:bg-white/10 disabled:text-gray-500 rounded-lg text-center font-medium text-black px-4 py-2">
-              ยืนยันรายการ
-            </button>
+            {totalQuantity > 0 && <SubmitCart />}
           </div>
         </div>
       </div>
