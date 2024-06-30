@@ -6,6 +6,7 @@ import { useAtom } from "jotai";
 
 import { ShopHeader } from "../Header";
 import { shopItems } from "../store";
+import { ClearCart } from "./ClearCart";
 import { SubmitCart } from "./SubmitCart";
 
 export default function ShopCartPage() {
@@ -24,11 +25,7 @@ export default function ShopCartPage() {
         <div className="px-6 space-y-4 flex-grow flex flex-col">
           <div className="flex gap-6">
             <h1 className="font-bold text-3xl flex-grow">ตะกร้าของคุณ</h1>
-            {items.length > 0 && (
-              <button className="bg-white/15 px-4 py-2 rounded-lg">
-                ล้างตะกร้า
-              </button>
-            )}
+            {items.length > 0 && <ClearCart />}
           </div>
           <div className="divide-y divide-zinc-600 flex-grow">
             {items.length > 0 ? (
