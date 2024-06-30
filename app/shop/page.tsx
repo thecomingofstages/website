@@ -4,7 +4,9 @@ import "react-multi-carousel/lib/styles.css";
 
 import LogoWhite from "@/app/images/logo-black.png";
 
+import { ContactSection } from "../home/sections/Contact";
 import { LandingCarosuel } from "./LandingCarousel";
+import { ProductList } from "./ProductList";
 
 export default function ShopMainPage() {
   return (
@@ -36,7 +38,9 @@ export default function ShopMainPage() {
         </div>
         <div className="p-6">
           <h2 className="font-serif font-bold text-3xl">Our Products</h2>
+          <ProductList />
         </div>
+        <ContactSection />
       </div>
     </div>
   );
