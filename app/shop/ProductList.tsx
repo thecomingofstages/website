@@ -19,7 +19,7 @@ export function ProductList() {
             height={500}
             className="rounded-t-md"
           />
-          <div className="flex flex-col px-3 py-5 rounded-b-md bg-white/10">
+          <div className="flex flex-col p-4 rounded-b-md bg-white/10">
             <b className="text-xl font-serif">{product.title}</b>
             <span>{product.price}฿</span>
           </div>

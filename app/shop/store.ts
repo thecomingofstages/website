@@ -10,3 +10,14 @@ export type ShopItem = Pick<ProductData, "id" | "price" | "title"> & {
 };
 
 export const shopItems = atom<ShopItem[]>([]);
+
+export const shopTotalItems = atom((get) => {
+  const items = get(shopItems);
+  return items.reduce(
+    ({ price, quantity }, item) => ({
+      price: item.total + price,
+      quantity: item.quantity + quantity,
+    }),
+    { price: 0, quantity: 0 }
+  );
+});
