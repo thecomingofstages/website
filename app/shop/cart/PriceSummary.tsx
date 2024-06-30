@@ -23,9 +23,9 @@ export const PriceSummary = () => {
   }, [selected, options]);
 
   return (
-    <div className="p-6 space-y-4 border-t border-zinc-700 bg-white/5">
+    <div className="p-6 space-y-4 bg-gradient-to-b from-white/10 to-black rounded-t-3xl">
       <div className="flex justify-between">
-        <b>รวมค่าสินค้า</b>
+        <b>รวมทั้งหมด</b>
         <div className="flex flex-col items-end">
           <span className="font-medium text-lg">
             {total.price.toLocaleString()}฿
@@ -71,7 +71,7 @@ export const PriceSummary = () => {
             </RadioGroup>
           </div>
           <div className="flex justify-between py-2">
-            <b className="text-lg">รวมทั้งหมด</b>
+            <b className="text-lg">ยอดที่ต้องชำระ</b>
             <span className="font-bold text-lg">
               {(total.price + (selected?.price ?? 0)).toLocaleString()}฿
             </span>
