@@ -6,7 +6,10 @@ export function ProductList() {
   return (
     <div className="grid grid-cols-2 gap-6 py-4">
       {products.map((product) => (
-        <div className="flex flex-col bg-white/10 px-4 pt-4 rounded-sm">
+        <div
+          key={product.title}
+          className="flex flex-col bg-white/10 px-4 pt-4 rounded-sm"
+        >
           <Image
             src={product.images[0]}
             alt={product.title}
