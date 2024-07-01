@@ -20,7 +20,7 @@ export const PriceSummary = () => {
     if (selected && !options.some((option) => option.id === selected.id)) {
       setSelected(null);
     }
-  }, [selected, options]);
+  }, [selected, options, setSelected]);
 
   return (
     <div className="p-6 space-y-4 bg-gradient-to-b from-white/10 to-black rounded-t-3xl">
