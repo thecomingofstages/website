@@ -29,8 +29,8 @@ export function ProductCarousel({
           key={index}
           src={image}
           alt={title}
-          width={1000}
-          height={1000}
+          width={640}
+          height={640}
           priority={index === 0}
           draggable={false}
         />
