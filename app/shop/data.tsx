@@ -28,12 +28,12 @@ export const products: ProductData[] = [
     price: 279,
     size: ["S", "M", "L", "XL", "XXXL"],
     images: [
-      require("./images/t-shirt/1.png"),
-      require("./images/t-shirt/2.png"),
-      require("./images/t-shirt/3.png"),
-      require("./images/t-shirt/4.png"),
-      require("./images/t-shirt/5.png"),
-      require("./images/t-shirt/6.png"),
+      require("./images/t-shirt/00.png"),
+      require("./images/t-shirt/01.png"),
+      require("./images/t-shirt/02.png"),
+      require("./images/t-shirt/03.png"),
+      require("./images/t-shirt/04.png"),
+      require("./images/t-shirt/05.png"),
     ],
   },
   {
@@ -49,10 +49,11 @@ export const products: ProductData[] = [
     ),
     price: 239,
     images: [
-      require("./images/bag/1.png"),
-      require("./images/bag/2.png"),
-      require("./images/bag/3.png"),
-      require("./images/bag/4.png"),
+      require("./images/bag/00.png"),
+      require("./images/bag/01.png"),
+      require("./images/bag/02.png"),
+      require("./images/bag/03.png"),
+      require("./images/bag/04.png"),
     ],
   },
   {
@@ -66,8 +67,10 @@ export const products: ProductData[] = [
     ),
     price: 79,
     images: [
-      require("./images/keychain/1.png"),
-      require("./images/keychain/2.png"),
+      require("./images/keychain/00.png"),
+      require("./images/keychain/01.png"),
+      require("./images/keychain/02.png"),
+      require("./images/keychain/03.png"),
     ],
   },
   {
@@ -81,9 +84,10 @@ export const products: ProductData[] = [
     ),
     price: 529,
     images: [
-      require("./images/blanket/1.png"),
-      require("./images/blanket/2.png"),
-      require("./images/blanket/3.png"),
+      require("./images/blanket/00.png"),
+      require("./images/blanket/01.png"),
+      require("./images/blanket/02.png"),
+      require("./images/blanket/03.png"),
     ],
   },
   {
@@ -98,8 +102,8 @@ export const products: ProductData[] = [
     ),
     price: 59,
     images: [
-      require("./images/sticker/1.png"),
-      require("./images/sticker/2.png"),
+      require("./images/sticker/00.png"),
+      require("./images/sticker/01.png"),
     ],
   },
 ];

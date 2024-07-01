@@ -14,32 +14,32 @@ const responsive = {
 
 const images = [
   {
-    src: require("./images/landing/1.jpg"),
+    src: require("./images/landing/00.png"),
     title: "Pre-Order Our Merchandise",
     href: "#",
   },
   {
-    src: require("./images/landing/2.jpg"),
+    src: require("./images/landing/01.png"),
     title: "T-Shirt",
     href: "/shop/t-shirt",
   },
   {
-    src: require("./images/landing/3.jpg"),
+    src: require("./images/landing/02.png"),
     title: "Grocery Bag",
     href: "/shop/bag",
   },
   {
-    src: require("./images/landing/4.jpg"),
+    src: require("./images/landing/03.png"),
     title: "Keychain",
     href: "/shop/keychain",
   },
   {
-    src: require("./images/landing/5.jpg"),
+    src: require("./images/landing/04.png"),
     title: "Blanket",
     href: "/shop/blanket",
   },
   {
-    src: require("./images/landing/6.jpg"),
+    src: require("./images/landing/05.png"),
     title: "Stickers",
     href: "/shop/sticker",
   },
@@ -76,7 +76,7 @@ export function LandingCarosuel() {
             />
             {index !== 0 && (
               <div className="absolute top-0 p-4 flex flex-col">
-                <span className="font-head font-medium text-xl">
+                <span className="font-head font-bold text-xl">
                   {image.title}
                 </span>
                 <span className="text-xs">คลิกเพื่อดูสินค้า</span>
