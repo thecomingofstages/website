@@ -40,7 +40,7 @@ const images = [
   },
   {
     src: require("./images/landing/6.jpg"),
-    title: "Sticker",
+    title: "Stickers",
     href: "/shop/sticker",
   },
 ];
@@ -64,6 +64,7 @@ export function LandingCarosuel() {
               }
             }}
             draggable={false}
+            className="relative"
           >
             <Image
               src={image.src}
@@ -73,6 +74,14 @@ export function LandingCarosuel() {
               priority={index === 0}
               draggable={false}
             />
+            {index !== 0 && (
+              <div className="absolute top-0 p-4 flex flex-col">
+                <span className="font-head font-medium text-xl">
+                  {image.title}
+                </span>
+                <span className="text-xs">คลิกเพื่อดูสินค้า</span>
+              </div>
+            )}
           </Link>
         ))}
       </Carousel>

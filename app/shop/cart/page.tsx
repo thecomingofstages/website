@@ -33,7 +33,7 @@ export default function ShopCartPage() {
                     </span>
                     <Link
                       href={`/shop/${item.id}/${item.cartItemId}`}
-                      className="text-zinc-200 text-sm"
+                      className="text-zinc-300 text-sm"
                     >
                       คลิกเพื่อแก้ไขหรือลบรายการ
                     </Link>
