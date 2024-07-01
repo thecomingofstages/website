@@ -28,12 +28,12 @@ export const products: ProductData[] = [
     price: 279,
     size: ["S", "M", "L", "XL", "XXXL"],
     images: [
-      require("./images/t-shirt/00.png"),
-      require("./images/t-shirt/01.png"),
-      require("./images/t-shirt/02.png"),
-      require("./images/t-shirt/03.png"),
-      require("./images/t-shirt/04.png"),
-      require("./images/t-shirt/05.png"),
+      require("./images/t-shirt/resized/00.png"),
+      require("./images/t-shirt/resized/01.png"),
+      require("./images/t-shirt/resized/02.png"),
+      require("./images/t-shirt/resized/03.png"),
+      require("./images/t-shirt/resized/04.png"),
+      require("./images/t-shirt/resized/05.png"),
     ],
   },
   {
@@ -49,11 +49,11 @@ export const products: ProductData[] = [
     ),
     price: 239,
     images: [
-      require("./images/bag/00.png"),
-      require("./images/bag/01.png"),
-      require("./images/bag/02.png"),
-      require("./images/bag/03.png"),
-      require("./images/bag/04.png"),
+      require("./images/bag/resized/00.png"),
+      require("./images/bag/resized/01.png"),
+      require("./images/bag/resized/02.png"),
+      require("./images/bag/resized/03.png"),
+      require("./images/bag/resized/04.png"),
     ],
   },
   {
@@ -67,10 +67,10 @@ export const products: ProductData[] = [
     ),
     price: 79,
     images: [
-      require("./images/keychain/00.png"),
-      require("./images/keychain/01.png"),
-      require("./images/keychain/02.png"),
-      require("./images/keychain/03.png"),
+      require("./images/keychain/resized/00.png"),
+      require("./images/keychain/resized/01.png"),
+      require("./images/keychain/resized/02.png"),
+      require("./images/keychain/resized/03.png"),
     ],
   },
   {
@@ -84,10 +84,10 @@ export const products: ProductData[] = [
     ),
     price: 529,
     images: [
-      require("./images/blanket/00.png"),
-      require("./images/blanket/01.png"),
-      require("./images/blanket/02.png"),
-      require("./images/blanket/03.png"),
+      require("./images/blanket/resized/00.png"),
+      require("./images/blanket/resized/01.png"),
+      require("./images/blanket/resized/02.png"),
+      require("./images/blanket/resized/03.png"),
     ],
   },
   {
@@ -102,8 +102,8 @@ export const products: ProductData[] = [
     ),
     price: 59,
     images: [
-      require("./images/sticker/00.png"),
-      require("./images/sticker/01.png"),
+      require("./images/sticker/resized/00.png"),
+      require("./images/sticker/resized/01.png"),
     ],
   },
 ];
