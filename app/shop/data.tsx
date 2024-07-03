@@ -26,7 +26,7 @@ export const products: ProductData[] = [
       </>
     ),
     price: 279,
-    size: ["S", "M", "L", "XL", "XXXL"],
+    size: ["S", "M", "L", "XL", "XXL", "3XL"],
     images: [
       require("./images/t-shirt/resized/00.png"),
       require("./images/t-shirt/resized/01.png"),
