@@ -50,4 +50,5 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_DONATION_PROMPTPAY_ID,
     NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   },
+  skipValidation: true,
 });

@@ -101,10 +101,10 @@ const nextConfig = {
       },
     ];
   },
-  images: {
-    loader: "custom",
-    loaderFile: "./cf-image-loader.js",
-  },
+  // images: {
+  //   loader: "custom",
+  //   loaderFile: "./cf-image-loader.js",
+  // },
   experimental: {
     serverActions: {
       allowedOrigins: getServerActionsOrigin(),
